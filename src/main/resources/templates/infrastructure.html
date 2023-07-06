@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <title>Infrastructure Input</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link th:href="@{styles/main.css}" rel="stylesheet"/>
+</head>
+<body class="d-flex flex-column h-100">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<h1>Bitte tragen Sie hier detaillierte Informationen zu Ihrer IT Sicherheitsinfrastruktur ein!</h1>
+<form >
+    <label for="companyName">Firmenname:</label>
+    <input type="text" id="companyName" name="companyName"><br><br>
+
+    <label for="branche">Branche:</label>
+    <select id="branche" name="branche">
+        <option value="Handwerk">Handwerk</option>
+        <option value="Kunst">Kunst</option>
+        <option value="Dienstleister">Dienstleister</option>
+    </select><br><br>
+
+    <label for="mazahl">Mitarbeiterzahl:</label>
+    <select id="mazahl" name="mazahl">
+        <option value="small">1 bis 10</option>
+        <option value="medium">11-50</option>
+        <option value="big">51-249</option>
+    </select><br><br>
+
+    <label for="location">Standort:</label>
+    <select id="location" name="location">
+        <option value="berlin">Berlin</option>
+        <option value="munich">Munich</option>
+        <option value="hamburg">Hamburg</option>
+    </select><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
