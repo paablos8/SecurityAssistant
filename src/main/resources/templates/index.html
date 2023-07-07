@@ -11,8 +11,11 @@
     <div th:replace="~{fragments/header :: header}"></div>
 </html>
 
-<h1>Herzlich Willkommen in Ihrem IT Sicherheits Assistenten</h1>
-
+<h1>Herzlich Willkommen in Ihrem IT Sicherheits Assistenten. </h1>
+<div class="nav-item" th:class="${activePage == 'login'} ? 'nav-item active' : 'nav-item'">
+    <a class="nav-link" th:href="@{/login}">Hier gehts zum Login</a>
+    <a class="nav-link" th:href="@{/register}">Hier gehts zur Registrierung</a>
+</div>
 
 </body>
 </html>

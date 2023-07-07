@@ -12,34 +12,7 @@
 <div th:replace="~{fragments/header :: header}"></div>
 
 <h1>Bitte tragen Sie hier detaillierte Informationen zu Ihrer IT Sicherheitsinfrastruktur ein!</h1>
-<form >
-    <label for="companyName">Firmenname:</label>
-    <input type="text" id="companyName" name="companyName"><br><br>
-
-    <label for="branche">Branche:</label>
-    <select id="branche" name="branche">
-        <option value="Handwerk">Handwerk</option>
-        <option value="Kunst">Kunst</option>
-        <option value="Dienstleister">Dienstleister</option>
-    </select><br><br>
-
-    <label for="mazahl">Mitarbeiterzahl:</label>
-    <select id="mazahl" name="mazahl">
-        <option value="small">1 bis 10</option>
-        <option value="medium">11-50</option>
-        <option value="big">51-249</option>
-    </select><br><br>
-
-    <label for="location">Standort:</label>
-    <select id="location" name="location">
-        <option value="berlin">Berlin</option>
-        <option value="munich">Munich</option>
-        <option value="hamburg">Hamburg</option>
-        <option value="stuttgart">Stuttgart</option>
-        <option value="karlsruhe">Karlsruhe</option>
-        <option value="koeln">Koeln</option>
-    </select><br><br>
-
+<form>
     <label for="PCAnzahl">Bitte spezifizieren Sie die Anzahl PCs:</label>
     <select id="PCAnzahl" name="PCAnzahl">
         <option value="1">1</option>
@@ -62,6 +35,7 @@
         <option value="ja">Ja</option>
         <option value="nein">Nein</option>
     </select><br><br>
+    
 
     <label for="Firewall">Haben Sie eine Firewall eingerichtet?</label>
     <select id="Firewall" name="Firewall">
@@ -71,6 +45,7 @@
 
     <input type="submit" value="Submit">
 </form>
+
 
 </body>
 </html>
