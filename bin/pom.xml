@@ -9,14 +9,14 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>SecurityAssistant</groupId>
-	<artifactId>SecurityAssistant</artifactId>
+	<groupId>com.codeforgeyt</groupId>
+	<artifactId>spring-mvc-nav</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SecurityAssistant</name>
-	
+	<name>spring-mvc-nav</name>
+	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>12</java.version>
+		<java.version>8</java.version>
 	</properties>
 
 	<dependencies>
