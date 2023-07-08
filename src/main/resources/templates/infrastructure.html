@@ -12,7 +12,7 @@
 <div th:replace="~{fragments/header :: header}"></div>
 
 <h1>Bitte tragen Sie hier detaillierte Informationen zu Ihrer IT Sicherheitsinfrastruktur ein!</h1>
-<form>
+<form action="/success" method="post">
     <label for="PCAnzahl">Bitte spezifizieren Sie die Anzahl PCs:</label>
     <select id="PCAnzahl" name="PCAnzahl">
         <option value="1">1</option>
@@ -43,7 +43,7 @@
         <option value="nein">Nein</option>
     </select><br><br>
 
-    <input type="submit" value="Submit">
+    <button type="submit">Bestätigen</button>
 </form>
 
 
