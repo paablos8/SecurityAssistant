@@ -1,6 +1,6 @@
 package com.example.SecurityAssistant.entities;
 
-public class SecurityInfrastructure {
+public class SecurityInfrastructure extends Business{
     private int PCAnzahl;
     private String PasswordPolicy;
     private String Server;
@@ -38,5 +38,5 @@ public class SecurityInfrastructure {
         return "SecurityInfrastructure [PCAnzahl=" + PCAnzahl + ", PasswordPolicy=" + PasswordPolicy + ", Server="
                 + Server + ", Firewall=" + Firewall + "]";
     }
-
+    
 }
