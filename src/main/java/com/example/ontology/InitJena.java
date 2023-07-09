@@ -47,11 +47,6 @@ public class InitJena {
 			Individual pablo = base.createIndividual( NS + "pablo", person );
 			
 			
-		// List the asserted types
-			for (Iterator<Resource> i = pablo.listRDFTypes(true); i.hasNext(); ) {
-			    System.out.println( pablo.getURI() + " is asserted in class " + i.next() );
-			}
-			
 		// In our example ontology we can print a list of the subclasses of an Artefact as follows:
 				OntClass artefact = base.getOntClass( NS + "Person" );
 				for (Iterator<OntClass> i = artefact.listSubClasses(); i.hasNext(); ) {
