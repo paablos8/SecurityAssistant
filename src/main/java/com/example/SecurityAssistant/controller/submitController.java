@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
+import com.example.ontology.InitJena;
 
 
 
@@ -26,6 +27,12 @@ public class submitController {
         model.addAttribute("PasswordPolicy", infra.getPasswordPolicy());
         model.addAttribute("Server", infra.getServer());
         model.addAttribute("Firewall", infra.getFirewall());
+        
+        InitJena initJena = new InitJena();
+        //String baseOntologyFilePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/fenz2016_test.owl.xml";
+        initJena.loadOntology ();
+		initJena.addComputer("ComputerMuller_1");
+        //InitJena.writeInOntology("Pablo");
         return "success";
     }
 }
