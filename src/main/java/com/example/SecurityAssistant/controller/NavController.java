@@ -4,7 +4,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class UsersController {
+public class NavController {
 
     @GetMapping("/infrastructure")
     public String getInfrastructure(Model model){

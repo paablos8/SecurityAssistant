@@ -1,15 +1,48 @@
 package com.example.SecurityAssistant.entities;
 
-public class SecurityInfrastructure extends Business{
-    private int PCAnzahl;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+
+@Entity
+@Table(name = "Companies")
+public class SecurityInfrastructure {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "Name")
+    private String companyName;
+    
+    private String PCAnzahl;
     private String PasswordPolicy;
     private String Server;
     private String Firewall;
 
-    public int getPCAnzahl() {
+    
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public String getCompanyName() {
+        return companyName;
+    }
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+    public String getPCAnzahl() {
         return PCAnzahl;
     }
-    public void setPCAnzahl(int pCAnzahl) {
+    public void setPCAnzahl(String pCAnzahl) {
         PCAnzahl = pCAnzahl;
     }
    
@@ -35,8 +68,10 @@ public class SecurityInfrastructure extends Business{
     }
     @Override
     public String toString() {
-        return "SecurityInfrastructure [PCAnzahl=" + PCAnzahl + ", PasswordPolicy=" + PasswordPolicy + ", Server="
-                + Server + ", Firewall=" + Firewall + "]";
+        return "SecurityInfrastructure [id=" + id + ", companyName=" + companyName + ", PCAnzahl=" + PCAnzahl
+                + ", PasswordPolicy=" + PasswordPolicy + ", Server=" + Server + ", Firewall=" + Firewall + "]";
     }
+  
+
     
 }
