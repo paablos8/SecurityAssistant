@@ -31,8 +31,6 @@ public class submitController {
     public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model){
         System.out.println(infra.toString());
         model.addAttribute("PCAnzahl", infra.getPCAnzahl());
-        model.addAttribute("PasswordPolicy", infra.getPasswordPolicy());
-        model.addAttribute("Server", infra.getServer());
         model.addAttribute("Firewall", infra.getFirewall());
 
         repo.save(infra);
