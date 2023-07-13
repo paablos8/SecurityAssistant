@@ -19,104 +19,109 @@
           <input type="number" id="employeeNR" name="employeeNR" ><br><br>
     <label for="branche">Branche:</label>
           <select id="branche" name="branche">
-                <option value="Craft">Handwerk</option>
+                <option value="Crafts">Handwerk</option>
                 <option value="serviceProvider">Diensleister</option>
           </select><br><br>
     <label for="region">Bundesland:</label>
         <select id="region" name="region">
-            <option value="BW">Baden Wuerttemberg</option>
-            <option value="Ba">Bayern</option>
-            <option value="Bn">Berlin</option>
-            <option value="Br">Brandenburg</option>
-            <option value="Hb">Bremen</option>
-            <option value="Hh">Hamburg</option>
-            <option value="Hs">Hessen</option>
-            <option value="Mv">Mecklenburg Vorpommern</option>
-            <option value="Ns">Niedersachsen</option>
-            <option value="Nrw">Nordrhein Westfalen</option>
-            <option value="Rp">Rheinland Pfalz</option>
-            <option value="Sl">Saarland</option>
-            <option value="Sn">Sachsen</option>
-            <option value="Sa">Sachsen Anhalt</option>
-            <option value="Sh">Schleswig Holstein</option>
-            <option value="Th">Thüringen</option>
+            <option value="Baden Wuerttemberg">Baden Wuerttemberg</option>
+            <option value="Bayern">Bayern</option>
+            <option value="Berlin">Berlin</option>
+            <option value="Brandenburg">Brandenburg</option>
+            <option value="Bremen">Bremen</option>
+            <option value="Hamburg">Hamburg</option>
+            <option value="Hessen">Hessen</option>
+            <option value="Mecklenburg Vorpommern">Mecklenburg Vorpommern</option>
+            <option value="Niedersachsen">Niedersachsen</option>
+            <option value="Nordrhein Westfalen">Nordrhein Westfalen</option>
+            <option value="Rheinland Pfalz">Rheinland Pfalz</option>
+            <option value="Saarland">Saarland</option>
+            <option value="Sachsen">Sachsen</option>
+            <option value="Sachsen Anhalt">Sachsen Anhalt</option>
+            <option value="Schleswig Holstein">Schleswig Holstein</option>
+            <option value="Thüringen">Thüringen</option>
         </select><br><br>
         <label for="pwChange">Wie häufig müssen Mitarbeiter das Passwort ändern?</label>
             <select id="pwChange" name="pwChange">
-                <option value="never">Nie</option>
-                <option value="frequent">Jeden Monat</option>
-                <option value="sometimes">Mehrmals pro Jahr</option>
-                <option value="infrequent">Nach mehreren Jahren</option>
-            </select><br><br>
+                <option value="Never">Nie</option>
+                <option value="Monthly">Jeden Monat</option>
+                <option value="Multiple times a year">Mehrmals pro Jahr</option>
+                <option value="After a few years">Nach mehreren Jahren</option>
+            </select>
+            <div>
+                <span class="feedback-button" onclick="submitFeedback('good')">&#128522;</span>
+                <span class="feedback-button" onclick="submitFeedback('neutral')">&#128528;</span>
+                <span class="feedback-button" onclick="submitFeedback('bad')">&#128542;</span>
+            </div><br>
         <label for="pwProperties">Gibt es besondere Anforderungen an die Länge und Inhalte des Passworts?</label>
             <select id="pwProperties" name="pwProperties">
-                <option value="none">Nein</option>
-                <option value="length">Das Passwort muss eine bestimmte Länge haben</option>
-                <option value="nrs">Das Passwort muss eine bestimmte Länge haben und Zahlen enthalten</option>
-                <option value="specialChars">Das Passwort muss eine bestimmte Länge haben, Zahlen und Sonderzeichen enthalten</option>
-                <option value="random">Das Passwort muss zufällig generiert sein</option>
+                <option value="No">Nein</option>
+                <option value="Password length">Das Passwort muss eine bestimmte Länge haben</option>
+                <option value="Password length and must include numbers">Das Passwort muss eine bestimmte Länge haben und Zahlen enthalten</option>
+                <option value="Password length, must include numbers and special characters">Das Passwort muss eine bestimmte Länge haben, Zahlen und Sonderzeichen enthalten</option>
+                <option value="PAssword must be randomly generated">Das Passwort muss zufällig generiert sein</option>
             </select><br><br>
         <label for="trainings">Gibt es bei Ihnen regelmäßige Mitarbeiterschulungen?</label>
         <select id="trainings" name="trainings">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
         </select><br><br>
     <label for="backup">Wie häufig wird bei Ihnen im Unternehmen ein Backup ausgeführt?</label>
     <select id="backup" name="backup">
-        <option value="none">Gar nicht</option>
-        <option value="rare">Einmal im Jahr</option>
-        <option value="medium">Mehrmals pro Jahr</option>
-        <option value="monthly">Monatlich</option>
-        <option value="weekly">Woechentlich</option>
-        <option value="daily">Taeglich</option>
+        <option value="Never">Gar nicht</option>
+        <option value="Once a year">Einmal im Jahr</option>
+        <option value="Several times a year">Mehrmals pro Jahr</option>
+        <option value="Monthly">Monatlich</option>
+        <option value="Weekly">Woechentlich</option>
+        <option value="Daily">Taeglich</option>
     </select><br><br>
     <label for="incidentResponse">Gibt es bei Ihnen in der Firma einen Incident Response Plan?</label>
     <select id="incidentResponse" name="incidentResponse">
-        <option value="good">Ja, der ist gut spezifiziert</option>
-        <option value="middle">Ja, wir haben einen groben Plan</option>
-        <option value="bad">Wir haben keine Plan festgelegt</option>
+        <option value="Well specified">Ja, der ist gut spezifiziert</option>
+        <option value="The is a rough plan">Ja, wir haben einen groben Plan</option>
+        <option value="There is no plan">Wir haben keine Plan festgelegt</option>
     </select><br><br>
     <label for="policyDoc">Gibt es bei Ihnen einen Security Policy Dokument?</label>
     <select id="policyDoc" name="policyDoc">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
     </select><br><br>
     <label for="storage">Wo werden die Daten bei Ihnen abgelegt?</label>
     <select id="storage" name="storage">
-        <option value="local">Lokal auf einem Server</option>
-        <option value="hybrid">In einer Hybrid Cloud</option>
-        <option value="cloud">In der Cloud</option>
-        <option value="paper">In Papierform</option>
+        <option value="Locally on our own Server">Lokal auf einem Server</option>
+        <option value="In a hybrid cloud">In einer Hybrid Cloud</option>
+        <option value="In the Cloud">In der Cloud</option>
+        <option value="In paper form">In Papierform</option>
     </select><br><br>
     <label for="fireEx">Gibt es bei Ihnen einen Feuerlöscher?</label>
     <select id="fireEx" name="fireEx">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
     </select><br><br>
     <label for="smokeDet">Gibt es bei Ihnen einern Rauchmelder?</label>
     <select id="smokeDet" name="smokeDet">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
     </select><br><br>
     <label for="criticalInfra">Ist der physische Zugang zu kritischer Infrastruktur begrenzt?</label>
     <select id="criticalInfra" name="criticalInfra">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
     </select><br><br>
     <label for="alarm">Haben Sie eine Alarmanlage im EInsatz?</label>
     <select id="alarm" name="alarm">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
     </select><br><br>
     <label for="firewall">Haben Sie eine Firewall aktiviert?</label>
     <select id="firewall" name="firewall">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
     </select><br><br>
     <label for="externalProvider">Arbeiten Sie mit einem externen Sicherheitsdienstleister zusammen?</label>
     <select id="externalProvider" name="externalProvider">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
     </select><br><br>
     <label for="PCAnzahl">Bitte spezifizieren Sie die Anzahl PCs:</label>
     <select id="PCAnzahl" name="PCAnzahl">
@@ -129,28 +134,16 @@
     </select><br><br>
     <label for="printer">Haben Sie einen Drucker im Einsatz der mit dem Internet verbunden ist?</label>
     <select id="printer" name="printer">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
     </select><br><br>
     <label for="OS">Welches Betriebssystem nutzen Sie?</label>
     <select id="OS" name="OS">
-        <option value="mac">MacOS</option>
-        <option value="windows">Windows</option>
-        <option value="linux">Linux</option>
+        <option value="MacOS">MacOS</option>
+        <option value="Windows">Windows</option>
+        <option value="Linux">Linux</option>
     </select><br><br>
     
-    <!-- Die letzten zwei müssen noch rausgeschmissen werden-->
-    <label for="Server">Haben Sie einen eigenen Server im Unternehmen?</label>
-    <select id="Server" name="Server">
-        <option value="ja">Ja</option>
-        <option value="nein">Nein</option>
-    </select><br><br>
-    
-    <label for="Firewall">Haben Sie eine Firewall eingerichtet?</label>
-    <select id="Firewall" name="Firewall">
-        <option value="ja">Ja</option>
-        <option value="nein">Nein</option>
-    </select><br><br>
 
     <button type="submit">Bestätigen</button>
 </form>

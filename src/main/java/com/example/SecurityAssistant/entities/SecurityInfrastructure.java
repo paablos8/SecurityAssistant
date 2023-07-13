@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Company")
+@Table(name = "Companies")
 public class SecurityInfrastructure {
 
     @Id
@@ -16,9 +16,7 @@ public class SecurityInfrastructure {
     private int id;
 
     // Company related data
-    @Column(name = "Name")
     private String companyName;
-
     private int employeeNR;
     private String branche;
     private String region;
@@ -47,9 +45,6 @@ public class SecurityInfrastructure {
     private String printer;
     private String OS;
 
-    // müssen rausgeschmissen werden
-    private String PasswordPolicy;
-    private String Server;
 
 
     public int getId() {
@@ -164,7 +159,7 @@ public class SecurityInfrastructure {
         return PCAnzahl;
     }
     public void setPCAnzahl(String pCAnzahl) {
-        PCAnzahl = pCAnzahl;
+        this.PCAnzahl = pCAnzahl;
     }
     public String getPrinter() {
         return printer;
@@ -176,19 +171,7 @@ public class SecurityInfrastructure {
         return OS;
     }
     public void setOS(String oS) {
-        OS = oS;
-    }
-    public String getPasswordPolicy() {
-        return PasswordPolicy;
-    }
-    public void setPasswordPolicy(String passwordPolicy) {
-        PasswordPolicy = passwordPolicy;
-    }
-    public String getServer() {
-        return Server;
-    }
-    public void setServer(String server) {
-        Server = server;
+        this.OS = oS;
     }
     @Override
     public String toString() {
@@ -198,8 +181,9 @@ public class SecurityInfrastructure {
                 + incidentResponse + ", policyDoc=" + policyDoc + ", storage=" + storage + ", fireEx=" + fireEx
                 + ", smokeDet=" + smokeDet + ", criticalInfra=" + criticalInfra + ", alarm=" + alarm + ", firewall="
                 + firewall + ", externalProvider=" + externalProvider + ", PCAnzahl=" + PCAnzahl + ", printer="
-                + printer + ", OS=" + OS + ", PasswordPolicy=" + PasswordPolicy + ", Server=" + Server + "]";
+                + printer + ", OS=" + OS + "]";
     }
- 
+  
+  
     
 }
