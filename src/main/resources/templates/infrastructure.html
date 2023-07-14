@@ -13,10 +13,12 @@
 
 <h1>Bitte tragen Sie hier detaillierte Informationen zu Ihrer IT Sicherheitsinfrastruktur ein!</h1>
 <form action="/success" method="post">
+    <label for="userName">Username:</label>
+        <input type="text" id="userName" name="userName" required><br><br>
     <label for="companyName">Firmenname:</label>
           <input type="text" id="companyName" name="companyName" required><br><br>
     <label for="employeeNR">Mitarbeiterzahl:</label>
-          <input type="number" id="employeeNR" name="employeeNR" ><br><br>
+          <input type="number" id="employeeNR" name="employeeNR" required><br><br>
     <label for="branche">Branche:</label>
           <select id="branche" name="branche">
                 <option value="Crafts">Handwerk</option>

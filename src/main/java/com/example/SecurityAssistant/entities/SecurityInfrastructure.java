@@ -15,6 +15,7 @@ public class SecurityInfrastructure {
     private int id;
 
     // Company related data
+    private String userName;
     private String companyName;
     private int employeeNR;
     private String branche;
@@ -44,7 +45,13 @@ public class SecurityInfrastructure {
     private String printer;
     private String OS;
 
+    public String getUserName() {
+        return userName;
+    }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public int getId() {
         return id;
@@ -172,17 +179,18 @@ public class SecurityInfrastructure {
     public void setOS(String oS) {
         this.OS = oS;
     }
+
     @Override
     public String toString() {
-        return "SecurityInfrastructure [id=" + id + ", companyName=" + companyName + ", employeeNR=" + employeeNR
-                + ", branche=" + branche + ", region=" + region + ", pwChange=" + pwChange + ", pwProperties="
-                + pwProperties + ", trainings=" + trainings + ", backup=" + backup + ", incidentResponse="
-                + incidentResponse + ", policyDoc=" + policyDoc + ", storage=" + storage + ", fireEx=" + fireEx
-                + ", smokeDet=" + smokeDet + ", criticalInfra=" + criticalInfra + ", alarm=" + alarm + ", firewall="
-                + firewall + ", externalProvider=" + externalProvider + ", PCAnzahl=" + PCAnzahl + ", printer="
-                + printer + ", OS=" + OS + "]";
+        return "SecurityInfrastructure [id=" + id + ", userName=" + userName + ", companyName=" + companyName
+                + ", employeeNR=" + employeeNR + ", branche=" + branche + ", region=" + region + ", pwChange="
+                + pwChange + ", pwProperties=" + pwProperties + ", trainings=" + trainings + ", backup=" + backup
+                + ", incidentResponse=" + incidentResponse + ", policyDoc=" + policyDoc + ", storage=" + storage
+                + ", fireEx=" + fireEx + ", smokeDet=" + smokeDet + ", criticalInfra=" + criticalInfra + ", alarm="
+                + alarm + ", firewall=" + firewall + ", externalProvider=" + externalProvider + ", PCAnzahl=" + PCAnzahl
+                + ", printer=" + printer + ", OS=" + OS + "]";
     }
-  
+   
   
     
 }

@@ -53,6 +53,7 @@ public class submitController {
 
     @PostMapping("/success")
     public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model){
+        model.addAttribute("userName", infra.getUserName());
         model.addAttribute("companyName", infra.getCompanyName());
         model.addAttribute("employeeNR", infra.getEmployeeNR());
         model.addAttribute("branche", infra.getBranche());
