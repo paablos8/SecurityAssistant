@@ -8,6 +8,7 @@ public class SecurityAssistantApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SecurityAssistantApplication.class, args);
+		
 	}
 
 }

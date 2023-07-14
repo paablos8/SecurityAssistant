@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.io.*;
 
 import org.apache.jena.ontology.Individual;
+import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntDocumentManager;
 import org.apache.jena.ontology.OntModel;
@@ -14,8 +15,12 @@ import org.apache.jena.util.FileManager;
 
 public class InitJena {
 
-	static //The source of the ontology
-			String SOURCE = "http://securityontology.sba-research.org/securityontology.owl";
+	
+			String nameOfBusiness;
+			Individual organizationIndividual;
+			
+	//The source of the ontology
+			static String SOURCE = "http://securityontology.sba-research.org/securityontology.owl";
 			static String NS = SOURCE + "#";
 			
 			static String filePath;
@@ -23,7 +28,8 @@ public class InitJena {
 			OntDocumentManager dm;
 	
 	
-			public  void loadOntology () {
+	// Loads the base ontology by Fenz (2016)
+	public  void loadOntology () {
 			
 			//the Fenz (2016) ontology is replicated locally on the disk which gets loaded when the normal URL gets called
 				String filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/fenz2016_test.owl.xml";
@@ -38,24 +44,53 @@ public class InitJena {
 				base.read("http://securityontology.sba-research.org/securityontology.owl");
 				
 				System.out.println("Ontology was successfully loaded.");
-			}
+		}
+	
+	public void addOrganization (String nameOfOrganization) {
+		// Create the individual organization
+			String organizationURI = NS + "Organization";
+			Individual organizationIndividual = base.createIndividual(NS + nameOfOrganization, base.createClass(organizationURI));
+			System.out.println("Individual successfully created: " + nameOfOrganization);
+	}
 
 	
 	
 	// Adds a computer to the ontology.
-	public void addComputer (String computer) {
+	public void addComputer (String computer, String os, String antiVirusSoftware) {
 		
-			String classURI = NS + "Workstation";
+		// Create the individual computer
+			String workstationURI = NS + "Workstation";
+			Individual computerIndividual = base.createIndividual(NS + computer, base.createClass(workstationURI));
+			System.out.println("Individual successfully created: " + computer);
+		// Create the individual OS
+			String osURI = NS + "OS";
+			Individual osIndividual = base.createIndividual(NS + os, base.createClass(osURI));
+			System.out.println("Individual successfully created: " + os);
+		// Create the individual Anti Virus Software
+			String antiVirusSoftwareURI = NS + "TransactionSecurityAndVirusProtectionSoftware";
+			Individual antiVirusSoftwareIndividual = base.createIndividual(NS + os, base.createClass(antiVirusSoftwareURI));
 		
-		// Create the individual
-			Individual computerMuller = base.createIndividual(NS + "Computer1_Müller", base.createClass(classURI));
-			System.out.println("Individual successfully created: ");
-			OntClass artefact = base.getOntClass( NS + "Workstation" );
-			for (Iterator<OntClass> i = artefact.listSubClasses(); i.hasNext(); ) {
-			  OntClass c = i.next();
-			  System.out.println( c.getURI() );
-			}
-		
+		// Object Properties:
+		// Create and add ObjectProperty system_hasInstalled_Software and connect the individual AntiVirusSoftware to the added OS
+			String system_hasInstalled_SoftwareURI = NS + "system_hasInstalled_Software";
+			ObjectProperty systemHasInstalledSoftware = base.createObjectProperty(system_hasInstalled_SoftwareURI);
+		// Set the domain and range of the object property
+			systemHasInstalledSoftware.setDomain(osIndividual);
+			systemHasInstalledSoftware.setRange(antiVirusSoftwareIndividual);
+		// Create and add ObjectProperty ITComponent_connectedTo_System and connect the individual OS to the added Workstation
+			String itComponent_connectedTo_SystemURI = NS + "ITComponent_connectedTo_System";
+			ObjectProperty itComponent_connectedTo_System = base.createObjectProperty(itComponent_connectedTo_SystemURI);
+		// Set the domain and range of the object property
+			itComponent_connectedTo_System.setDomain(computerIndividual);
+			itComponent_connectedTo_System.setRange(osIndividual);
+		// Create and add ObjectProperty organization_owns_Asset and connect the individual workstation to the added nameOfTheSME
+			String organization_owns_AssetURI = NS + "organization_owns_Asset";
+			ObjectProperty organization_owns_Asset = base.createObjectProperty(organization_owns_AssetURI);
+		// Set the domain and range of the object property
+			organization_owns_Asset.setDomain(organizationIndividual);
+			organization_owns_Asset.setRange(computerIndividual);
+			
+			
 		// Save the modified ontology to the output file
 			String outputFilePath = "C:\\Users\\Wiwi-Admin\\Desktop\\fenz2016_modified.owl.xml";
 			try (OutputStream out = new FileOutputStream(outputFilePath)) {
@@ -77,7 +112,7 @@ public class InitJena {
 	        System.out.println("Individual has been created!");
 	        
 	        
-		//this adds the individual 'person' in the class 'Paper'
+		//this adds the individual 'person' in the class 'Person'
 			Individual pablo = base.createIndividual( NS + "pablo", person );
 			
 			
@@ -93,9 +128,18 @@ public class InitJena {
 				System.out.println("The onotlogy is printed here:");
 				base.write(System.out);
 				*/
+	}
 				
+				
+				
+	
+	
+	
+	
+	
+	public String saveOntology (String nameOfOrganization) {
 		// Save the ontology
-				String outputFilePath = "C:\\Users\\Wiwi-Admin\\Desktop\\fenz2016_modified.owl.xml";
+				String outputFilePath = "C:\\Users\\Wiwi-Admin\\Desktop\\" + nameOfOrganization + ".owl.xml";
 			
 				 try {
 			           // Create a new File object with the specified file path
@@ -106,7 +150,7 @@ public class InitJena {
 			                file.createNewFile();
 			                System.out.println("New file created successfully!");
 			            } else {
-			                System.out.println("File already exists.");
+			                System.out.println("File already exists. It will now be overwritten.");
 			            } 
 			           } catch (IOException e) {
 			                e.printStackTrace();
@@ -119,7 +163,9 @@ public class InitJena {
 				} catch (IOException e) {
 				    e.printStackTrace();
 				}
-			
+				
+			return outputFilePath;
+
 								
 			
 	}

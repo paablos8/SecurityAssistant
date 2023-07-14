@@ -28,11 +28,18 @@ public class submitController {
         model.addAttribute("Server", infra.getServer());
         model.addAttribute("Firewall", infra.getFirewall());
         
+        String nameOfOrganization = "Tims SME";
         InitJena initJena = new InitJena();
+    	
         //String baseOntologyFilePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/fenz2016_test.owl.xml";
-        initJena.loadOntology ();
-		initJena.addComputer("ComputerMuller_1");
-        //InitJena.writeInOntology("Pablo");
+        initJena.loadOntology();
+        initJena.addOrganization(nameOfOrganization);
+		initJena.addComputer("ComputerTim_1", "Windows10_Tim", "Tims Antivirus_Software");
+   
+		
+		String pathToSavedOntology = initJena.saveOntology(nameOfOrganization);
+		System.out.println ("The ontology for " + nameOfOrganization + " was successfully and stored under: " + pathToSavedOntology);
+		
         return "success";
     }
 }
