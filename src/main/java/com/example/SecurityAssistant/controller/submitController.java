@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
+import javax.xml.crypto.Data;
 
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
@@ -84,17 +87,9 @@ public class submitController {
         eintragNR = (int) (repo).count();
         System.out.println(repo.findById(eintragNR).toString());
 
+
+
         return "success";
     } 
-
-    /* @RequestMapping("/success")
-     public ModelAndView showData(){
-        ModelAndView mv = new ModelAndView();
-        List <SecurityInfrastructure> dataList = repo.findAll();
-        mv.addObject("data",dataList);
-        mv.setViewName("success");
-        return mv;
-     } */
-
 
 }
