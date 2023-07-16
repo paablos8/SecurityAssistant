@@ -12,9 +12,14 @@
 <div th:replace="~{fragments/header :: header}"></div>
 
 <h1>Success. Das sind Ihre Eingaben:</h1>
-    <h2 th:text="'Anzahl an PCs: ' + ${PCAnzahl}">Anzahl an PCs:</h2>
-    <h2 th:text="'Password Policy: ' + ${PasswordPolicy}">Password Policy:</h2>
-    <h2 th:text="'Eigener Server: ' + ${Server}">Anzahl Server:</h2>
-    <h2 th:text="'Firewall: ' + ${Firewall}">Firewall:</h2>
+    <h2 th:text="'Firmenname: ' + ${companyName}">Anzahl an PCs:</h2>
+    <h2 th:text="'Mitarbeiterzahl: ' + ${employeeNR}">Firewall:</h2>
+    <h2 th:text="'Branche: ' + ${branche}">Anzahl an PCs:</h2>
+    <h2 th:text="'Region: ' + ${region}">Firewall:</h2>
+    <h2 th:text="'Passwortänderungen: ' + ${pwChange}">Passwortänderungen:</h2>
+    <h2 th:text="'Passwortanforderungen: ' + ${pwProperties}">Passwortanforderungen:</h2>
+    <h2 th:text="'Mitarbeitertrainings: ' + ${trainings}">Mitarbeitertrainings:</h2>
+    <h2 th:text="'Backups: ' + ${backup}">Backups:</h2>
+    <h2>usw.</h2>
 </body>
 </html>

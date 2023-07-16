@@ -12,5 +12,11 @@
 <div th:replace="~{fragments/header :: header}"></div>
 
 <h1>Infrastructure Submitted. Recommendation page successfully loaded.</h1>
+
+    <form id="deleteForm" action="/delete" method="post">
+        <label for="userName">Username:</label>
+            <input type="text" id="userName" name="userName" required>
+        <button type="submit">Meine Daten löschen</button>
+    </form>
 </body>
 </html>
