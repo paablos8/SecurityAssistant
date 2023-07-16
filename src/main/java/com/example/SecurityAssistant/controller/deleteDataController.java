@@ -3,10 +3,8 @@ package com.example.SecurityAssistant.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
@@ -25,8 +23,7 @@ public class deleteDataController {
     @PostMapping("/delete")
     public String deleteData(Model model, @RequestParam("userName") String username){   
         userID = getUserID(model, username); 
-        model.addAttribute("username", username);
-        System.out.println("Aufruf klappt" + username); 
+        model.addAttribute("username", username); 
         repo.deleteById(userID);
         return "delete";   
     }
@@ -35,7 +32,6 @@ public class deleteDataController {
     public int getUserID(Model model, String username) {
         List <SecurityInfrastructure> dataList = repo.findAll();
         model.addAttribute("dataList", dataList);
-        System.out.println(dataList.toString());
         
         //Username out of the Input field is compared to the userNames stored in the database
         for (SecurityInfrastructure item : dataList){
