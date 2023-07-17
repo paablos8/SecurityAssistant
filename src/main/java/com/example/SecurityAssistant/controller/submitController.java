@@ -1,14 +1,17 @@
 package com.example.SecurityAssistant.controller;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
+import com.example.ontology.InitJena;
 
 @Controller
 public class submitController {
@@ -45,12 +48,13 @@ public class submitController {
     @GetMapping("/success")
     public String submitForm(){
         return "success";
-    }   
+    }
 
     @PostMapping("/success")
     public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model){
         model.addAttribute("userName", infra.getUserName());
         model.addAttribute("companyName", infra.getCompanyName());
+        String companyName = infra.getCompanyName();
         model.addAttribute("employeeNR", infra.getEmployeeNR());
         model.addAttribute("branche", infra.getBranche());
         model.addAttribute("region", infra.getRegion());
@@ -71,18 +75,31 @@ public class submitController {
         model.addAttribute("printer", infra.getPrinter());
         model.addAttribute("OS", infra.getOS());
 
+
+        InitJena initJena = new InitJena();
+        initJena.loadOntology();
+        initJena.addOrganization(companyName);
+		//initJena.addComputer("ComputerTim_1", "Windows10_Tim", "Tims_Antivirus_Software");
+        initJena.addPolicy("PrivateSoftwareAndHardwareUsePolicy", "Tims_PrivateSoftwareAndHardwareUsePolicy");
+        //initJena.applyInference();
+        initJena.listCompliantImplementations();
+
+		String pathToSavedOntology = initJena.saveOntology(companyName);
+		System.out.println ("The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
+
+
         //Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank abgespeichert wird
-        infra.setCompanyName(pseudonymizeString(infra.getCompanyName()));
+        infra.setCompanyName(pseudonymizeString(companyName));
+        
         //Speicherung des Form Inputs in der MySQL Datenbank
         repo.save(infra);
         //Hier versuche ich die ID zurückzugeben um später evtl. wieder auf den Eintrag zugreifen zu können
         System.out.println("Anzahl an Einträgen in MySQL: " + repo.count());
         eintragNR = (int) (repo).count();
         System.out.println(repo.findById(eintragNR).toString());
-
-
+		
 
         return "success";
-    } 
+    }
 
 }
