@@ -52,7 +52,8 @@ public class submitController {
 
     @PostMapping("/success")
     public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model){
-        model.addAttribute("userName", infra.getUserName());
+    	model.addAttribute("userName", infra.getUserName());
+        String userName = infra.getUserName();
         model.addAttribute("companyName", infra.getCompanyName());
         String companyName = infra.getCompanyName();
         model.addAttribute("employeeNR", infra.getEmployeeNR());
@@ -78,13 +79,13 @@ public class submitController {
 
         InitJena initJena = new InitJena();
         initJena.loadOntology();
-        initJena.addOrganization(companyName);
+        initJena.addOrganization(userName, companyName);
 		//initJena.addComputer("ComputerTim_1", "Windows10_Tim", "Tims_Antivirus_Software");
         initJena.addPolicy("PrivateSoftwareAndHardwareUsePolicy", "Tims_PrivateSoftwareAndHardwareUsePolicy");
         //initJena.applyInference();
-        initJena.listCompliantImplementations();
+        //initJena.listCompliantImplementations();
 
-		String pathToSavedOntology = initJena.saveOntology(companyName);
+		String pathToSavedOntology = initJena.saveOntology(userName);
 		System.out.println ("The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
 
 

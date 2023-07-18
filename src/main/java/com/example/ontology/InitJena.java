@@ -25,6 +25,7 @@ import org.apache.jena.util.iterator.ExtendedIterator;
 
 public class InitJena {
 
+			String userName;
 			String nameOfBusiness;
 			Individual organizationIndividual;
 	//The source of the ontology
@@ -40,7 +41,7 @@ public class InitJena {
 	public  void loadOntology () {
 
 			//the Fenz (2016) ontology is replicated locally on the disk which gets loaded when the normal URL gets called
-				filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/Fenz_shortened.owl.rdf";
+				filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/fenz2016AsRDF.owl.rdf";
 
 			//Create the base model - creates an OWL-FUll, in-memory Ontology Model
 				base = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_RULE_INF);
@@ -55,8 +56,9 @@ public class InitJena {
 		}
 
 
-	public void addOrganization (String nameOfOrganization) {
+	public void addOrganization (String userName, String nameOfOrganization) {
 
+			this.userName = userName;
 		// Create the individual organization
 			String organizationURI = NS + "Organization";
 			organizationIndividual = base.createIndividual(NS + nameOfOrganization, base.createClass(organizationURI));
@@ -168,9 +170,9 @@ public class InitJena {
 	}
 
 
-	public String saveOntology (String nameOfOrganization) {
+	public String saveOntology (String userName) {
 
-				String outputFilePath = "C:\\Users\\Wiwi-Admin\\Desktop\\" + nameOfOrganization + "_InferenceTest.owl.xml";
+				String outputFilePath = "C:\\Users\\Wiwi-Admin\\Desktop\\" + userName + "_InferenceTest.owl.xml";
 
 				 try {
 			           // Create a new File object with the specified file path

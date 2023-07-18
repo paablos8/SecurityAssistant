@@ -190,7 +190,7 @@ public class SecurityInfrastructure {
                 + alarm + ", firewall=" + firewall + ", externalProvider=" + externalProvider + ", PCAnzahl=" + PCAnzahl
                 + ", printer=" + printer + ", OS=" + OS + "]";
     }
-   
-  
-    
+
+
+
 }
