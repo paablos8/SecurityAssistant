@@ -75,13 +75,7 @@ public class submitController {
         infra.setCompanyName(pseudonymizeString(infra.getCompanyName()));
         //Speicherung des Form Inputs in der MySQL Datenbank
         repo.save(infra);
-        //Hier versuche ich die ID zurückzugeben um später evtl. wieder auf den Eintrag zugreifen zu können
-        System.out.println("Anzahl an Einträgen in MySQL: " + repo.count());
-        eintragNR = (int) (repo).count();
-        System.out.println(repo.findById(eintragNR).toString());
-
-
-
+        
         return "success";
     } 
 

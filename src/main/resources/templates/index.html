@@ -6,6 +6,7 @@
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link th:href="@{styles/main.css}" rel="stylesheet"/>
+    
 </head>
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
@@ -25,7 +26,6 @@
     </ul>
 </div>
 
-<div class="nav-item" th:class="${activePage == 'infrastructure'} ? 'nav-item active' : 'nav-item'">
     <a class="nav-link" th:href="@{/infrastructure}">Hier gehts zur Eingabe Ihrer Infrastruktur</a>
 
 </body>
