@@ -1,5 +1,5 @@
 package com.example.ontology;
-
+/* 
 import java.util.Iterator;
 import java.io.*;
 
@@ -59,36 +59,38 @@ public class InitJena {
 				System.out.println("The onotlogy is printed here:");
 				base.write(System.out);
 				*/
-				
-		// Save the ontology
-				String outputFilePath = "C:\\Users\\Wiwi-Admin\\Desktop\\fenz2016_modified.owl.xml";
-			
-				 try {
-			           // Create a new File object with the specified file path
-			            File file = new File(outputFilePath);
-
-			            // Create the file if it doesn't exist
-			            if (!file.exists()) {
-			                file.createNewFile();
-			                System.out.println("New file created successfully!");
-			            } else {
-			                System.out.println("File already exists.");
-			            } 
-			           } catch (IOException e) {
-			                e.printStackTrace();
-			            }
-
-		// Save the modified ontology to the output file
-				try (OutputStream out = new FileOutputStream(outputFilePath)) {
-				    base.write(out, "RDF/XML");
-				    System.out.println("Ontology successfully saved to " + outputFilePath);
-				} catch (IOException e) {
-				    e.printStackTrace();
-				}
-								
-			
-	}
-			
-		
-			
-}
+				/*
+				 * // Save the ontology
+				 * String outputFilePath =
+				 * "C:\\Users\\Wiwi-Admin\\Desktop\\fenz2016_modified.owl.xml";
+				 * 
+				 * try {
+				 * // Create a new File object with the specified file path
+				 * File file = new File(outputFilePath);
+				 * 
+				 * // Create the file if it doesn't exist
+				 * if (!file.exists()) {
+				 * file.createNewFile();
+				 * System.out.println("New file created successfully!");
+				 * } else {
+				 * System.out.println("File already exists.");
+				 * }
+				 * } catch (IOException e) {
+				 * e.printStackTrace();
+				 * }
+				 * 
+				 * // Save the modified ontology to the output file
+				 * try (OutputStream out = new FileOutputStream(outputFilePath)) {
+				 * base.write(out, "RDF/XML");
+				 * System.out.println("Ontology successfully saved to " + outputFilePath);
+				 * } catch (IOException e) {
+				 * e.printStackTrace();
+				 * }
+				 * 
+				 * 
+				 * }
+				 * 
+				 * 
+				 * 
+				 * }
+				 */
