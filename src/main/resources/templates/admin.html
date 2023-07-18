@@ -5,12 +5,58 @@
     <title>AdminPage</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link th:href="@{styles/main.css}" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
-    	<h1>This is working!</h1>
+    <h1 align="center">User Feedback:</h1>
+    <canvas id="chart1" style="max-height:200px;" ></canvas>
+    <canvas id="chart2" style="max-height:200px;"></canvas>
     	
-    	
+<script th:inline="javascript">
+    /*<![CDATA[*/
+        var data1 = /*[[${feedbackCountPwChange}]]*/ 'default';
+        var data2 = /*[[${feedbackCountPwProperties}]]*/ 'default';
+        /*]]>*/
+        var labels = ["Good", "Neutral", "Bad"];
+        var colors = ["#82FA58", "#F4FA58", "#FE2E2E"]
+
+        new Chart("chart1", {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    backgroundColor: colors,
+                    data: data1
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Feedback zu Password Change Policy"
+                    }
+                }
+            }
+        });
+        new Chart("chart2", {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        backgroundColor: colors,
+                        data: data2
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: "Feedback zu Password Property Policy"
+                        }
+                    }
+                }
+            });
+</script>
 </body>
 </html>

@@ -11,7 +11,10 @@
 <body class="d-flex flex-column h-100">
 
     <div th:replace="~{fragments/header :: header}"></div>
-    <h2 th:text="'Der User ' + ${username} + ' wurde erfolgreich gelöscht.'">Backups:</h2>
+    <h2 th:text="'Der User ' + ${username} + ' wurde erfolgreich gelöscht.'"></h2>
+    <div class="nav-item">
+        <a class="nav-link" th:href="@{/recommendation}">Hier gehts zurück zu Ihren Empfehlungen</a>
+    </div>
 </body>
 
 </html>

@@ -6,12 +6,27 @@
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link th:href="@{styles/main.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="./feedbackButton.css" type="text/css">
+    <style>
+    .feedback-button{
+    cursor: pointer;
+    display: inline-block;
+        padding: 10px;
+        background-color: #ccc;
+        transition: background-color 0.3s;
+    }
+
+    .feedback-button:hover {
+        background-color: rgb(100, 103, 100);
+        color: #fff;
+    }
+    </style>
 </head>
 <body class="d-flex flex-column h-100">
 
 <div th:replace="~{fragments/header :: header}"></div>
 
-<h1>Bitte tragen Sie hier detaillierte Informationen zu Ihrer IT Sicherheitsinfrastruktur ein!</h1>
+<p>Bitte tragen Sie hier detaillierte Informationen zu Ihrer IT Sicherheitsinfrastruktur ein!</p>
 <form action="/success" method="post">
     <label for="userName">Username:</label>
         <input type="text" id="userName" name="userName" required><br><br>
@@ -50,10 +65,10 @@
                 <option value="Multiple times a year">Mehrmals pro Jahr</option>
                 <option value="After a few years">Nach mehreren Jahren</option>
             </select>
-            <div>
-                <span class="feedback-button" onclick="submitFeedback('good')">&#128522;</span>
-                <span class="feedback-button" onclick="submitFeedback('neutral')">&#128528;</span>
-                <span class="feedback-button" onclick="submitFeedback('bad')">&#128542;</span>
+            <div >
+                <span class="feedback-button" title ="Good" onclick="submitFeedback('good', 'pwChangeFeedback')">&#128522;</span>
+                <span class="feedback-button" title ="Neutral" onclick="submitFeedback('neutral', 'pwChangeFeedback')">&#128528;</span>
+                <span class="feedback-button" title ="Bad" onclick="submitFeedback('bad', 'pwChangeFeedback')">&#128542;</span>
             </div><br>
         <label for="pwProperties">Gibt es besondere Anforderungen an die Länge und Inhalte des Passworts?</label>
             <select id="pwProperties" name="pwProperties">
@@ -62,7 +77,12 @@
                 <option value="Password length and must include numbers">Das Passwort muss eine bestimmte Länge haben und Zahlen enthalten</option>
                 <option value="Password length must include numbers and special characters">Das Passwort muss eine bestimmte Länge haben, Zahlen und Sonderzeichen enthalten</option>
                 <option value="Password must be randomly generated">Das Passwort muss zufällig generiert sein</option>
-            </select><br><br>
+            </select>
+            <div>
+                <span class="feedback-button" title="Good" onclick="submitFeedback('good', 'pwPropertiesFeedback')">&#128522;</span>
+                <span class="feedback-button" title="Neutral"onclick="submitFeedback('neutral', 'pwPropertiesFeedback')">&#128528;</span>
+                <span class="feedback-button" title="Bad" onclick="submitFeedback('bad', 'pwPropertiesFeedback')">&#128542;</span>
+            </div><br>
         <label for="trainings">Gibt es bei Ihnen regelmäßige Mitarbeiterschulungen?</label>
         <select id="trainings" name="trainings">
             <option value="Yes">Yes</option>
@@ -146,8 +166,34 @@
         <option value="Linux">Linux</option>
     </select><br><br>
     
-
     <button type="submit">Bestätigen</button>
 </form>
 </body>
+    <script>
+        function submitFeedback(value, question){
+            const url = '/feedback'; // Die URL zum Spring Boot-Controller-Endpunkt
+            console.log("bis hier läufts")
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ value: value, question: question }) // Die Daten, die du an den Controller senden möchtest
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Erfolgreiche Antwort erhalten
+                        console.log('POST-Anfrage erfolgreich gesendet');
+                    } else {
+                        // Fehlerhafte Antwort erhalten
+                        console.error('Fehler beim Senden der POST-Anfrage');
+                    }
+                })
+                .catch(error => {
+                    // Ein Fehler ist aufgetreten
+                    console.error('Fehler aufgetreten:', error);
+                });
+            
+        }
+    </script>
 </html>

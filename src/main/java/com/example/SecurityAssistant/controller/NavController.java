@@ -18,28 +18,10 @@ public class NavController {
         return "contact";
     }
 
-    @GetMapping( "/admin")
-    public String getAdminPage(){
-        System.out.println("Aufruf klappt!");
-        return ("admin");
-    }
-
     @GetMapping("/recommendation")
     public String getRecommPage(Model model){
         model.addAttribute("activePage", "value");
         return ("recommendation");
-    }
-
-    @GetMapping("/login")
-    public String getLoginPage(Model model){
-        model.addAttribute("activePage", "value");
-        return ("login");
-    }
-
-    @GetMapping("/register")
-    public String getRegisterPage(Model model){
-        model.addAttribute("activePage", "value");
-        return ("register");
     }
 
 

@@ -28,14 +28,6 @@
             <li class="nav-item" th:class="${activePage == 'admin'} ? 'nav-item active' : 'nav-item'">
                 <a class="nav-link" th:href="@{/admin}">AdminPage</a>
             </li>
-            <!--            <li class="nav-item" th:class="${#httpServletRequest.requestURI.contains('contact')} ? 'nav-link active' : 'nav-link'">-->
-                <li class="nav-item" th:class="${activePage == 'login'} ? 'nav-item active' : 'nav-item'">
-                    <a class="nav-link" th:href="@{/login}">Login</a>
-                </li>
-            <!--            <li class="nav-item" th:class="${#httpServletRequest.requestURI.contains('contact')} ? 'nav-link active' : 'nav-link'">-->
-                <li class="nav-item" th:class="${activePage == 'register'} ? 'nav-item active' : 'nav-item'">
-                    <a class="nav-link" th:href="@{/register}">Register</a>
-                </li>
         </ul>
     </div>
 </nav>
