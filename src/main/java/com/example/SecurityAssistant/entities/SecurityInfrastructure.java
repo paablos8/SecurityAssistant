@@ -38,6 +38,7 @@ public class SecurityInfrastructure {
 
     // Input data concerning the netwrok security
     private String firewall;
+    private String firewallPolicy;
     private String externalProvider;
 
     // Input data concerning the IT systems
@@ -155,6 +156,15 @@ public class SecurityInfrastructure {
     public void setFirewall(String firewall) {
         this.firewall = firewall;
     }
+    
+    public String getFirewallPolicy() {
+        return firewallPolicy;
+    }
+
+    public void setFirewallPolicy(String firewallPolicy) {
+        this.firewallPolicy = firewallPolicy;
+    }
+
     public String getExternalProvider() {
         return externalProvider;
     }

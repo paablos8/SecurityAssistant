@@ -177,6 +177,10 @@
             </select><br><br>
         </div>
 
+        <hr>
+        <p>Es folgen nun die technischen Fragen zur aktuellen Sicherheitsinfrastruktur:</p>
+        <br>
+
         <div class="frage1">
             <label for="pwChange">Wie häufig müssen Mitarbeiter das Passwort ändern?</label>
             <select id="pwChange" name="pwChange">
@@ -249,17 +253,12 @@
 
         <div class="frage5">
             <label for="incidentResponse">Gibt es bei Ihnen in der Firma einen Incident Response Plan? <div class="help-tip">
-                <p>1. Are there procedures defined to handle different types of incidents:
-                    - information system failures or loss of service,
-                    - malicious code,
-                    - denial of service,
-                    - errors due to incomplete/inaccurate business data,
-                    - confidentality or integrity breach,
-                    - misuse of information systems?</p>
-            
+                <p>1. Are there procedures defined to handle different types of incidents: information system failures or loss 
+                    of service, malicious code, denial of service, errors due to incomplete/inaccurate business data, confidentality 
+                    or integrity breach, misuse of information systems?</p>
                 <p>2. Do the procedures also specifiy analysis and identification of the cause, containment, planning and
-                    implementation of
-                    corrective steps, communication with involved/affected individuals, and reporting to appropriate authority?</p>
+                    implementation of corrective steps, communication with involved/affected individuals, and reporting to 
+                    appropriate authority?</p>
             </div></label>
             <select id="incidentResponse" name="incidentResponse">
                 <option value="Well specified">Ja, der ist gut spezifiziert</option>
@@ -320,14 +319,34 @@
         </div>
 
         <div class="frage12">
-            <label for="firewall">Haben Sie eine Firewall aktiviert?</label>
+            <label for="firewall">Was für eine Art von Firewall nutzen sie?</label>
             <select id="firewall" name="firewall">
+                <option value="complex Firewall">komplexe Firewall</option>
+                <option value="multifunctional Firewall">multifunktionale Firewall</option>
+                <option value="local Firewall">einfache lokale Firewall</option>
+                <option value="no Firewall">keine Firewall</option>
+            </select><br><br>
+        </div>
+
+        <div class="frage14">
+            <label for="firewallPolicy">Haben Sie eine Firewall Policy?<div class="help-tip">
+                <p>Policy should contain:
+                Regulation that every connection between internet and the internal network must be secured with a firewall, 
+                Decision if Internet Provider should be responsible for firewall-services (Managed Security Contract) or not, 
+                Updates for firewalls - who is responsible, when do the update, 
+                Configuration and administration of firewall - must be possible through a secure connection, 
+                Configuration information - where and how to store, keep up to date, 
+                Determination which connections to and from the internal network are allowed and disallowed, 
+                Determination of Logging-Level and responsibilty for regular checking of logging-files, 
+                Configuration of Personal Firewalls</p>
+            </div></label>
+            <select id="firewallPolicy" name="firewallPolicy">
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
             </select><br><br>
         </div>
 
-        <div class="frage13">
+        <div class="frage14">
             <label for="externalProvider">Arbeiten Sie mit einem externen Sicherheitsdienstleister zusammen?</label>
             <select id="externalProvider" name="externalProvider">
                 <option value="Yes">Yes</option>
@@ -335,7 +354,7 @@
             </select><br><br>
         </div>
 
-        <div class="frage14">
+        <div class="frage15">
             <label for="PCAnzahl">Bitte spezifizieren Sie die Anzahl PCs:</label>
             <select id="PCAnzahl" name="PCAnzahl">
                 <option value="1">1</option>
@@ -347,7 +366,7 @@
             </select><br><br>
         </div>
 
-        <div class="frage15">
+        <div class="frage16">
             <label for="printer">Haben Sie einen Drucker im Einsatz der mit dem Internet verbunden ist?</label>
             <select id="printer" name="printer">
                 <option value="Yes">Yes</option>
@@ -355,7 +374,7 @@
             </select><br><br>
         </div>
 
-        <div class="frage16">
+        <div class="frage17">
             <label for="OS">Welches Betriebssystem nutzen Sie?</label>
             <select id="OS" name="OS">
                 <option value="MacOS">MacOS</option>

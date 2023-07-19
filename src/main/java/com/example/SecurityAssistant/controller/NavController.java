@@ -12,17 +12,22 @@ public class NavController {
         return "infrastructure";
     }
 
-    @GetMapping("/contact")
-    public String getContact(Model model){
-        model.addAttribute("activePage", "contact");
-        return "contact";
-    }
-
     @GetMapping("/recommendation")
     public String getRecommPage(Model model){
         model.addAttribute("activePage", "value");
         return ("recommendation");
     }
+    
+    @GetMapping("/edit")
+    public String getEditPage(Model model) {
+        model.addAttribute("activePage", "value");
+        return ("edit");
+    }
 
+    @GetMapping("/glossar")
+    public String getGlossarPage(Model model) {
+        model.addAttribute("activePage", "value");
+        return ("glossar");
+    }
 
 }

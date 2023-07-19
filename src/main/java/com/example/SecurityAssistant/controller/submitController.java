@@ -66,6 +66,7 @@ public class submitController {
         model.addAttribute("criticalInfra", infra.getCriticalInfra());
         model.addAttribute("alarm", infra.getAlarm());
         model.addAttribute("firewall", infra.getFirewall());
+        model.addAttribute("firewallPolicy", infra.getFirewallPolicy());
         model.addAttribute("externalProvider", infra.getExternalProvider());
         model.addAttribute("PCAnzahl", infra.getPCAnzahl());
         model.addAttribute("printer", infra.getPrinter());

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Spring MVC</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link th:href="@{styles/main.css}" rel="stylesheet" />
+    <style>
+        h1 {
+            color: #333;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: disc; /* Verwende Bullets als Aufzählungszeichen */
+            padding-left: 20px; /* Füge etwas Abstand links hinzu */
+        }
+
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+</html>
+<h1>Glossar</h1>
+<ul>
+    <li><strong>Firewall</strong>: Eine Firewall ist ein Sicherungssystem, das ein Rechnernetz oder einen einzelnen
+        Computer
+        vor unerwünschten
+        Netzwerkzugriffen schützt. Weiter gefasst ist eine Firewall auch ein Teilaspekt eines Sicherheitskonzepts. Jedes
+        Firewall-Sicherungssystem basiert auf einer Softwarekomponente.</li>
+
+    <li><strong>Operating System</strong>: Ein Betriebssystem, auch OS genannt, ist eine Zusammenstellung von
+        Computerprogrammen, die die Systemressourcen eines
+        Computers wie Arbeitsspeicher, Festplatten, Ein- und Ausgabegeräte verwaltet und diese Anwendungsprogrammen zur
+        Verfügung stellt.</li>
+</ul>
+</body>
+
+</html>
