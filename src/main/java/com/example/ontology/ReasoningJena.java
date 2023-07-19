@@ -54,7 +54,7 @@ public class ReasoningJena {
 	}
 	
 	
-	
+	/**
 	public InfModel applyInference () {
 	
 			
@@ -70,6 +70,7 @@ public class ReasoningJena {
 	
 			return infModel;
 		}
+		**/
 	
 	
 	
