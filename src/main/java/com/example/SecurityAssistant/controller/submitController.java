@@ -89,9 +89,9 @@ public class submitController {
         
 		
 		// Reasoning 
-        ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel());
+        ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
         
-        reasoning.listCompliantImplementations();
+        reasoning.listSomething();
 
 		
 

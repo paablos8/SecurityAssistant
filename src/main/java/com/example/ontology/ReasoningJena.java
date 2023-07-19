@@ -6,6 +6,7 @@ import java.io.OutputStream;
 
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
+import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntDocumentManager;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
@@ -26,22 +27,40 @@ public class ReasoningJena {
 	
 	OntModel base;
 	String NS = InitJena.NS;
+	String companyIRI;
+	String nameOfBusiness;
 	
-	public ReasoningJena (OntModel ontModel) {
+	// Constructor, receives an OntModel where the SME was mapped into
+	public ReasoningJena (OntModel ontModel, String companyName) {
 		base = ontModel;
+		nameOfBusiness = companyName;
+		companyIRI = NS + companyName;
 	}
 	
 	
 	
-	public void listCompliantImplementations () {
+	public void listSomething () {
 
 		System.out.println("listCompliantImplementations method has started.");
+		Individual companyResource = base.getIndividual(companyIRI);
+		
+		ExtendedIterator<OntClass> iter = companyResource.listOntClasses(true);
+		
+        while (iter.hasNext()) {
+            OntClass isSubtypeOfClass = iter.next();
+            System.out.println("The Business " + nameOfBusiness + " is compliant with the following Controls: " + isSubtypeOfClass.getLocalName());
+        }
+        System.out.println("listCompliantImplementations has finished");
+	}
+	
+	
+	public void listCompliantImplementations () {
+
+		System.out.println("listSomething method has started.");
 		Resource complianceResource = base.getResource(NS + "PrivateSoftwareAndHardwareControlCompliantOrganization");
 		String compliantName =  base.getOntResource(NS + "PrivateSoftwareAndHardwareControlCompliantOrganization").getLocalName();
 		// Property controlCompliantWithControl = base.getProperty(NS + "control_compliantWith_Control");
 		// Resource PrivateSWAndHWControl = base.getResource(NS + "PrivateSoftwareAndHardwareControl");
-		//StmtIterator stmtIterator = infModel.listStatements(organizationResource, RDF.type, (RDFNode) null);
-		//StmtIterator stmtIterator = base.listStatements(organizationResource, null, (RDFNode) null);
 		ExtendedIterator<Individual> iter = base.listIndividuals(complianceResource);
 		// Iterate over the statements and print the types (classes) of the instance
         while (iter.hasNext()) {

@@ -41,10 +41,10 @@ public class InitJena {
 	public  void loadOntology () {
 
 			//the Fenz (2016) ontology is replicated locally on the disk which gets loaded when the normal URL gets called
-				filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/Fenz_shortened.owl.rdf";
+				filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/fenz2016AsRDF.owl.rdf";
 
 			//Create the base model - creates an OWL-FUll, in-memory Ontology Model
-				base = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_RULE_INF);
+				base = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
 
 
 			//DocumentManager created:
