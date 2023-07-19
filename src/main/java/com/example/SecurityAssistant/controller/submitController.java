@@ -42,12 +42,12 @@ public class submitController {
     @Autowired
     private InfrastructureRepository repo;
 
-    @GetMapping("/success")
+    @GetMapping("/submitSuccess")
     public String submitForm(){
-        return "success";
+        return "submitSuccess";
     }   
 
-    @PostMapping("/success")
+    @PostMapping("/submitSuccess")
     public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model){
         model.addAttribute("userName", infra.getUserName());
         model.addAttribute("companyName", infra.getCompanyName());
@@ -77,7 +77,7 @@ public class submitController {
         //Speicherung des Form Inputs in der MySQL Datenbank
         repo.save(infra);
         
-        return "success";
+        return "submitSuccess";
     } 
 
 }
