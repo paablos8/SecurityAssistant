@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Spring MVC</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link th:href="@{styles/main.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+</html>
+<p>Hier können Sie Ihre Eingaben editieren:</p>
+
+<form id="editData" action="/edit" method="post">
+    <label for="userName">Username:</label>
+    <input type="text" id="userName" name="userName" placeholder="username" required>
+    <button type="submit">Meine Daten editieren</button>
+</form>
+
+</body>
+
+</html>
