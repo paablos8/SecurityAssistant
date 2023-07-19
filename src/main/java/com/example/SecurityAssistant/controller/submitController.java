@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
 import com.example.ontology.InitJena;
+import com.example.ontology.ReasoningJena;
 
 @Controller
 public class submitController {
@@ -76,17 +77,23 @@ public class submitController {
         model.addAttribute("printer", infra.getPrinter());
         model.addAttribute("OS", infra.getOS());
 
-
+        
+        // Mapping and adding the SME into the base ontology
         InitJena initJena = new InitJena();
         initJena.loadOntology();
         initJena.addOrganization(userName, companyName);
 		//initJena.addComputer("ComputerTim_1", "Windows10_Tim", "Tims_Antivirus_Software");
         initJena.addPolicy("PrivateSoftwareAndHardwareUsePolicy", "Tims_PrivateSoftwareAndHardwareUsePolicy");
-        //initJena.applyInference();
-        //initJena.listCompliantImplementations();
-
-		String pathToSavedOntology = initJena.saveOntology(userName);
+        String pathToSavedOntology = initJena.saveOntology(userName);
 		System.out.println ("The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
+        
+		
+		// Reasoning 
+        ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel());
+        
+        reasoning.listCompliantImplementations();
+
+		
 
 
         //Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank abgespeichert wird

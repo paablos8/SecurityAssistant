@@ -41,7 +41,7 @@ public class InitJena {
 	public  void loadOntology () {
 
 			//the Fenz (2016) ontology is replicated locally on the disk which gets loaded when the normal URL gets called
-				filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/fenz2016AsRDF.owl.rdf";
+				filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/Fenz_shortened.owl.rdf";
 
 			//Create the base model - creates an OWL-FUll, in-memory Ontology Model
 				base = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_RULE_INF);
@@ -135,44 +135,10 @@ public class InitJena {
 	}
 
 
-	public InfModel applyInference () {
-
-		// Create an instance of the reasoner:
-		Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
-		infModel = ModelFactory.createInfModel(reasoner, base); // Builds an inferred model by attaching the given RDF model to the given reasoner.
-		System.out.println("Reasoner was created.");
-		// Enable the reasoning
-		infModel.setNsPrefixes(base.getNsPrefixMap());
-		infModel.prepare();
-		System.out.println("infMode.prepare() successfully finished.");
-		//infModel.validate();
-		//System.out.println("infMode.validate() successfully finished.");
-
-		return infModel;
-	}
-
-	public void listCompliantImplementations () {
-
-		System.out.println("listCompliantImplementations method has started.");
-		Resource complianceResource = base.getResource(NS + "PrivateSoftwareAndHardwareControlCompliantOrganization");
-		Property controlCompliantWithControl = base.getProperty(NS + "control_compliantWith_Control");
-		Resource PrivateSWAndHWControl = base.getResource(NS + "PrivateSoftwareAndHardwareControl");
-		//StmtIterator stmtIterator = infModel.listStatements(organizationResource, RDF.type, (RDFNode) null);
-		//StmtIterator stmtIterator = base.listStatements(organizationResource, null, (RDFNode) null);
-		ExtendedIterator<Individual> iter = base.listIndividuals(complianceResource);
-		// Iterate over the statements and print the types (classes) of the instance
-        while (iter.hasNext()) {
-            Individual statement = iter.next();
-            //Individual type = statement.
-            System.out.println("The following businesses implement the control: " + statement.getURI());
-        }
-        System.out.println("listCompliantImplementations has finished!");
-	}
-
-
 	public String saveOntology (String userName) {
 
-				String outputFilePath = "C:\\Users\\Wiwi-Admin\\Desktop\\" + userName + "_InferenceTest.owl.xml";
+				String outputFilePath = "C:\\Users\\Wiwi-Admin\\Desktop\\" + userName + "_InferenceTestPerformance.owl.xml";
+				
 
 				 try {
 			           // Create a new File object with the specified file path
@@ -191,7 +157,8 @@ public class InitJena {
 
 		// Save the modified ontology to the output file
 				try (OutputStream out = new FileOutputStream(outputFilePath)) {
-				    base.write(out, "RDF/XML");
+					base.write(out, "RDF/XML"); // Write will only write the statements from the base model to the ontology!
+				 //base.writeAll(out, "RDF/XML"); // This also writes the inferred statements to the ontology!
 				    System.out.println("Ontology successfully saved to " + outputFilePath);
 				} catch (IOException e) {
 				    e.printStackTrace();
@@ -201,10 +168,7 @@ public class InitJena {
 	}
 
 
-	public void printStatements(Model m, Resource s, Property p, Resource o) {
-		for (StmtIterator i = m.listStatements(s,p,o); i.hasNext(); ) {
-			Statement stmt = i.nextStatement(); System.out.println(" - " + PrintUtil.print(stmt));
-			}
+	public OntModel getOntModel() {
+			return this.base;
 		}
-
 }
