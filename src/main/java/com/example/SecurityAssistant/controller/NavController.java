@@ -29,5 +29,10 @@ public class NavController {
         model.addAttribute("activePage", "value");
         return ("glossar");
     }
-
+    
+    @GetMapping("/delete")
+    public String getDeletePage(Model model) {
+        model.addAttribute("activePage", "value");
+        return ("delete");
+    }
 }

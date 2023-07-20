@@ -21,12 +21,12 @@ public class deleteDataController {
 
     // If Button "Delete my Data" is used this method deletes the entry of the
     // associated userName
-    @PostMapping("/delete")
+    @PostMapping("/deleteSuccess")
     public String deleteData(Model model, @RequestParam("userName") String username) {
         userID = getUserID(model, username);
         model.addAttribute("username", username);
         repo.deleteById(userID);
-        return "delete";
+        return "deleteSuccess";
     }
 
     // Here the user ID of the user to be deleted is determined and returned to the

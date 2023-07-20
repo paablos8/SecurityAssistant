@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="./feedbackButton.css" type="text/css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
-
         .help-tip {
             text-align: center;
             position: relative;
@@ -29,7 +28,7 @@
         }
 
         .help-tip:hover p {
-            display:block;
+            display: block;
             transform-origin: 100% 0%;
             -webkit-animation: fadeIn 0.3s ease-in-out;
             animation: fadeIn 0.3s ease-in-out;
@@ -47,7 +46,7 @@
             color: #FFF;
             font-size: 13px;
             line-height: 1.4;
-            z-index: 9999; 
+            z-index: 9999;
         }
 
         .help-tip p:before {
@@ -108,7 +107,7 @@
 
         .userInput label {
             display: block;
-            text-align: left; 
+            text-align: left;
             margin-bottom: 5px;
             font-weight: bold;
         }
@@ -134,6 +133,14 @@
             background-color: rgb(100, 103, 100);
             color: #fff;
         }
+
+        .error-message {
+            background-color: #f44336;
+            color: #fff;
+            padding: 10px; 
+            border-radius: 4px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -143,14 +150,17 @@
 
     <p>Bitte tragen Sie hier detaillierte Informationen zu Ihrer IT Sicherheitsinfrastruktur ein!</p>
 
-    <form action="/submitSuccess" method="post">
+    <form action="/inputSuccess" method="post">
         <div class="personalData">
             <label for="userName">Username:</label>
             <input type="text" id="userName" name="userName" placeholder="Username" required><br><br>
+            <div th:if="${errorMessage}" class="error-message">
+                <p th:text="${errorMessage}"></p>
+            </div>
             <label for="companyName">Firmenname:</label>
             <input type="text" id="companyName" name="companyName" placeholder="Firmenname" required><br><br>
             <label for="employeeNR">Mitarbeiterzahl:</label>
-            <input type="number" id="employeeNR" name="employeeNR" placeholder="Mitarbeiterzahl" required><br><br>
+            <input type="number" id="employeeNR" name="employeeNR" min="1" placeholder="Mitarbeiterzahl" required><br><br>
             <label for="branche">Branche:</label>
             <select id="branche" name="branche">
                 <option value="Crafts">Handwerk</option>
@@ -252,20 +262,25 @@
         </div>
 
         <div class="frage5">
-            <label for="incidentResponse">Gibt es bei Ihnen in der Firma einen Incident Response Plan? <div class="help-tip">
-                <p>1. Are there procedures defined to handle different types of incidents: information system failures or loss 
-                    of service, malicious code, denial of service, errors due to incomplete/inaccurate business data, confidentality 
-                    or integrity breach, misuse of information systems?</p>
-                <p>2. Do the procedures also specifiy analysis and identification of the cause, containment, planning and
-                    implementation of corrective steps, communication with involved/affected individuals, and reporting to 
-                    appropriate authority?</p>
-            </div></label>
+            <label for="incidentResponse">Gibt es bei Ihnen in der Firma einen Incident Response Plan? <div
+                    class="help-tip">
+                    <p>1. Are there procedures defined to handle different types of incidents: information system
+                        failures or loss
+                        of service, malicious code, denial of service, errors due to incomplete/inaccurate business
+                        data, confidentality
+                        or integrity breach, misuse of information systems?</p>
+                    <p>2. Do the procedures also specifiy analysis and identification of the cause, containment,
+                        planning and
+                        implementation of corrective steps, communication with involved/affected individuals, and
+                        reporting to
+                        appropriate authority?</p>
+                </div></label>
             <select id="incidentResponse" name="incidentResponse">
                 <option value="Well specified">Ja, der ist gut spezifiziert</option>
                 <option value="There is a rough plan">Ja, wir haben einen groben Plan</option>
                 <option value="There is no plan">Wir haben keine Plan festgelegt</option>
             </select>
-           <br><br>
+            <br><br>
         </div>
 
         <div class="frage6">
@@ -330,16 +345,18 @@
 
         <div class="frage14">
             <label for="firewallPolicy">Haben Sie eine Firewall Policy?<div class="help-tip">
-                <p>Policy should contain:
-                Regulation that every connection between internet and the internal network must be secured with a firewall, 
-                Decision if Internet Provider should be responsible for firewall-services (Managed Security Contract) or not, 
-                Updates for firewalls - who is responsible, when do the update, 
-                Configuration and administration of firewall - must be possible through a secure connection, 
-                Configuration information - where and how to store, keep up to date, 
-                Determination which connections to and from the internal network are allowed and disallowed, 
-                Determination of Logging-Level and responsibilty for regular checking of logging-files, 
-                Configuration of Personal Firewalls</p>
-            </div></label>
+                    <p>Policy should contain:
+                        Regulation that every connection between internet and the internal network must be secured with
+                        a firewall,
+                        Decision if Internet Provider should be responsible for firewall-services (Managed Security
+                        Contract) or not,
+                        Updates for firewalls - who is responsible, when do the update,
+                        Configuration and administration of firewall - must be possible through a secure connection,
+                        Configuration information - where and how to store, keep up to date,
+                        Determination which connections to and from the internal network are allowed and disallowed,
+                        Determination of Logging-Level and responsibilty for regular checking of logging-files,
+                        Configuration of Personal Firewalls</p>
+                </div></label>
             <select id="firewallPolicy" name="firewallPolicy">
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>

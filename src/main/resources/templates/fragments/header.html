@@ -29,6 +29,9 @@
                 <li class="nav-item" th:class="${activePage == 'edit'} ? 'nav-item active' : 'nav-item'">
                     <a class="nav-link" th:href="@{/edit}">Editing</a>
                 </li>
+                <li class="nav-item" th:class="${activePage == 'delete'} ? 'nav-item active' : 'nav-item'">
+                    <a class="nav-link" th:href="@{/delete}">Deletion</a>
+                </li>
                 <li class="nav-item" th:class="${activePage == 'glossar'} ? 'nav-item active' : 'nav-item'">
                     <a class="nav-link" th:href="@{/glossar}">Glossar</a>
                 </li>

@@ -70,4 +70,5 @@ public class feedbackController {
         model.addAttribute("feedbackCountPwProperties", feedbackCount);
         return "admin";
     }
+    
 }

@@ -3,18 +3,63 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Spring MVC</title>
+    <title>DeletePage</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link th:href="@{styles/main.css}" rel="stylesheet" />
+    <style>
+        .userInput {
+            text-align: center;
+        }
+
+        .userInput p {
+            font-size: 18px;
+        }
+
+        .userInput form {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        .userInput label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .userInput input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        .feedback-button {
+            cursor: pointer;
+            display: inline-block;
+            padding: 10px;
+            background-color: #ccc;
+            transition: background-color 0.3s;
+        }
+
+        .feedback-button:hover {
+            background-color: rgb(100, 103, 100);
+            color: #fff;
+        }
+    </style>
 </head>
 
-<body class="d-flex flex-column h-100">
-
+<body class="userInput">
     <div th:replace="~{fragments/header :: header}"></div>
-    <h2 th:text="'Der User ' + ${username} + ' wurde erfolgreich gelöscht.'"></h2>
-    <div class="nav-item">
-        <a class="nav-link" th:href="@{/recommendation}">Hier gehts zurück zu Ihren Empfehlungen</a>
-    </div>
+
+    <p>Hier können Sie Ihre gespeicherten Daten löschen:</p>
+    <form id="deleteForm" action="/deleteSuccess" method="post">
+        <label for="userName">Username:</label>
+        <input type="text" id="userName" name="userName" placeholder="username" required>
+        <button type="submit">Meine Daten löschen</button>
+    </form>
 </body>
 
 </html>
