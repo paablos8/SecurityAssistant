@@ -137,7 +137,7 @@
         .error-message {
             background-color: #f44336;
             color: #fff;
-            padding: 10px; 
+            padding: 10px;
             border-radius: 4px;
             margin-top: 10px;
         }
@@ -160,7 +160,8 @@
             <label for="companyName">Firmenname:</label>
             <input type="text" id="companyName" name="companyName" placeholder="Firmenname" required><br><br>
             <label for="employeeNR">Mitarbeiterzahl:</label>
-            <input type="number" id="employeeNR" name="employeeNR" min="1" placeholder="Mitarbeiterzahl" required><br><br>
+            <input type="number" id="employeeNR" name="employeeNR" min="1" placeholder="Mitarbeiterzahl"
+                required><br><br>
             <label for="branche">Branche:</label>
             <select id="branche" name="branche">
                 <option value="Crafts">Handwerk</option>
@@ -258,7 +259,15 @@
                     Backup täglich; Strategie ist definiert und dokumentiert, wird für alle geschützten Systeme
                     umgesetzt
                 </option>
-            </select><br><br>
+            </select>
+            <div class="feedback4">
+                <span class="feedback-button" title="Good"
+                    onclick="submitFeedback('good', 'backupFeedback')">&#128522;</span>
+                <span class="feedback-button" title="Neutral"
+                    onclick="submitFeedback('neutral', 'backupFeedback')">&#128528;</span>
+                <span class="feedback-button" title="Bad"
+                    onclick="submitFeedback('bad', 'backupFeedback')">&#128542;</span>
+            </div><br>
         </div>
 
         <div class="frage5">
@@ -280,7 +289,11 @@
                 <option value="There is a rough plan">Ja, wir haben einen groben Plan</option>
                 <option value="There is no plan">Wir haben keine Plan festgelegt</option>
             </select>
-            <br><br>
+            <div class="feedback5">
+                <span class="feedback-button" title="Good" onclick="submitFeedback('good', 'incidentResponseFeedback')">&#128522;</span>
+                <span class="feedback-button" title="Neutral" onclick="submitFeedback('neutral', 'incidentResponseFeedback')">&#128528;</span>
+                <span class="feedback-button" title="Bad" onclick="submitFeedback('bad', 'incidentResponseFeedback')">&#128542;</span>
+            </div><br>
         </div>
 
         <div class="frage6">

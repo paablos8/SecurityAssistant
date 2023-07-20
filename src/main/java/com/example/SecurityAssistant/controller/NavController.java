@@ -12,11 +12,11 @@ public class NavController {
         return "infrastructure";
     }
 
-    @GetMapping("/recommendation")
+    /* @GetMapping("/recommendation")
     public String getRecommPage(Model model){
         model.addAttribute("activePage", "value");
         return ("recommendation");
-    }
+    } */
     
     @GetMapping("/edit")
     public String getEditPage(Model model) {

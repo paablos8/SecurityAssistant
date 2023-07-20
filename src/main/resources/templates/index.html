@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-100">
+
 <head>
     <meta charset="UTF-8">
     <title>Spring MVC</title>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link th:href="@{styles/main.css}" rel="stylesheet"/>
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link th:href="@{styles/main.css}" rel="stylesheet" />
+
 </head>
+
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
+
 </html>
 
 <h1>Herzlich Willkommen in Ihrem IT Sicherheits Assistenten. </h1>
@@ -19,14 +21,16 @@
     <p>Bevor Sie sich eine personalisierte Empfehlung zur Verbesserung Ihrer IT-Sicherheit generieren lassen, beachten
         Sie folgende Hinweise:</p>
     <ul>
-        <li>Merken Sie sich Ihren Usernamen. Diesen benötigen Sie, um Ihre Eingaben zu überarbeiten oder um die Löschung
+        <li>Ihre Eingabedaten werden unter einem anonymisierten Firmennamen abgespeichert. Merken Sie sich Ihren
+            Usernamen. Diesen benötigen Sie, um Ihre Eingaben zu überarbeiten oder um die Löschung
             Ihrer Daten aus der Datenbank zu veranlassen.</li>
         <li>Zudem können Sie mit Hilfe der bereitgestellten Emojis unter den jeweiligen Fragen Feedback zur
             Verständlichkeit geben und somit zur Verbesserung des Assistenten beitragen.</li>
     </ul>
 </div>
 
-    <a class="nav-link" th:href="@{/infrastructure}">Hier gehts zur Eingabe Ihrer Infrastruktur</a>
+<a class="nav-link" th:href="@{/infrastructure}">Hier gehts zur Eingabe Ihrer Infrastruktur</a>
 
 </body>
+
 </html>

@@ -32,6 +32,8 @@ public class feedbackController {
     public String getAdminPage( Model model) {
         getPwChangeFeedback(model);
         getPwPropertiesFeedback(model);
+        getbackupFeedback(model);
+        getincidentResponseFeedback(model);
         return ("admin");
     }
 
@@ -60,14 +62,27 @@ public class feedbackController {
 }
 
     public String getPwChangeFeedback(Model model){
-        int [] feedbackCount = getFeedback(model, "pwChangeFeedback");
-        model.addAttribute("feedbackCountPwChange", feedbackCount); 
+        int [] feedbackCount1 = getFeedback(model, "pwChangeFeedback");
+        model.addAttribute("feedbackCountPwChange", feedbackCount1); 
         return "admin";
     }
     
     public String getPwPropertiesFeedback(Model model) {
-        int[] feedbackCount = getFeedback(model, "pwPropertiesFeedback");
-        model.addAttribute("feedbackCountPwProperties", feedbackCount);
+        int[] feedbackCount2 = getFeedback(model, "pwPropertiesFeedback");
+        model.addAttribute("feedbackCountPwProperties", feedbackCount2);
+        return "admin";
+    }
+
+    public String getbackupFeedback(Model model) {
+        int[] feedbackCount4 = getFeedback(model, "backupFeedback");
+        System.out.println("feeedbackCount4 ist gleich :" + feedbackCount4);
+        model.addAttribute("feedbackCountBackup", feedbackCount4);
+        return "admin";
+    }
+
+    public String getincidentResponseFeedback(Model model) {
+        int[] feedbackCount5 = getFeedback(model, "incidentResponseFeedback");
+        model.addAttribute("feedbackCountIncidentResponse", feedbackCount5);
         return "admin";
     }
     
