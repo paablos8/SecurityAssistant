@@ -1,4 +1,5 @@
 package com.example.SecurityAssistant.controller;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -17,7 +18,7 @@ import com.example.ontology.ReasoningJena;
 @Controller
 public class submitController {
 
-      int eintragNR;
+    int eintragNR;
 
     @Autowired
     private InfrastructureRepository repo;
@@ -28,43 +29,48 @@ public class submitController {
     }
 
     @PostMapping("/success")
-    public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model){
+    public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model) {
         if (!checkUsername(model, infra.getUserName())) {
-        model.addAttribute("userName", infra.getUserName());
-        model.addAttribute("companyName", infra.getCompanyName());
-        model.addAttribute("employeeNR", infra.getEmployeeNR());
-        model.addAttribute("branche", infra.getBranche());
-        model.addAttribute("region", infra.getRegion());
-        model.addAttribute("pwChange", infra.getPwChange());
-        model.addAttribute("pwProperties", infra.getPwProperties());
-        model.addAttribute("trainings", infra.getTrainings());
-        model.addAttribute("backup", infra.getBackup());
-        model.addAttribute("incidentResponse", infra.getIncidentResponse());
-        model.addAttribute("policyDoc", infra.getPolicyDoc());
-        model.addAttribute("storage", infra.getStorage());
-        model.addAttribute("fireEx", infra.getFireEx());
-        model.addAttribute("smokeDet", infra.getSmokeDet());
-        model.addAttribute("criticalInfra", infra.getCriticalInfra());
-        model.addAttribute("alarm", infra.getAlarm());
-        model.addAttribute("firewall", infra.getFirewall());
-        model.addAttribute("externalProvider", infra.getExternalProvider());
-        model.addAttribute("PCAnzahl", infra.getPCAnzahl());
-        model.addAttribute("printer", infra.getPrinter());
-        model.addAttribute("OS", infra.getOS());
-        
-        // Mapping and adding the SME into the base ontology
-    InitJena initJena = new InitJena();initJena.loadOntology();initJena.addOrganization(userName,companyName);
-    // initJena.addComputer("ComputerTim_1", "Windows10_Tim",
-    // "Tims_Antivirus_Software");
-    initJena.addPolicy("PrivateSoftwareAndHardwareUsePolicy","Tims_PrivateSoftwareAndHardwareUsePolicy");
-    String pathToSavedOntology = initJena.saveOntology(
-            userName);System.out.println("The ontology for "+companyName+" was successfully and stored under: "+pathToSavedOntology);
+            String userName = infra.getUserName();
+            String companyName = infra.getCompanyName();
+            model.addAttribute("userName", infra.getUserName());
+            model.addAttribute("companyName", infra.getCompanyName());
+            model.addAttribute("employeeNR", infra.getEmployeeNR());
+            model.addAttribute("branche", infra.getBranche());
+            model.addAttribute("region", infra.getRegion());
+            model.addAttribute("pwChange", infra.getPwChange());
+            model.addAttribute("pwProperties", infra.getPwProperties());
+            model.addAttribute("trainings", infra.getTrainings());
+            model.addAttribute("backup", infra.getBackup());
+            model.addAttribute("incidentResponse", infra.getIncidentResponse());
+            model.addAttribute("policyDoc", infra.getPolicyDoc());
+            model.addAttribute("storage", infra.getStorage());
+            model.addAttribute("fireEx", infra.getFireEx());
+            model.addAttribute("smokeDet", infra.getSmokeDet());
+            model.addAttribute("criticalInfra", infra.getCriticalInfra());
+            model.addAttribute("alarm", infra.getAlarm());
+            model.addAttribute("firewall", infra.getFirewall());
+            model.addAttribute("externalProvider", infra.getExternalProvider());
+            model.addAttribute("PCAnzahl", infra.getPCAnzahl());
+            model.addAttribute("printer", infra.getPrinter());
+            model.addAttribute("OS", infra.getOS());
 
-    // Reasoning
-    ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
+            // Mapping and adding the SME into the base ontology
+            InitJena initJena = new InitJena();
+            initJena.loadOntology();
+            initJena.addOrganization(userName, companyName);
+            // initJena.addComputer("ComputerTim_1", "Windows10_Tim",
+            // "Tims_Antivirus_Software");
+            initJena.addPolicy("PrivateSoftwareAndHardwareUsePolicy", "Tims_PrivateSoftwareAndHardwareUsePolicy");
+            String pathToSavedOntology = initJena.saveOntology(
+                    userName);
+            System.out.println(
+                    "The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
 
-    reasoning.listImplementedControls();
-        
+            // Reasoning
+            ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
+
+            reasoning.listImplementedControls();
 
             // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
             // abgespeichert wird
@@ -72,14 +78,13 @@ public class submitController {
             // Speicherung des Form Inputs in der MySQL Datenbank
             repo.save(infra);
             return "inputSuccess";
-        }else{
+        } else {
             model.addAttribute("errorMessage", "Der Username ist bereits vergeben. Bitte wähle einen anderen.");
             return "infrastructure";
         }
     }
 
-    
-    //Methode soll die Datenbank abgleichen, ob der Username bereits vergeben ist
+    // Methode soll die Datenbank abgleichen, ob der Username bereits vergeben ist
     public boolean checkUsername(Model model, String username) {
         List<SecurityInfrastructure> dataList = repo.findAll();
 
@@ -94,9 +99,8 @@ public class submitController {
         System.out.println("Der Username ist nicht vorhanden");
         return false;
     }
-    
 
-    //Methode die aufgerufen wird um den Firmennamen zu Pseudonymisieren
+    // Methode die aufgerufen wird um den Firmennamen zu Pseudonymisieren
     public static String pseudonymizeString(String input) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -117,7 +121,5 @@ public class submitController {
         }
         return null;
     }
-    
-    
 
 }
