@@ -41,7 +41,7 @@ public class InitJena {
 	public  void loadOntology () {
 
 			//the Fenz (2016) ontology is replicated locally on the disk which gets loaded when the normal URL gets called
-				filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/fenz2016AsRDF.owl.rdf";
+				filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.rdf";
 
 			//Create the base model - creates an OWL-FUll, in-memory Ontology Model
 				base = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
@@ -73,17 +73,6 @@ public class InitJena {
 		ObjectProperty organizationImplementsPolicy = base.getObjectProperty(NS + "organization_implements_Policy");
 		organizationIndividual.addProperty(organizationImplementsPolicy, implementedPolicyIndividual);
 		System.out.println("Individual successfully created: " + implementedPolicy);
-
-		/**
-		Resource resource = infModel.getResource(NS + "Asset");
-		StmtIterator types = infModel.listStatements(resource, RDF.type, (RDFNode) null);
-		while (types.hasNext()) {
-		    Statement typeStatement = types.next();
-		    Resource individual = typeStatement.getSubject();
-		    Resource inferredClass = typeStatement.getObject().asResource();
-		    // Do something with the inferred class membership
-		}
-		**/
 
 	}
 
