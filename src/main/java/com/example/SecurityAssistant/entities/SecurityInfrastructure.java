@@ -1,5 +1,8 @@
 package com.example.SecurityAssistant.entities;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

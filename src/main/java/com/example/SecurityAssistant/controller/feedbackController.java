@@ -18,18 +18,22 @@ public class feedbackController {
     int goodCount;
     int neutralCount;
     int badCount;
-    
+
     @Autowired
     private FeedbackRepository repo;
 
+    // Diese Methode speichert das abgegebene Feedback aus der Input Form beim
+    // betätigen der Emojis in unserer Datenbank ab
     @PostMapping("/feedback")
     public String feedbackSubmition(@RequestBody Feedback feedback) {
         repo.save(feedback);
         return "admin";
     }
 
+    // Die Methode ruft die getFeedback Methoden zu den verschiedenen Feedback
+    // Mechanismen im Input field auf
     @GetMapping("/admin")
-    public String getAdminPage( Model model) {
+    public String getAdminPage(Model model) {
         getPwChangeFeedback(model);
         getPwPropertiesFeedback(model);
         getbackupFeedback(model);
@@ -37,36 +41,36 @@ public class feedbackController {
         return ("admin");
     }
 
-
-    // Here the answers concerning the feedback towards one specific question are counted and saved in three different variables
-    public int [] getFeedback(Model model, String question) {
+    // Here the answers concerning the feedback towards one specific question are
+    // counted and saved in three different variables
+    public int[] getFeedback(Model model, String question) {
         List<Feedback> dataList = repo.findAll();
         model.addAttribute("dataList", dataList);
 
         goodCount = badCount = neutralCount = 0; // zurücksetzen der Zählervariablen
 
         for (Feedback item : dataList) {
-            
+
             if (item.getQuestion().equals(question)) {
-                if (item.getValue().equals("good")){
+                if (item.getValue().equals("good")) {
                     goodCount = goodCount + 1;
                 } else if (item.getValue().equals("neutral")) {
                     neutralCount = neutralCount + 1;
                 } else if (item.getValue().equals("bad")) {
                     badCount = badCount + 1;
                 }
+            }
         }
-    } 
-    int [] feedbackCount = {goodCount, neutralCount, badCount};
-    return feedbackCount;
-}
+        int[] feedbackCount = { goodCount, neutralCount, badCount };
+        return feedbackCount;
+    }
 
-    public String getPwChangeFeedback(Model model){
-        int [] feedbackCount1 = getFeedback(model, "pwChangeFeedback");
-        model.addAttribute("feedbackCountPwChange", feedbackCount1); 
+    public String getPwChangeFeedback(Model model) {
+        int[] feedbackCount1 = getFeedback(model, "pwChangeFeedback");
+        model.addAttribute("feedbackCountPwChange", feedbackCount1);
         return "admin";
     }
-    
+
     public String getPwPropertiesFeedback(Model model) {
         int[] feedbackCount2 = getFeedback(model, "pwPropertiesFeedback");
         model.addAttribute("feedbackCountPwProperties", feedbackCount2);
@@ -85,5 +89,5 @@ public class feedbackController {
         model.addAttribute("feedbackCountIncidentResponse", feedbackCount5);
         return "admin";
     }
-    
+
 }

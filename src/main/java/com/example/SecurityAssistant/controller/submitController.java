@@ -28,7 +28,7 @@ public class submitController {
         return "inputSuccess";
     }
 
-    @PostMapping("/success")
+    @PostMapping("/inputSuccess")
     public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model) {
         if (!checkUsername(model, infra.getUserName())) {
             String userName = infra.getUserName();
@@ -55,22 +55,27 @@ public class submitController {
             model.addAttribute("printer", infra.getPrinter());
             model.addAttribute("OS", infra.getOS());
 
-            // Mapping and adding the SME into the base ontology
-            InitJena initJena = new InitJena();
-            initJena.loadOntology();
-            initJena.addOrganization(userName, companyName);
-            // initJena.addComputer("ComputerTim_1", "Windows10_Tim",
-            // "Tims_Antivirus_Software");
-            initJena.addPolicy("PrivateSoftwareAndHardwareUsePolicy", "Tims_PrivateSoftwareAndHardwareUsePolicy");
-            String pathToSavedOntology = initJena.saveOntology(
-                    userName);
-            System.out.println(
-                    "The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
-
-            // Reasoning
-            ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
-
-            reasoning.listImplementedControls();
+            /*
+             * // Mapping and adding the SME into the base ontology
+             * InitJena initJena = new InitJena();
+             * initJena.loadOntology();
+             * initJena.addOrganization(userName, companyName);
+             * // initJena.addComputer("ComputerTim_1", "Windows10_Tim",
+             * // "Tims_Antivirus_Software");
+             * initJena.addPolicy("PrivateSoftwareAndHardwareUsePolicy",
+             * "Tims_PrivateSoftwareAndHardwareUsePolicy");
+             * String pathToSavedOntology = initJena.saveOntology(
+             * userName);
+             * System.out.println(
+             * "The ontology for " + companyName + " was successfully and stored under: " +
+             * pathToSavedOntology);
+             * 
+             * // Reasoning
+             * ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(),
+             * companyName);
+             * 
+             * reasoning.listImplementedControls();
+             */
 
             // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
             // abgespeichert wird

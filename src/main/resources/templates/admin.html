@@ -41,92 +41,98 @@
         <div class="chart5">
             <canvas id="chart5" style="max-height:200px;"></canvas>
         </div>
+        <div>
+            <!-- Button um das User Feedback zurückzusetzen -->
+            <form id="reset" action="/resetUserFeedback" method="post">
+                <button type="submit">Userfeedback zurücksetzen</button>
+            </form>
+        </div>
+    </div>
 
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            var data1 = /*[[${feedbackCountPwChange}]]*/ 'default';
-            var data2 = /*[[${feedbackCountPwProperties}]]*/ 'default';
-            var data4 = /*[[${feedbackCountBackup}]]*/ 'default';
-            var data5 = /*[[${feedbackCountIncidentResponse}]]*/ 'default';
-            /*]]>*/
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var data1 = /*[[${feedbackCountPwChange}]]*/ 'default';
+        var data2 = /*[[${feedbackCountPwProperties}]]*/ 'default';
+        var data4 = /*[[${feedbackCountBackup}]]*/ 'default';
+        var data5 = /*[[${feedbackCountIncidentResponse}]]*/ 'default';
+        /*]]>*/
 
-            var labels = ["Good", "Neutral", "Bad"];
-            var colors = ["#82FA58", "#F4FA58", "#FE2E2E"]
+        var labels = ["Good", "Neutral", "Bad"];
+        var colors = ["#82FA58", "#F4FA58", "#FE2E2E"]
 
-            new Chart("chart1", {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        backgroundColor: colors,
-                        data: data1
-                    }]
-                },
-                options: {
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: "Feedback zu Password Change Policy:"
-                        }
+        new Chart("chart1", {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    backgroundColor: colors,
+                    data: data1
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Feedback zu Password Change Policy:"
                     }
                 }
-            });
-            new Chart("chart2", {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        backgroundColor: colors,
-                        data: data2
-                    }]
-                },
-                options: {
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: "Feedback zu Password Property Policy:"
-                        }
+            }
+        });
+        new Chart("chart2", {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    backgroundColor: colors,
+                    data: data2
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Feedback zu Password Property Policy:"
                     }
                 }
-            });
+            }
+        });
 
-            new Chart("chart4", {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        backgroundColor: colors,
-                        data: data4
-                    }]
-                },
-                options: {
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: "Feedback zu Backup:"
-                        }
+        new Chart("chart4", {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    backgroundColor: colors,
+                    data: data4
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Feedback zu Backup:"
                     }
                 }
-            });
-            new Chart("chart5", {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        backgroundColor: colors,
-                        data: data5
-                    }]
-                },
-                options: {
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: "Feedback zu Incident Response:"
-                        }
+            }
+        });
+        new Chart("chart5", {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    backgroundColor: colors,
+                    data: data5
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Feedback zu Incident Response:"
                     }
                 }
-            });
-        </script>
+            }
+        });
+    </script>
 </body>
-
 </html>
