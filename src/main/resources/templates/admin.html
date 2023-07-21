@@ -28,6 +28,7 @@
 
     <h1 align="center">User Feedback:</h1>
 
+    <!--Die Pie Charts werden hier im HTML Code eingebettet-->
     <div class="grid-container">
         <div class="chart1">
             <canvas id="chart1" style="max-height:200px;"></canvas>
@@ -49,6 +50,9 @@
         </div>
     </div>
 
+    <!--Mit Hilfe dieser Data Annotation können innerhalb des JavaScript Codes mit Unterstützung 
+        von Thymeleaf die dem model überreichten und verarbeiteten Feedback Daten aufgerufen und 
+        abgespeichert werden-->
     <script th:inline="javascript">
         /*<![CDATA[*/
         var data1 = /*[[${feedbackCountPwChange}]]*/ 'default';
@@ -57,9 +61,12 @@
         var data5 = /*[[${feedbackCountIncidentResponse}]]*/ 'default';
         /*]]>*/
 
+        /*Standard Festlegung der Diagramm Labels und Farben*/
         var labels = ["Good", "Neutral", "Bad"];
         var colors = ["#82FA58", "#F4FA58", "#FE2E2E"]
 
+        /*Generierung von mehreren JS Pie Charts mit Hilfe von chart.js. Hier erfolgt auch die 
+        jeweilige Übergabe der Datensätze.*/
         new Chart("chart1", {
             type: 'pie',
             data: {
@@ -135,4 +142,5 @@
         });
     </script>
 </body>
+
 </html>
