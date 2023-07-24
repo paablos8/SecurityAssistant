@@ -3,8 +3,6 @@ package com.example.SecurityAssistant.controller;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,7 +60,7 @@ public class submitController {
             String os = removeWhitespaces(infra.getOS());
 
             
-            // Mapping and adding the SME into the base ontology
+           // Mapping and adding the SME into the base ontology
             InitJena initJena = new InitJena();
             initJena.loadOntology();
    
@@ -81,7 +79,11 @@ public class submitController {
 	            	break;
 	            case "FullBackuponceperweekincrementalorfullBackupdailyStrategyisdefinedanddocumentedisimplementedforallprotectedsystems":
 	            	initJena.addPolicy("DataBackupPolicyA", "BackupPolicyOf" + companyName);
+	            	break;
+	            default:
+	            	System.out.println("No Backup Policy implemented");
             }
+            System.out.println("Backup Policy part finished");
             
             if (incidentResponse.equals("Wellspecified")) // auch betroffen von dem anderen Ontologie Prefix
             	initJena.addPolicy("SecurityIncidentPolicy", "SecurityIncidentPolicyOf" + companyName);
@@ -90,9 +92,17 @@ public class submitController {
             	initJena.addPolicy("InformationSecurityCompliancePolicy", "InformationSecurityCompliancePolicyOf" + companyName);
             
             if (infra.getFireEx().equals("Yes"))
-            	initJena.addAssetToBuilding("BuildingOf" + companyName, "FireExtinguisherOf" + companyName);
+            	initJena.addAssetToBuilding("BuildingOf" + companyName, "FireExtinguisherOf" + companyName, "FireExtinguisher");
             
+            if (infra.getSmokeDet().equals("Yes"))
+            	initJena.addAssetToBuilding("BuildingOf" + companyName, "SmokeDetectorOf" + companyName, "SmokeDetector");
             
+            if (infra.getCriticalInfra().equals("Yes"))
+            	initJena.addAssetToBuilding("BuildingOf" + companyName, "EntryCheckpointOf" + companyName, "EntryCheckpoint");
+            
+            if (infra.getAlarm().equals("Yes"))
+            	initJena.addAssetToBuilding("BuildingOf" + companyName, "AlarmSystemOf" + companyName, "AlarmSystem");
+            	
             switch (firewall) {
 	            case "complexFirewall":
 	            	initJena.addAsset("ComplexFirewall", "ComplexFirewallOf" + companyName);
@@ -102,19 +112,22 @@ public class submitController {
 	            	break;
 	            case "local Firewall":
 	            	initJena.addAsset("FirewallB", "LocalFirewallOf" + companyName);
+	            	break;
+	            default:
+	            	System.out.println("No Firewall implemented");
             } 
             
             if (infra.getFirewallPolicy().equals("Yes"))
             	initJena.addPolicy("FirewallPolicy", "FirewallPolicyOf" + companyName);
                         
-            //initJena.addAsset("OS", os);
+            initJena.addAsset("OS", os);
            
        
             String pathToSavedOntology = initJena.saveOntology(userName);
             System.out.println("The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
 
-          /**
-            // Reasoning
+          
+           // Reasoning
             ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
             
             reasoning.listImplementedControls();
@@ -124,7 +137,9 @@ public class submitController {
             System.out.println("These are the current lowered Threats: " + reasoning.getLoweredThreats());
             reasoning.listCurrentTopLevelThreats();
             reasoning.listCurrentLowLevelThreats();
-		**/
+            
+            reasoning.generateRecommendations();
+	
             
             // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
             // abgespeichert wird

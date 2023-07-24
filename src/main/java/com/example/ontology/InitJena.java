@@ -38,6 +38,8 @@ public class InitJena {
 	//The source of the ontology
 			static String SOURCE = "http://securityontology.sba-research.org/securityontology.owl";
 			static String NS = SOURCE + "#";
+			static String SOURCEIMPORTED = "http://securityontology.com/secontMueller.owl";
+			static String NSimported = SOURCEIMPORTED + "#";
 			static String filePath;
 			OntModel base;
 			OntDocumentManager dm;
@@ -52,7 +54,7 @@ public class InitJena {
 	public  void loadOntology () {
 
 			//the Fenz (2016) ontology is replicated locally on the disk which gets loaded when the normal URL gets called
-				filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.rdf";
+				filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security_shortened.rdf";
 			
 			//Create the base model - creates an OWL-FUll, in-memory Ontology Model
 				base = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
@@ -72,7 +74,7 @@ public class InitJena {
 			this.nameOfOrganization = nameOfOrganization;
 		
 			String organizationURI = NS + "Organization";
-			Individual industryIndividual = base.createIndividual(NS + industry, base.createClass(NS + "Industry"));	
+			Individual industryIndividual = base.createIndividual(NSimported + industry, base.createClass(NS + "Industry"));	
 			System.out.println("Industry Individual was created.");
 			organizationIndividual = base.createIndividual(NS + nameOfOrganization, base.createClass(organizationURI));
 			System.out.println("Organization Individual was created.");
@@ -80,7 +82,7 @@ public class InitJena {
 			System.out.println("Property has employees was retrieved.");
 			organizationIndividual.addLiteral(organizationHasNumberOfEmployees, numberOfEmployees);
 			System.out.println("Literal was added");
-			Property organization_isLocatedIn_Industry = base.getProperty(NS + "organization_isLocatedIn_Industry");
+			Property organization_isLocatedIn_Industry = base.getProperty(NSimported + "organization_isLocatedIn_Industry");
 			organizationIndividual.addProperty(organization_isLocatedIn_Industry, industryIndividual);
 		// Add the bundesland to the ontology and connect it to the organization
 			Individual bundeslandIndvidual = base.createIndividual(NS + bundesland, base.createClass(NS + "Location"));
@@ -96,7 +98,7 @@ public class InitJena {
 		System.out.println(pwChangeCompliant);
 		System.out.println(pwPropertiesCompliant);
 		if (pwChangeCompliant && pwPropertiesCompliant) {
-			Individual passwordPolicyIndividual = base.createIndividual(NS + "PasswordPolicyOf" + nameOfOrganization, base.createClass(NS + "PasswordPolicy"));
+			Individual passwordPolicyIndividual = base.createIndividual(NS + "PasswordPolicyOf" + nameOfOrganization, base.createClass(NSimported + "PasswordPolicy"));
 		// Add the Object Property
 			ObjectProperty organizationImplementsPolicy = base.getObjectProperty(NS + "organization_implements_Policy");
 			organizationIndividual.addProperty(organizationImplementsPolicy, passwordPolicyIndividual);
@@ -107,7 +109,17 @@ public class InitJena {
 
 
 	public void addPolicy (String typeOfPolicy, String implementedPolicy) {
-		Individual implementedPolicyIndividual = base.createIndividual(NS + implementedPolicy, base.createClass(NS + typeOfPolicy));
+		String currentNS; // Die if-else Schleife hat extreme Laufzeit Probleme
+		if((base.getIndividual(NS + typeOfPolicy)) == null) {
+			System.out.println("base.getIndividual(NS + typeOfPolicy: " + base.getIndividual(NS + typeOfPolicy));
+			currentNS = NSimported;
+			System.out.println("currentNS: " + currentNS);
+		} else {
+			System.out.println("base.getIndividual(NS + typeOfPolicy: " + base.getIndividual(NS + typeOfPolicy));
+			currentNS = NS;
+			System.out.println("currentNS: " + currentNS);
+		}
+		Individual implementedPolicyIndividual = base.createIndividual(NS + implementedPolicy, base.createClass(currentNS + typeOfPolicy));
 	// Add the Object Property
 		ObjectProperty organizationImplementsPolicy = base.getObjectProperty(NS + "organization_implements_Policy");
 		organizationIndividual.addProperty(organizationImplementsPolicy, implementedPolicyIndividual);
@@ -115,7 +127,17 @@ public class InitJena {
 	}
 	
 	public void addAsset (String typeOfAsset, String addedAsset) {
-		Individual addedAssetIndividual = base.createIndividual(NS + addedAsset, base.createClass(NS + typeOfAsset));
+		String currentNS; // Die if-else Schleife hat extreme Laufzeit Probleme
+		if((base.getIndividual(NS + typeOfAsset)) == null) {
+			System.out.println("base.getIndividual(NS + typeOfAsset: " + base.getIndividual(NS + typeOfAsset));
+			currentNS = NSimported;
+			System.out.println("currentNS: " + currentNS);
+		} else {
+			System.out.println("base.getIndividual(NS + typeOfAsset: " + base.getIndividual(NS + typeOfAsset));
+			currentNS = NS;
+			System.out.println("currentNS: " + currentNS);
+		}
+		Individual addedAssetIndividual = base.createIndividual(NS + addedAsset, base.createClass(currentNS + typeOfAsset));
 		ObjectProperty organizationOwnsAsset = base.getObjectProperty(NS + "organization_owns_Asset");
 		organizationIndividual.addProperty(organizationOwnsAsset, addedAssetIndividual);
 		System.out.println("Individual successfully created: " + addedAsset);
@@ -123,8 +145,26 @@ public class InitJena {
 	}
 	
 	
-	public void addAssetToBuilding (String building, String implementedAsset) {
-		// Individual buildingIndividual = base.createIndividual(organizationIndividual)
+	public void addAssetToBuilding (String building, String implementedAsset, String typeOfAsset) {
+		
+		
+		Individual buildingIndividual = base.createIndividual(NS + building, base.createClass(NS + "Building"));
+		ObjectProperty buildingHousesOrganization = base.getObjectProperty(NSimported + "building_houses_organization");
+		Individual sectionIndividual = base.createIndividual(NS + "SectionOne", base.createClass(NS + "Section"));
+		ObjectProperty sectionBelongsToBuilding = base.getObjectProperty(NSimported + "section_belongsTo_Building");
+		Individual assetIndividual = base.createIndividual(NS + implementedAsset, base.createClass(NS + typeOfAsset));
+		ObjectProperty assetLocatedInAsset = base.getObjectProperty(NS + "asset_locatedIn_Asset");
+		
+		if(typeOfAsset.equals("EntryCheckpoint")) {
+		assetIndividual.addProperty(assetLocatedInAsset, buildingIndividual);
+		buildingIndividual.addProperty(buildingHousesOrganization, organizationIndividual);
+		}
+		
+		else {
+		assetIndividual.addProperty(assetLocatedInAsset, sectionIndividual);
+		sectionIndividual.addProperty(sectionBelongsToBuilding, buildingIndividual);
+		buildingIndividual.addProperty(buildingHousesOrganization, organizationIndividual);
+		}
 	}
 
 
@@ -146,14 +186,6 @@ public class InitJena {
 			String antiVirusSoftwareURI = NS + "TransactionSecurityAndVirusProtectionSoftware";
 			Individual antiVirusSoftwareIndividual = base.createIndividual(NS + antiVirusSoftware, base.createClass(antiVirusSoftwareURI));
 			System.out.println("Individual successfully created: " + antiVirusSoftware);
-
-		// Do some inference stuff
-			/**
-			Resource computerResource = infModel.getResource(NS + computer);
-			System.out.println("This is all we know about: " + computer);
-			printStatements(infModel, computerResource, null, null);
-			**/
-
 
 
 		// Object Properties:
