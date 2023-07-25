@@ -93,18 +93,19 @@
 
     <div th:replace="~{fragments/header :: header}"></div>
 
-    <p>Infrastructure Submitted. Recommendation page successfully loaded.</p>
-
 
     <div class="container">
+    <ul>
+        <li th:each="recommendation : ${recommendations}" th:text="${recommendation}"></li>
+    </ul>
         <div class="chart1" >
             <canvas id="chart1" style="max-height:200px;"></canvas>
-            <p th:text="'Ein Anteil von ' + ${OSCount[0]} + '% haben ein macOS Betriebssystem'">Anzahl an PCs:</p>
+            <p th:text="'Ein Anteil von ' + ${OSCount[0]} + '% haben ein macOS Betriebssystem'">Betriebssystem:</p>
         </div>
         <div class="chart2">
             <canvas id="chart2" style="max-height:200px;"></canvas>
         <div class="help-tip">
-            <p th:text="'Ein Anteil von ' + ${policyDocCount[0]} + '% haben ein Policy Document'">Anzahl an PCs:</p>
+            <p th:text="'Ein Anteil von ' + ${policyDocCount[0]} + '% haben ein Policy Document'">Policy Document:</p>
         </div>
     </div>
 

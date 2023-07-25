@@ -1,9 +1,9 @@
-package com.example.SecurityAssistant.controller;
+package com.example.SecurityAssistant.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,21 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
 
-@Controller
-public class statisticsController {
-
-    public String[] questions = { "pwChange", "pwProperties", "trainings", "backup", "incidentResponse",
-            "policyDoc", "storage", "fireEx", "smokeDet", "criticalInfra", "alarm",
-            "firewall", "externalProvider", "PCAnzahl", "printer", "OS"};
+@Service
+public class statisticalService {
 
     // Count Variables
     int count1, count2, count3;
 
-    @Autowired
-    private InfrastructureRepository repo;
-
-    @GetMapping("/recommendation")
-    public String showStatisticalInfo(Model model) {
+    public void showStatisticalInfo(Model model, InfrastructureRepository repo) {
         List<SecurityInfrastructure> userData = repo.findAll();
         double[] OSCount = getOSCount(model, userData);
         double[] policyDocCount = getpolicyDocCount(model, userData);
@@ -33,7 +25,6 @@ public class statisticsController {
         model.addAttribute("OSCount", OSCount);
         model.addAttribute("policyDocCount", policyDocCount);
         model.addAttribute("trainingsCount", trainingsCount);
-        return "recommendation";
     }
 
     public double[] getOSCount(Model model, List<SecurityInfrastructure> userDataList) {
@@ -50,7 +41,7 @@ public class statisticsController {
         return calculatePercentage(new double[] { count1, count2, count3 });
     }
 
-    // Liest Anzahl an Firmen aus, die einen Incident Reponse Plan definiert haben
+    // Liest Anzahl an Firmen aus, die einen Incident Response Plan definiert haben
     public double[] getpolicyDocCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // zurücksetzen der Zählervariablen
         for (SecurityInfrastructure item : userDataList) {
@@ -60,10 +51,11 @@ public class statisticsController {
                 count2 = count2 + 1;
             }
         }
-        return calculatePercentage(new double[]{count1, count2});
+        return calculatePercentage(new double[] { count1, count2 });
     }
 
-    //Liest Anzahl an Firmen aus, die Trainings als Maßnahme im Unternehmen anbieten
+    // Liest Anzahl an Firmen aus, die Trainings als Maßnahme im Unternehmen
+    // anbieten
     public double[] getTrainingsCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // zurücksetzen der Zählervariablen
         for (SecurityInfrastructure item : userDataList) {
@@ -88,5 +80,5 @@ public class statisticsController {
         return data;
 
     }
-
+    
 }

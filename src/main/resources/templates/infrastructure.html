@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="./feedbackButton.css" type="text/css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: none;
+        }
+
+        .loading-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
         .help-tip {
             text-align: center;
             position: relative;
@@ -145,7 +162,7 @@
 
     <p>Bitte tragen Sie hier detaillierte Informationen zu Ihrer IT Sicherheitsinfrastruktur ein!</p>
 
-    <form action="/inputSuccess" method="post">
+    <form id="feedbackform" action="/recommendation" method="post">
         <div class="personalData">
             <label for="userName">Username:</label>
             <input type="text" id="userName" name="userName" placeholder="Username" required><br><br>
@@ -266,7 +283,7 @@
         </div>
 
         <div class="frage5">
-            <label for="incidentResponse">Gibt es bei Ihnen in der Firma einen Incident Response Plan? 
+            <label for="incidentResponse">Gibt es bei Ihnen in der Firma einen Incident Response Plan?
                 <div class="help-tip">
                     <p>1. Are there procedures defined to handle different types of incidents: information system
                         failures or loss
@@ -278,16 +295,20 @@
                         implementation of corrective steps, communication with involved/affected individuals, and
                         reporting to
                         appropriate authority?</p>
-                </div></label>
+                </div>
+            </label>
             <select id="incidentResponse" name="incidentResponse">
                 <option value="Well specified">Ja, der ist gut spezifiziert</option>
                 <option value="There is a rough plan">Ja, wir haben einen groben Plan</option>
                 <option value="There is no plan">Wir haben keine Plan festgelegt</option>
             </select>
             <div class="feedback5">
-                <span class="feedback-button" title="Good" onclick="submitFeedback('good', 'incidentResponseFeedback')">&#128522;</span>
-                <span class="feedback-button" title="Neutral" onclick="submitFeedback('neutral', 'incidentResponseFeedback')">&#128528;</span>
-                <span class="feedback-button" title="Bad" onclick="submitFeedback('bad', 'incidentResponseFeedback')">&#128542;</span>
+                <span class="feedback-button" title="Good"
+                    onclick="submitFeedback('good', 'incidentResponseFeedback')">&#128522;</span>
+                <span class="feedback-button" title="Neutral"
+                    onclick="submitFeedback('neutral', 'incidentResponseFeedback')">&#128528;</span>
+                <span class="feedback-button" title="Bad"
+                    onclick="submitFeedback('bad', 'incidentResponseFeedback')">&#128542;</span>
             </div><br>
         </div>
 
