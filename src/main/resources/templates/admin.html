@@ -14,12 +14,15 @@
             justify-items: center;
         }
 
-        .chart1,
-        .chart2,
-        .chart4,
-        .chart5 {
+        .chart-container {
             width: 100%;
         }
+
+        /* Bei Bedarf roter Hintergrund */
+        .chart-container.red-background {
+            background-color: #FFCCCC;
+        }
+        
     </style>
 </head>
 
@@ -30,16 +33,20 @@
 
     <!--Die Pie Charts werden hier im HTML Code eingebettet-->
     <div class="grid-container">
-        <div class="chart1">
+        <div class="chart-container"
+            th:classappend="${feedbackCountPwChange[0] < feedbackCountPwChange[2]} ? 'red-background'">
             <canvas id="chart1" style="max-height:200px;"></canvas>
         </div>
-        <div class="chart2">
+        <div class="chart-container"
+            th:classappend="${feedbackCountPwProperties[0] < feedbackCountPwProperties[2]} ? 'red-background'">
             <canvas id="chart2" style="max-height:200px;"></canvas>
         </div>
-        <div class="chart4">
+        <div class="chart-container"
+            th:classappend="${feedbackCountBackup[0] < feedbackCountBackup[2]} ? 'red-background'">
             <canvas id="chart4" style="max-height:200px;"></canvas>
         </div>
-        <div class="chart5">
+        <div class="chart-container"
+            th:classappend="${feedbackCountIncidentResponse[0] < feedbackCountIncidentResponse[2]} ? 'red-background'">
             <canvas id="chart5" style="max-height:200px;"></canvas>
         </div>
         <div>
@@ -65,8 +72,7 @@
         var labels = ["Good", "Neutral", "Bad"];
         var colors = ["#82FA58", "#F4FA58", "#FE2E2E"]
 
-        /*Generierung von mehreren JS Pie Charts mit Hilfe von chart.js. Hier erfolgt auch die 
-        jeweilige Übergabe der Datensätze.*/
+        /*Generierung von mehreren JS Pie Charts mit Hilfe von chart.js. Hier erfolgt auch die jeweilige Übergabe der Datensätze unter Datasets*/
         new Chart("chart1", {
             type: 'pie',
             data: {

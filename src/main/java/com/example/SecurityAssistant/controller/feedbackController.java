@@ -19,6 +19,13 @@ public class feedbackController {
     @Autowired
     private FeedbackRepository repo;
 
+    // Diese Methode leer die Datenbank mit den User Feedbacks
+    @PostMapping("/resetUserFeedback")
+    public String resetUserFeedback() {
+        repo.deleteAll();
+        return "admin";
+    }
+
     // Diese Methode speichert das abgegebene Feedback aus der Input Form beim
     // betätigen der Emojis in unserer Datenbank ab
     @PostMapping("/feedback")

@@ -112,9 +112,10 @@
         /*<![CDATA[*/
         var dataOS = /*[[${OSCount}]]*/ 'default';
         var dataPolicyDoc = /*[[${policyDocCount}]]*/ 'default'; 
+        var dataTrainings = /*[[${trainingsCount}]]*/ 'default'; 
         /*]]>*/
 
-        var labels = ["macOS", "windows", "linux"];
+        var labelsOS = ["macOS", "windows", "linux"];
         var labelsYesNo = ["Yes", "No"];
         var colors = ["#82FA58", "#F4FA58", "#FE2E2E"]
         var colorsYesNo = ["#82FA58", "#FE2E2E"]
@@ -122,7 +123,7 @@
         new Chart("chart1", {
                 type: 'pie',
                 data: {
-                    labels: labels,
+                    labels: labelsOS,
                     datasets: [{
                         backgroundColor: colors,
                         data: dataOS
