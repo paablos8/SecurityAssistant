@@ -32,7 +32,7 @@ public class submitController {
     public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model) {
         if (!checkUsername(model, infra.getUserName())) {
             String userName = infra.getUserName();
-            String companyName = infra.getCompanyName();
+            String companyName = removeWhitespaces(infra.getCompanyName());
             model.addAttribute("userName", infra.getUserName());
             model.addAttribute("companyName", infra.getCompanyName());
             model.addAttribute("employeeNR", infra.getEmployeeNR());
@@ -42,7 +42,9 @@ public class submitController {
             model.addAttribute("pwProperties", infra.getPwProperties());
             model.addAttribute("trainings", infra.getTrainings());
             model.addAttribute("backup", infra.getBackup());
+            String backup = removeWhitespaces(infra.getBackup());
             model.addAttribute("incidentResponse", infra.getIncidentResponse());
+            String incidentResponse = removeWhitespaces(infra.getIncidentResponse());
             model.addAttribute("policyDoc", infra.getPolicyDoc());
             model.addAttribute("storage", infra.getStorage());
             model.addAttribute("fireEx", infra.getFireEx());
@@ -50,33 +52,95 @@ public class submitController {
             model.addAttribute("criticalInfra", infra.getCriticalInfra());
             model.addAttribute("alarm", infra.getAlarm());
             model.addAttribute("firewall", infra.getFirewall());
+            String firewall = removeWhitespaces(infra.getFirewall());
             model.addAttribute("externalProvider", infra.getExternalProvider());
             model.addAttribute("PCAnzahl", infra.getPCAnzahl());
             model.addAttribute("printer", infra.getPrinter());
             model.addAttribute("OS", infra.getOS());
+            String os = removeWhitespaces(infra.getOS());
 
-            /*
-             * // Mapping and adding the SME into the base ontology
-             * InitJena initJena = new InitJena();
-             * initJena.loadOntology();
-             * initJena.addOrganization(userName, companyName);
-             * // initJena.addComputer("ComputerTim_1", "Windows10_Tim",
-             * // "Tims_Antivirus_Software");
-             * initJena.addPolicy("PrivateSoftwareAndHardwareUsePolicy",
-             * "Tims_PrivateSoftwareAndHardwareUsePolicy");
-             * String pathToSavedOntology = initJena.saveOntology(
-             * userName);
-             * System.out.println(
-             * "The ontology for " + companyName + " was successfully and stored under: " +
-             * pathToSavedOntology);
-             * 
-             * // Reasoning
-             * ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(),
-             * companyName);
-             * 
-             * reasoning.listImplementedControls();
-             */
+            
+           // Mapping and adding the SME into the base ontology
+            InitJena initJena = new InitJena();
+            initJena.loadOntology();
+   
+            initJena.addOrganization(userName, removeWhitespaces(companyName), infra.getEmployeeNR(), removeWhitespaces(infra.getBranche()), removeWhitespaces(infra.getRegion()));
+            initJena.addPasswordPolicy(removeWhitespaces(infra.getPwChange()), removeWhitespaces(infra.getPwProperties()));
+            //initJena.addComputer("ComputerTim_1", "Windows10_Tim","Tims_Antivirus_Software");
+            if(infra.getTrainings().equals("Yes"))
+            	initJena.addPolicy("SecurityTrainingPolicy", "SecurityTrainingPolicyOf" + companyName);
+            
+            switch (backup) {
+	            case "NodefinedBackupstrategysporadicalbackups":
+	            	initJena.addPolicy("DataBackupPolicyC", "BackupPolicyOf" + companyName);
+	            	break;
+	            case "FullBackuponceperweekincrementalorfullBackupdailyStrategyisdefinedanddocumentedisimplementedforthemostimportantprotectedsystems":
+	            	initJena.addPolicy("DataBackupPolicyB", "BackupPolicyOf" + companyName);
+	            	break;
+	            case "FullBackuponceperweekincrementalorfullBackupdailyStrategyisdefinedanddocumentedisimplementedforallprotectedsystems":
+	            	initJena.addPolicy("DataBackupPolicyA", "BackupPolicyOf" + companyName);
+	            	break;
+	            default:
+	            	System.out.println("No Backup Policy implemented");
+            }
+            System.out.println("Backup Policy part finished");
+            
+            if (incidentResponse.equals("Wellspecified")) // auch betroffen von dem anderen Ontologie Prefix
+            	initJena.addPolicy("SecurityIncidentPolicy", "SecurityIncidentPolicyOf" + companyName);
+            
+            if (infra.getPolicyDoc().equals("Yes"))
+            	initJena.addPolicy("InformationSecurityCompliancePolicy", "InformationSecurityCompliancePolicyOf" + companyName);
+            
+            if (infra.getFireEx().equals("Yes"))
+            	initJena.addAssetToBuilding("BuildingOf" + companyName, "FireExtinguisherOf" + companyName, "FireExtinguisher");
+            
+            if (infra.getSmokeDet().equals("Yes"))
+            	initJena.addAssetToBuilding("BuildingOf" + companyName, "SmokeDetectorOf" + companyName, "SmokeDetector");
+            
+            if (infra.getCriticalInfra().equals("Yes"))
+            	initJena.addAssetToBuilding("BuildingOf" + companyName, "EntryCheckpointOf" + companyName, "EntryCheckpoint");
+            
+            if (infra.getAlarm().equals("Yes"))
+            	initJena.addAssetToBuilding("BuildingOf" + companyName, "AlarmSystemOf" + companyName, "AlarmSystem");
+            	
+            switch (firewall) {
+	            case "complexFirewall":
+	            	initJena.addAsset("ComplexFirewall", "ComplexFirewallOf" + companyName);
+	            	break;
+	            case "multifunctionalFirewall":
+	            	initJena.addAsset("MultifunctionalFirewall", "MultifunctionalFirewallOf" + companyName);
+	            	break;
+	            case "local Firewall":
+	            	initJena.addAsset("FirewallB", "LocalFirewallOf" + companyName);
+	            	break;
+	            default:
+	            	System.out.println("No Firewall implemented");
+            } 
+            
+            if (infra.getFirewallPolicy().equals("Yes"))
+            	initJena.addPolicy("FirewallPolicy", "FirewallPolicyOf" + companyName);
+                        
+            initJena.addAsset("OS", os);
+           
+       
+            String pathToSavedOntology = initJena.saveOntology(userName);
+            System.out.println("The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
 
+          
+           // Reasoning
+            ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
+            
+            reasoning.listImplementedControls();
+            reasoning.listNotImplementedControls();
+            System.out.println("These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
+            reasoning.listCurrentVulnerabilities();
+            System.out.println("These are the current lowered Threats: " + reasoning.getLoweredThreats());
+            reasoning.listCurrentTopLevelThreats();
+            reasoning.listCurrentLowLevelThreats();
+            
+            reasoning.generateRecommendations();
+	
+            
             // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
             // abgespeichert wird
             infra.setCompanyName(pseudonymizeString(infra.getCompanyName()));
@@ -125,6 +189,16 @@ public class submitController {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    
+    
+ // Get rid of all the whitespaces in the Strings of the inputs
+    public String removeWhitespaces (String input) {
+    	String sanitizedInput = input.replaceAll("\\s+", "");
+    	String sanitizedInput2 = sanitizedInput.replaceAll(";", "");
+    	String fullySanitizedInput = sanitizedInput2.replaceAll(",", "");
+    	return fullySanitizedInput;
     }
 
 }
