@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
+import com.example.SecurityAssistant.service.statisticalService;
 import com.example.ontology.InitJena;
 import com.example.ontology.ReasoningJena;
 
@@ -23,40 +24,19 @@ public class submitController {
     @Autowired
     private InfrastructureRepository repo;
 
-    @GetMapping("/inputSuccess")
+    @GetMapping("/recommendation")
     public String submitForm() {
-        return "inputSuccess";
+        return "recommendation";
     }
 
-    @PostMapping("/inputSuccess")
+    @PostMapping("/recommendation")
     public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model) {
         if (!checkUsername(model, infra.getUserName())) {
             String userName = infra.getUserName();
             String companyName = removeWhitespaces(infra.getCompanyName());
-            model.addAttribute("userName", infra.getUserName());
-            model.addAttribute("companyName", infra.getCompanyName());
-            model.addAttribute("employeeNR", infra.getEmployeeNR());
-            model.addAttribute("branche", infra.getBranche());
-            model.addAttribute("region", infra.getRegion());
-            model.addAttribute("pwChange", infra.getPwChange());
-            model.addAttribute("pwProperties", infra.getPwProperties());
-            model.addAttribute("trainings", infra.getTrainings());
-            model.addAttribute("backup", infra.getBackup());
             String backup = removeWhitespaces(infra.getBackup());
-            model.addAttribute("incidentResponse", infra.getIncidentResponse());
             String incidentResponse = removeWhitespaces(infra.getIncidentResponse());
-            model.addAttribute("policyDoc", infra.getPolicyDoc());
-            model.addAttribute("storage", infra.getStorage());
-            model.addAttribute("fireEx", infra.getFireEx());
-            model.addAttribute("smokeDet", infra.getSmokeDet());
-            model.addAttribute("criticalInfra", infra.getCriticalInfra());
-            model.addAttribute("alarm", infra.getAlarm());
-            model.addAttribute("firewall", infra.getFirewall());
             String firewall = removeWhitespaces(infra.getFirewall());
-            model.addAttribute("externalProvider", infra.getExternalProvider());
-            model.addAttribute("PCAnzahl", infra.getPCAnzahl());
-            model.addAttribute("printer", infra.getPrinter());
-            model.addAttribute("OS", infra.getOS());
             String os = removeWhitespaces(infra.getOS());
 
             
@@ -138,15 +118,21 @@ public class submitController {
             reasoning.listCurrentTopLevelThreats();
             reasoning.listCurrentLowLevelThreats();
             
-            reasoning.generateRecommendations();
-	
+            List <String> recommendations = reasoning.generateRecommendations();
+            model.addAttribute("recommendations",recommendations);
+	 
             
             // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
             // abgespeichert wird
             infra.setCompanyName(pseudonymizeString(infra.getCompanyName()));
             // Speicherung des Form Inputs in der MySQL Datenbank
             repo.save(infra);
-            return "inputSuccess";
+
+            //Load statistical Data from the StatisticalService class
+            statisticalService statistics = new statisticalService();
+            statistics.showStatisticalInfo(model, repo);
+
+            return "recommendation";
         } else {
             model.addAttribute("errorMessage", "Der Username ist bereits vergeben. Bitte wähle einen anderen.");
             return "infrastructure";
