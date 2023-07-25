@@ -48,6 +48,13 @@
             background-color: rgb(100, 103, 100);
             color: #fff;
         }
+        .error-message {
+            background-color: #f44336;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -60,6 +67,9 @@
         <input type="text" id="userName" name="userName" placeholder="username" required>
         <button type="submit">Meine Daten löschen</button>
     </form>
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
 </body>
 
 </html>

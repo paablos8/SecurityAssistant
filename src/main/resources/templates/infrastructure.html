@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Infrastructure Input</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link th:href="@{styles/main.css}" rel="stylesheet" />
     <link rel="stylesheet" href="./feedbackButton.css" type="text/css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
@@ -44,7 +43,7 @@
             box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
             right: -4px;
             color: #FFF;
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.4;
             z-index: 9999;
         }
@@ -91,10 +90,6 @@
 
         .userInput {
             text-align: center;
-        }
-
-        .userInput p {
-            font-size: 18px;
         }
 
         .userInput form {
@@ -271,8 +266,8 @@
         </div>
 
         <div class="frage5">
-            <label for="incidentResponse">Gibt es bei Ihnen in der Firma einen Incident Response Plan? <div
-                    class="help-tip">
+            <label for="incidentResponse">Gibt es bei Ihnen in der Firma einen Incident Response Plan? 
+                <div class="help-tip">
                     <p>1. Are there procedures defined to handle different types of incidents: information system
                         failures or loss
                         of service, malicious code, denial of service, errors due to incomplete/inaccurate business

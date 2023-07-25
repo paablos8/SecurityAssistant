@@ -14,7 +14,6 @@ import com.example.SecurityAssistant.repository.InfrastructureRepository;
 @Controller
 public class deleteDataController {
 
-
     @Autowired
     private InfrastructureRepository repo;
 
@@ -24,10 +23,15 @@ public class deleteDataController {
     // associated userName
     @PostMapping("/deleteSuccess")
     public String deleteData(Model model, @RequestParam("userName") String username) {
-        userID = getUserID(model, username);
-        model.addAttribute("username", username);
-        repo.deleteById(userID);
-        return "deleteSuccess";
+        if (checkUsername(model, username)) {
+            userID = getUserID(model, username);
+            model.addAttribute("username", username);
+            repo.deleteById(userID);
+            return "deleteSuccess";
+        } else {
+            model.addAttribute("errorMessage", "Der Username ist nicht vergeben!");
+            return "delete";
+        }
     }
 
     // Here the user ID of the user to be deleted is determined and returned to the
@@ -49,5 +53,20 @@ public class deleteDataController {
         }
         return userID;
     }
-    }
 
+    // Methode soll die Datenbank abgleichen, ob der Username bereits vergeben ist
+    public boolean checkUsername(Model model, String username) {
+        List<SecurityInfrastructure> dataList = repo.findAll();
+
+        // Username out of the Input field is compared to the userNames stored in the
+        // database
+        for (SecurityInfrastructure item : dataList) {
+            if (item.getUserName().equals(username)) {
+                System.out.println("Der Username ist bereits vorhanden");
+                return true;
+            }
+        }
+        System.out.println("Der Username ist nicht vorhanden");
+        return false;
+    }
+}

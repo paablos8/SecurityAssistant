@@ -6,30 +6,89 @@
     <title>Spring MVC</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link th:href="@{styles/main.css}" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
 
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .hint {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .hint p {
+            margin-bottom: 10px;
+        }
+
+        .hint ul {
+            margin-left: 20px;
+        }
+
+        .hint li {
+            margin-bottom: 5px;
+        }
+
+        .welcomeButton {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .welcomeButton:hover {
+            background-color: #0056b3;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
 
-</html>
+    <div class="container">
+        <h1>Herzlich Willkommen in Ihrem IT Sicherheits Assistenten.</h1>
 
-<h1>Herzlich Willkommen in Ihrem IT Sicherheits Assistenten. </h1>
+        <div class="hint">
+            <p>Bevor Sie sich eine personalisierte Empfehlung zur Verbesserung Ihrer IT-Sicherheit generieren lassen,
+                beachten
+                Sie folgende Hinweise:</p>
+            <ul>
+                <li>Ihre Eingabedaten werden unter einem anonymisierten Firmennamen abgespeichert. Merken Sie sich Ihren
+                    Usernamen. Diesen benötigen Sie, um Ihre Eingaben zu überarbeiten oder um die Löschung
+                    Ihrer Daten aus der Datenbank zu veranlassen.</li>
+                <li>Zudem können Sie mit Hilfe der bereitgestellten Emojis unter den jeweiligen Fragen Feedback zur
+                    Verständlichkeit geben und somit zur Verbesserung des Assistenten beitragen.</li>
+            </ul>
+        </div>
 
-</div>
-<div class="hint">
-    <p>Bevor Sie sich eine personalisierte Empfehlung zur Verbesserung Ihrer IT-Sicherheit generieren lassen, beachten
-        Sie folgende Hinweise:</p>
-    <ul>
-        <li>Ihre Eingabedaten werden unter einem anonymisierten Firmennamen abgespeichert. Merken Sie sich Ihren
-            Usernamen. Diesen benötigen Sie, um Ihre Eingaben zu überarbeiten oder um die Löschung
-            Ihrer Daten aus der Datenbank zu veranlassen.</li>
-        <li>Zudem können Sie mit Hilfe der bereitgestellten Emojis unter den jeweiligen Fragen Feedback zur
-            Verständlichkeit geben und somit zur Verbesserung des Assistenten beitragen.</li>
-    </ul>
-</div>
-
-<a class="nav-link" th:href="@{/infrastructure}">Hier gehts zur Eingabe Ihrer Infrastruktur</a>
+        <a class="welcomeButton" th:href="@{/infrastructure}">Hier geht's zur Eingabe Ihrer Infrastruktur</a>
+    </div>
 
 </body>
 

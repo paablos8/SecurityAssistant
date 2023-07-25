@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Infrastructure Input</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link th:href="@{styles/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="./feedbackButton.css" type="text/css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        .help-tip {
+            text-align: center;
+            position: relative;
+            background-color: #BCDBEA;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 14px;
+            line-height: 26px;
+            z-index: 9999;
+        }
+
+        .help-tip:before {
+            content: '?';
+            font-weight: bold;
+            color: white;
+        }
+
+        .help-tip:hover p {
+            display: block;
+            transform-origin: 100% 0%;
+            -webkit-animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .help-tip p {
+            display: none;
+            text-align: left;
+            background-color: #1E2021;
+            padding: 20px;
+            width: 300px;
+            border-radius: 3px;
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+            right: -4px;
+            color: #FFF;
+            font-size: 13px;
+            line-height: 1.4;
+            z-index: 9999;
+        }
+
+        .help-tip p:before {
+            content: '';
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            border-bottom-color: #1E2021;
+            right: 10px;
+            top: -12px;
+        }
+
+        .help-tip p:after {
+            width: 100%;
+            height: 40px;
+            content: '';
+            top: -40px;
+            left: 0;
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.6);
+            }
+
+            100% {
+                opacity: 100%;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 100%;
+            }
+        }
+
+        .userInput {
+            text-align: center;
+        }
+
+        .userInput p {
+            font-size: 18px;
+        }
+
+        .userInput form {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        .userInput label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .userInput input,
+        .userInput select,
+        .userInput textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        .feedback-button {
+            cursor: pointer;
+            display: inline-block;
+            padding: 10px;
+            background-color: #ccc;
+            transition: background-color 0.3s;
+        }
+
+        .feedback-button:hover {
+            background-color: rgb(100, 103, 100);
+            color: #fff;
+        }
+
+        .error-message {
+            background-color: #f44336;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body class="userInput">
+
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <p>Bitte tragen Sie hier detaillierte Informationen zu Ihrer IT Sicherheitsinfrastruktur ein!</p>
+
+    <form action="/inputSuccess" method="post">
+        <div class="personalData">
+            <label for="userName">Username:</label>
+            <input type="text" id="userName" name="userName" placeholder="Username" required><br><br>
+            <div th:if="${errorMessage}" class="error-message">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            <label for="companyName">Firmenname:</label>
+            <input type="text" id="companyName" name="companyName" placeholder="Firmenname" required><br><br>
+            <label for="employeeNR">Mitarbeiterzahl:</label>
+            <input type="number" id="employeeNR" name="employeeNR" min="1" placeholder="Mitarbeiterzahl"
+                required><br><br>
+            <label for="branche">Branche:</label>
+            <select id="branche" name="branche">
+                <option value="Crafts">Handwerk</option>
+                <option value="serviceProvider">Diensleister</option>
+            </select><br><br>
+            <label for="region">Bundesland:</label>
+            <select id="region" name="region">
+                <option value="Baden Wuerttemberg">Baden Wuerttemberg</option>
+                <option value="Bayern">Bayern</option>
+                <option value="Berlin">Berlin</option>
+                <option value="Brandenburg">Brandenburg</option>
+                <option value="Bremen">Bremen</option>
+                <option value="Hamburg">Hamburg</option>
+                <option value="Hessen">Hessen</option>
+                <option value="Mecklenburg Vorpommern">Mecklenburg Vorpommern</option>
+                <option value="Niedersachsen">Niedersachsen</option>
+                <option value="Nordrhein Westfalen">Nordrhein Westfalen</option>
+                <option value="Rheinland Pfalz">Rheinland Pfalz</option>
+                <option value="Saarland">Saarland</option>
+                <option value="Sachsen">Sachsen</option>
+                <option value="Sachsen Anhalt">Sachsen Anhalt</option>
+                <option value="Schleswig Holstein">Schleswig Holstein</option>
+                <option value="Thüringen">Thüringen</option>
+            </select><br><br>
+        </div>
+
+        <hr>
+        <p>Es folgen nun die technischen Fragen zur aktuellen Sicherheitsinfrastruktur:</p>
+        <br>
+
+        <div th:each="question, questionIndex : ${questions}" class="frage">
+            <label th:text="${question.question}"></label>
+            <select th:name="${'question_' + questionIndex}" id="${'question_' + questionIndex}">
+                <option th:each="answer : ${question.answers}" th:value="${answer}" th:text="${answer}"></option>
+            </select>
+            <br><br>
+        </div>
+    
+
+        <button type="submit">Bestätigen</button>
+    </form>
+</body>
+<script>
+    const questions = [
+            {
+                question: "Wie häufig müssen Mitarbeiter das Passwort ändern?",
+                answers: ["Nie", "Jeden Monat", "Mehrmals pro Jahr", "Nach mehreren Jahren"]
+            },
+            // Weitere Fragen und Antworten hinzufügen...
+        ];
+
+    function submitFeedback(value, question) {
+        swal("Thank you!", "Your feedback is submitted", "success");
+        const url = '/feedback'; // Die URL zum Spring Boot-Controller-Endpunkt
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ value: value, question: question }) // Die Daten, die du an den Controller senden möchtest
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Erfolgreiche Antwort erhalten
+                    console.log('POST-Anfrage erfolgreich gesendet');
+                } else {
+                    // Fehlerhafte Antwort erhalten
+                    console.error('Fehler beim Senden der POST-Anfrage');
+                }
+            })
+            .catch(error => {
+                // Ein Fehler ist aufgetreten
+                console.error('Fehler aufgetreten:', error);
+            });
+
+    }
+</script>
+
+</html>

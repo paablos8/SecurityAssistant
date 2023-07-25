@@ -1,4 +1,5 @@
 package com.example.SecurityAssistant.controller;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,47 +12,53 @@ import com.example.SecurityAssistant.repository.InfrastructureRepository;
 
 @Controller
 public class editDataController {
-    
+
     @Autowired
     private InfrastructureRepository repo;
 
     int userID;
     private String username;
 
-    // If Button "Edit my Data" is used this method displays the current userdata and enables the user to edit this data
+    // If Button "Edit my Data" is used this method displays the current userdata
+    // and enables the user to edit this data
     @PostMapping("/displayData")
     public String displayData(Model model, @RequestParam("userName") String username) {
-        userID = getUserID(model, username);
-        SecurityInfrastructure userData = repo.findById(userID).orElse(null);
-        this.username = username; 
-        model.addAttribute("userName", username);
-        model.addAttribute("companyName", userData.getCompanyName());
-        model.addAttribute("employeeNR", userData.getEmployeeNR());
-        model.addAttribute("branche", userData.getBranche());
-        model.addAttribute("region", userData.getRegion());
-        model.addAttribute("pwChange", userData.getPwChange());
-        model.addAttribute("pwProperties", userData.getPwProperties());
-        model.addAttribute("trainings", userData.getTrainings());
-        model.addAttribute("backup", userData.getBackup());
-        model.addAttribute("incidentResponse", userData.getIncidentResponse());
-        model.addAttribute("policyDoc", userData.getPolicyDoc());
-        model.addAttribute("storage", userData.getStorage());
-        model.addAttribute("fireEx", userData.getFireEx());
-        model.addAttribute("smokeDet", userData.getSmokeDet());
-        model.addAttribute("criticalInfra", userData.getCriticalInfra());
-        model.addAttribute("alarm", userData.getAlarm());
-        model.addAttribute("firewall", userData.getFirewall());
-        model.addAttribute("firewallPolicy", userData.getFirewallPolicy());
-        model.addAttribute("externalProvider", userData.getExternalProvider());
-        model.addAttribute("PCAnzahl", userData.getPCAnzahl());
-        model.addAttribute("printer", userData.getPrinter());
-        model.addAttribute("OS", userData.getOS());
-        return "displayData";
+        if (checkUsername(model, username)) {
+            userID = getUserID(model, username);
+            SecurityInfrastructure userData = repo.findById(userID).orElse(null);
+            this.username = username;
+            model.addAttribute("userName", username);
+            model.addAttribute("companyName", userData.getCompanyName());
+            model.addAttribute("employeeNR", userData.getEmployeeNR());
+            model.addAttribute("branche", userData.getBranche());
+            model.addAttribute("region", userData.getRegion());
+            model.addAttribute("pwChange", userData.getPwChange());
+            model.addAttribute("pwProperties", userData.getPwProperties());
+            model.addAttribute("trainings", userData.getTrainings());
+            model.addAttribute("backup", userData.getBackup());
+            model.addAttribute("incidentResponse", userData.getIncidentResponse());
+            model.addAttribute("policyDoc", userData.getPolicyDoc());
+            model.addAttribute("storage", userData.getStorage());
+            model.addAttribute("fireEx", userData.getFireEx());
+            model.addAttribute("smokeDet", userData.getSmokeDet());
+            model.addAttribute("criticalInfra", userData.getCriticalInfra());
+            model.addAttribute("alarm", userData.getAlarm());
+            model.addAttribute("firewall", userData.getFirewall());
+            model.addAttribute("firewallPolicy", userData.getFirewallPolicy());
+            model.addAttribute("externalProvider", userData.getExternalProvider());
+            model.addAttribute("PCAnzahl", userData.getPCAnzahl());
+            model.addAttribute("printer", userData.getPrinter());
+            model.addAttribute("OS", userData.getOS());
+            return "displayData";
+        } else {
+            model.addAttribute("errorMessage",
+                    "Der Username ist nicht vergeben. Bitte geben Sie Ihren Username ein oder erstellen Sie eine neue Empfehlung.");
+            return "edit";
+        }
     }
 
-    
     @PostMapping("/editSuccess")
-    public String editData(@ModelAttribute SecurityInfrastructure infra, Model model){
+    public String editData(@ModelAttribute SecurityInfrastructure infra, Model model) {
         infra.setId(userID);
         infra.setUserName(username);
 
@@ -104,6 +111,20 @@ public class editDataController {
         }
         return userID;
     }
-}
-    
 
+    // Methode soll die Datenbank abgleichen, ob der Username bereits vergeben ist
+    public boolean checkUsername(Model model, String username) {
+        List<SecurityInfrastructure> dataList = repo.findAll();
+
+        // Username out of the Input field is compared to the userNames stored in the
+        // database
+        for (SecurityInfrastructure item : dataList) {
+            if (item.getUserName().equals(username)) {
+                System.out.println("Der Username ist bereits vorhanden");
+                return true;
+            }
+        }
+        System.out.println("Der Username ist nicht vorhanden");
+        return false;
+    }
+}
