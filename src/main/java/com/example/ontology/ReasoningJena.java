@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,8 @@ import org.apache.jena.reasoner.ReasonerRegistry;
 import org.apache.jena.util.PrintUtil;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
+import com.example.SecurityAssistant.entities.Recommendation;
+
 public class ReasoningJena {
 	
 	OntModel base;
@@ -37,6 +40,9 @@ public class ReasoningJena {
 	Resource businessResource;
 	Resource buildingResource;
 	Resource sectionResource;
+	
+	Property controlMitigatesVulnerability; 
+    Property vulnerabilityExploitedByThreat;
 	
 	ArrayList<Resource> implementedControls = new ArrayList<Resource>();
 	ArrayList<String> implementedControlsString = new ArrayList<String>();
@@ -54,7 +60,8 @@ public class ReasoningJena {
 	ArrayList<String> loweredThreatsString = new ArrayList<String>();
 	ArrayList<Resource> controlsThatMitigateVulnerabilities = new ArrayList<Resource>();
 	ArrayList<Resource> recommendationsAsClass = new ArrayList<Resource>();
-	ArrayList<String> recommendations = new ArrayList<String>();
+	ArrayList<Recommendation> recommendations = new ArrayList<Recommendation>();
+
 
 
 	
@@ -100,8 +107,8 @@ public class ReasoningJena {
         ExtendedIterator<? extends OntResource> listInstancesIter = control.listInstances(false);
         System.out.println("The Instance Iterator was initalized.");
         
-        Property controlMitigatesVulnerability = base.getProperty(NS + "control_mitigates_Vulnerability");
-        Property vulnerabilityExploitedByThreat = base.getProperty(NS + "vulnerability_exploitedBy_Threat");
+        controlMitigatesVulnerability = base.getProperty(NS + "control_mitigates_Vulnerability");
+        vulnerabilityExploitedByThreat = base.getProperty(NS + "vulnerability_exploitedBy_Threat");
         
        
         while (listInstancesIter.hasNext()) {
@@ -271,7 +278,7 @@ public class ReasoningJena {
 	
 	
 	
-	public ArrayList<String> generateRecommendations () {
+	public ArrayList<Recommendation> generateRecommendations () {
 		
 		System.out.println("generateRecommendations() has started");
 		
@@ -298,7 +305,6 @@ public class ReasoningJena {
 				// Check if the control that would mitigate the vulnerability is already implemented by the business
 					if (controlThatMitigates.hasProperty(controlImplmented, businessResource) == false) {
 						controlsThatMitigateVulnerabilities.add(controlThatMitigates);
-						System.out.println("This control mitigates a Vulnerability: " + currentVulnerability.getLocalName());
 						
 						if (controlThatMitigates.hasProperty(correspondsToStandard)) {
 							StmtIterator listStandardsIter = base.listStatements(controlThatMitigates, correspondsToStandard, (RDFNode) null);
@@ -306,31 +312,55 @@ public class ReasoningJena {
 							while (listStandardsIter.hasNext()) {
 							Statement stmt_4 = listStandardsIter.next();
 							Resource standardControl = stmt_4.getObject().asResource();
-							//Individual standardControlIndividual = base.createIndividual(standardControl.getURI());
-							//if (standardControl.) // Only get the ISO 27002 controls
-							recommendationsAsClass.add(standardControl);
-							
-							Statement recommendationTitleStatement = standardControl.getProperty(annotationLabel);
-							String recommendationTitle = recommendationTitleStatement.getObject().toString().replace("@en", "");
-							
-							
-							if (standardControl.hasProperty(annotationInfo)) {
-								annotationInfoString = standardControl.getProperty(annotationInfo).getObject().toString();
+							String thisControlURI = standardControl.getURI();
+							Individual standardControlIndividual = base.getIndividual(thisControlURI);
+							boolean recAlreadyInList = false;
+							// Check if the recommendation was already issued
+							for (int j = 0; j < recommendationsAsClass.size(); j++) {
+								String recommendationMade = recommendationsAsClass.get(j).getURI();
+								if (recommendationMade.equals(thisControlURI)) {
+									recAlreadyInList = true;
+								}
 							}
-							else { annotationInfoString = "";
+							if (recAlreadyInList == false) {
+								recommendationsAsClass.add(standardControl);
+								
+								Statement recommendationTitleStatement = standardControl.getProperty(annotationLabel);
+								String recommendationTitle = recommendationTitleStatement.getObject().toString().replace("@en", "").replace("@de", "");
+								
+								
+								if (standardControl.hasProperty(annotationInfo)) {
+									annotationInfoString = standardControl.getProperty(annotationInfo).getObject().toString();
+								}
+								else { annotationInfoString = "";
+								}
+								
+								if (standardControl.hasProperty(annotationControl)) {
+									annotationControlString = standardControl.getProperty(annotationControl).getObject().toString();
+								}
+								else { annotationControlString = "";
+								}
+								
+								String otherInformation = annotationControlString + "\n" + annotationInfoString;
+								
+								
+								String originDocument = standardControlIndividual.getOntClass().getLocalName();
+								
+								
+								Recommendation recommendation = new Recommendation (recommendationTitle, otherInformation, originDocument);
+								
+								StmtIterator iter_5 = currentVulnerability.listProperties(vulnerabilityExploitedByThreat);
+								while (iter_5.hasNext()) {
+									Statement stmt_5 = iter_5.next();
+									Resource threatIfNotImplemented = stmt_5.getObject().asResource();
+									recommendation.addRiskIfNotImplemented(threatIfNotImplemented.getLocalName());
+								}
+								recommendations.add(recommendation);
+								System.out.println("A recommendation has been generated: " + recommendationTitle + ", it is based on the source " + originDocument);
+								System.out.println("This recommendation mitigates the vulnerability: " + currentVulnerability.getLocalName());
+								System.out.println("If the recommendation won't be implemented it gives rise to the treat: " + recommendation.getRiskIfNotImplemented());
 							}
-							
-							if (standardControl.hasProperty(annotationControl)) {
-								annotationControlString = standardControl.getProperty(annotationControl).getObject().toString();
 							}
-							else { annotationControlString = "";
-							}
-							//String recommendation = recommendationTitle + ": " + annotationControlString + " " + annotationInfoString;
-							String recommendation = recommendationTitle;
-							recommendations.add(recommendation);
-							System.out.println("A recommendation has been generated: " + recommendation);
-							System.out.println("This recommendation mitigates the vulnerability: " + currentVulnerability.getLocalName());
-							}							
 						}
 						}
 						
@@ -338,8 +368,12 @@ public class ReasoningJena {
 				}
 			}
 		System.out.println("These are your recommendations: ");
-		for (String item : recommendations) {
-            System.out.println("- " + item);
+		for (Recommendation item : recommendations) {
+            System.out.println("- " + item.getTitle());
+            System.out.println("More Info: " + item.getInformation());
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println("-------------------------------------------------------------------------------------------------- ");
         }
 		return recommendations;
 		}

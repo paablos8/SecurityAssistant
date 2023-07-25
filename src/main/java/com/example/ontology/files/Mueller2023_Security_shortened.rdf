@@ -18960,6 +18960,21 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <secontMueller:standardControl_relatedTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#InternetRegulationControl"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#SecurityTrainingControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#4_PersonnelMeasures"/>
+        <secontMueller:otherInformation>Um die IT-Sicherheit zu verbessern, sollten alle Mitarbeiterinnen und Mitarbeiter über angemessene Kenntnisse im Umgang mit IT-Systemen und den Gefahren und Gegenmaßnahmen in ihrem eigenen Arbeitsgebiet verfügen. Es liegt in der Verantwortung der Geschäftsführung, durch geeignete Schulungsmaßnahmen die nötigen Voraussetzungen zu schaffen. Darüber hinaus sollten alle Benutzerinnen und Benutzer dazu motiviert werden, sich auch in Eigeninitiative Kenntnisse anzueignen.
+
+Die überwiegende Zahl von Schäden im IT-Bereich entsteht durch Nachlässigkeit oder Bequemlichkeit. Das Aufzeigen der Abhängigkeit des Unternehmens von Informationen und vom reibungslosen Funktionieren der IT-Systeme ist ein geeigneter Einstieg in die Sensibilisierung der Mitarbeiterinnen und Mitarbeiter für Sicherheitsanliegen.
+Weitere mögliche Inhalte einer Benutzerschulung sind:
+- Der richtige Umgang mit Passwörtern
+-  Richtiges Verhalten beim Auftreten von Sicherheitsproblemen
+-  Der Umgang mit personenbezogenen Daten
+-  Wirkungsweise und Arten von Schadprogrammen
+-  Erkennen eines Befalls mit Schadprogrammen
+-  Sofortmaßnahmen im Verdachtsfall und Maßnahmen zur Entfernung von
+Schadprogrammen
+-  Das richtige Verhalten im Internet
+-  Das richtige Verhalten bei unzulässigen Anfragen
+-  Risiken bei der Verwendung mobiler IT-Geräte und Datenträger
+-  Die Bedeutung der Datensicherung und ihrer Durchführung</secontMueller:otherInformation>
         <rdfs:label xml:lang="en">4.4 Security Sensitization and Training</rdfs:label>
         <rdfs:label xml:lang="de">4.4 Sicherheitssensibilisierung und -schulung</rdfs:label>
     </owl:NamedIndividual>
@@ -18974,6 +18989,32 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#SecurityTrainingControl"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#SensitiveInformationControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#4_PersonnelMeasures"/>
+        <secontMueller:otherInformation>Als Social Engineering bezeichnet man das Manipulieren von Personen, um unbefugt Zugang zu vertraulichen Informationen oder IT-Systemen zu erhalten.
+
+Social Engineering-Angriffe werden meistens über das Telefon, gelegentlich aber auch über soziale Netzwerke oder durch persönliches Auftreten des „Social Engineers“ geführt: Angreifer geben sich als Mitarbeiter, Kunden oder IT-Fachkräfte aus und überzeugen ihre Gesprächspartner durch geschickte Täuschung von ihrer vorgetäuschten Identität. Bei geeigneter Gelegenheit – oft erst nach mehrmaligen Telefonaten – gelangen sie so an Informationen, die die Opfer üblicherweise nie herausgeben würden. Gute Social Engineers können unvorbereitete Mitarbeiterinnen
+und Mitarbeiter zu verschiedensten unerlaubten Handlungen, insbesondere zu Verstößen gegen Sicherheitsauflagen und -richtlinien bewegen.
+
+Social Engineering-Angriffe sind häufig erfolgreich, weil sie menschliche Eigenschaften und Schwächen gezielt ausnützen: Hilfsbereitschaft und Höflichkeit, Kundenfreundlichkeit, aber auch Autoritätshörigkeit und Angst. Einige Maßnahmen können aber helfen, das Risiko zu verringern:
+- Schulungen über Social Engineering-Strategien und -Methoden helfen den
+Mitarbeiterinnen und Mitarbeitern, sich auf Angriffe dieser Art vorzubereiten.
+- Alle Mitarbeiterinnen und Mitarbeiter müssen sich regelmäßig den Wert der von
+ihnen bearbeiteten Daten bewusstmachen, insbesondere hinsichtlich des Schadens,
+der entstehen kann, wenn sie in falsche Hände geraten.
+- Schriftliche Festlegungen, welche Informationen vertraulich behandelt werden
+müssen und welche auch an Unbekannte weitergegeben werden dürfen, können
+Benutzerinnen und Benutzern zur Orientierung dienen und dem Unternehmen außer-
+dem als Argumentationshilfe nach Sicherheitsvorfällen nützlich werden.
+- Festlegungen zur Anfragenform sind empfehlenswert: Das Anfordern einer Rückruf-
+nummer oder einer schriftlichen Anfrage kann den Social Engineer unter Umständen
+bereits abschrecken und gibt den betroffenen Mitarbeiterinnen und Mitarbeitern
+Gelegenheit zur Nachfrage. Auskünfte zu sensiblen Daten sollten generell nur bei
+persönlichem Erscheinen erteilt werden.
+- Besonders neuen Mitarbeiterinnen und Mitarbeitern sollte empfohlen werden, Anfra-
+gen, bei denen sie unsicher sind, ob deren Beantwortung zulässig ist, an Vorgesetzte
+oder andere erfahrene Personen weiterzuleiten.
+- Mitarbeiterkommunikation ist wichtig: Bei „verdächtigen“ Anfragen sollten auch
+die anderen Mitarbeiterinnen und Mitarbeiter informiert werden, um zu verhindern,
+dass ein abgewiesener Angreifer sein Glück bei anderen, zugänglicheren Kolleginnen und Kollegen versucht.</secontMueller:otherInformation>
         <rdfs:label xml:lang="de">4.5 Abwehr von Social Engineering-Angriffen</rdfs:label>
         <rdfs:label xml:lang="en">4.5 Social Engineering Defense</rdfs:label>
     </owl:NamedIndividual>
@@ -19043,6 +19084,18 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <secontMueller:standardControl_relatedTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#PasswordComplianceControl"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#PasswordRegulationControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#5_ComputerSecurityAndVirusProtection"/>
+        <secontMueller:otherInformation>Passwörter müssen ausreichend komplex sein, um nicht erraten werden zu können.
+Einige Grundregeln sollten dabei unbedingt beachtet werden:
+- Namen, Vornamen, Geburtsdaten, tel. Durchwahlen, KFZ-Kennzeichen etc. dürfen
+nicht verwendet werden. Sie sind leicht ausfindig zu machen und werden bei Versuchen, ein Passwort zu erraten, mit Sicherheit getestet.
+- Passwörter sollten nicht aus Begriffen bestehen, die in einem Wörterbuch (auch einer anderen Sprache) aufzufinden sein könnten. Programme, die zum Auffinden von
+Passwörtern verwendet werden, nützen Wortlisten mit mehreren tausend Begriffen, um Passwörter dieser Art innerhalb kürzester Zeit zu entschlüsseln. Auch Eigennamen, geografische Begriffe, etc. sollten möglichst vermieden werden.
+- Trivialpasswörter (aaaaaa, qwertz, asdf, 123456, 08/15, 4711, ...) dürfen nicht verwendet werden. Abgesehen davon, dass solche Passwörter in jeder Wortliste vorkommen, können sie durch Beobachten der Passworteingabe leicht erraten werden.
+- Das Passwort muss ausreichend lang sein. Für die Konten normaler Benutzerinnen und Benutzer muss es mindestens zehn Zeichen lang sein, für Benutzerkonten mit besonderen Rechten (Administrator, root, Dienstkonten etc.) sollte ein Passwort mit zumindest zwölf Zeichen gewählt werden.
+- Ein Passwort muss aus verschiedenen Arten von Zeichen zusammengesetzt sein. Großbuchstaben, Kleinbuchstaben, Ziffern und/oder Sonderzeichen (Satzzeichen, Währungssymbole etc.) müssen miteinander kombiniert werden, um ausreichende Sicherheit zu erhalten. Nur ein oder zwei Zeichenarten zu verwenden, reduziert die Sicherheit des Passworts erheblich!
+- Passwörter – insbesondere das Passwort bei der Anmeldung am Computer – dürfen nicht an andere Personen weitergegeben werden. Auch Kolleginnen und Kollegen oder Vorgesetzten dürfen Passwörter nur in absoluten Notfällen mitgeteilt werden; anschließend sollten sie sofort geändert werden.
+- Für verschiedene Anmeldungen müssen verschiedene Passwörter eingesetzt werden. Auf keinen Fall darf z.B. für die Anmeldung am PC und das E-Mail-Konto beim Internet-Provider das gleiche Passwort verwendet werden. Auch für verschiedene Cloud- und Webdienste (Dropbox, Facebook, E-Banking, ...) müssen unterschiedliche Passwörter gewählt werden. Bei geringem Sicherheitsbedarf kann es ausreichen, kleine Variationen einzufügen, z.B. einige Buchstaben zu ändern. 
+Passwörter sollten in regelmäßigen Abständen geändert werden (z.B. alle 90 Tage). Sie sollten aber auf jeden Fall immer dann geändert werden, wenn der Verdacht besteht, dass sie Unbefugten bekannt sind. Alle Mitarbeiterinnen und Mitarbeiter müssen wissen, auf welche Weise sie ihr Passwort ändern können.</secontMueller:otherInformation>
         <rdfs:label xml:lang="en">5.1 Auswahl von Passwörtern</rdfs:label>
         <rdfs:label xml:lang="en">5.1 Password Selection</rdfs:label>
     </owl:NamedIndividual>
@@ -19151,6 +19204,46 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <secontMueller:standardControl_relatedTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#PCAndInternetRegulationControl"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#SecurityTrainingControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#5_8_VirusProtection"/>
+        <secontMueller:otherInformation>Die Sensibilisierung der Anwenderinnen und Anwender für die Virenproblematik ist eine wichtige Komponente aller Virenschutzmaßnahmen. Daher sollte in Schulungen regelmäßig auf die Gefahr von Viren, die Möglichkeiten zu ihrer Erkennung und Vermeidung sowie das richtige Vorgehen im Falle eines (vermuteten) Virenbefalls hingewiesen werden. Auch die laufende Information der Betroffenen über aktuelle Bedrohungen ist empfehlenswert.
+Alle Benutzerinnen und Benutzer sollten folgende Verhaltensregeln beachten:
+- Auch bei E-Mails von vermeintlich bekannten bzw. vertrauenswürdigen Absendern
+muss geprüft werden, ob der Inhalt der Nachricht zum Absender passt und ob das
+Mail bzw. das Attachment auch erwartet wurde. Englischsprachige Mails von deutsch-
+sprachigen Partnern sind ein klares Alarmsignal, aber auch unerwartete Inhalte oder
+der fehlende Bezug zu aktuellen Vorgängen sollten Vorsichtsmaßnahmen auslösen.
+- Als Attachment gesendete Programme oder Skripts (d.h. Dateien mit den Endungen
+.com, .exe, .bat, .vbs etc.) dürfen nur ausgeführt werden, wenn sie von der Empfänge-
+rin oder dem Empfänger erwartet wurden und ihre Rechtmäßigkeit klar feststeht.
+Besondere Vorsicht ist bei doppelten, „merkwürdigen“ Dateinamen-Endungen
+(„.jpg.vbs“ oder „gif.exe“) geboten. Sie sollen Empfängern eine harmlose Datei vor­
+täuschen, sind aber ausführbare Schadprogramme.
+- Auch E-Mails im HTML-Format oder Office-Dokumente (.docx, .xlsx, .pptx etc.)
+sowie Bildschirmschoner (.scr) können Schadfunktionen enthalten. Sie dürfen eben-
+falls nur dann geöffnet werden, wenn sie von vertrauenswürdigen Absendern stammen
+oder die Datei erwartet wurde.
+- Mehrere E-Mails mit gleichem Betreff sind verdächtig, vor allem, wenn sie von
+verschiedenen Absendern stammen.
+Phishing-Mails, d.h. Mails, in denen zur Übermittlung von persönlichen Daten oder
+Passwörtern (z.B. PIN oder TAN) aufgefordert wird, dürfen auf keinen Fall beantwortet
+werden. Auch darin angegebene Webseiten dürfen nicht geöffnet werden. Bei Erhalt
+einer derartigen E-Mail müssen auch die anderen Mitarbeiterinnen und Mitarbeiter
+darauf hingewiesen werden, dass es sich dabei um einen Betrugsversuch handelt.
+- Internet-Links in E-Mails dürfen nur dann aufgerufen werden, wenn es sich um
+vertrauenswürdige Nachrichten handelt, und müssen mit großer Vorsicht behandelt
+werden: Beim Anklicken kann Schadsoftware wie z.B. ein Verschlüsselungstrojaner
+installiert oder eine Phishing-Website aufgerufen werden. Die im Link angezeigte
+Website täuscht oft über die tatsächlich aufgerufene URL hinweg.
+- Abgefangene Phishing- oder Virus-E-Mails können in entschärfter Form (d.h. ohne
+ausführbare Anhänge oder irreführende Links) zur Ansicht an die Mitarbeiterinnen
+und Mitarbeiter weitergeleitet werden. Damit wird ihr Problembewusstsein verbessert
+und sie erhalten die Gelegenheit, gefährliche E-Mails selbst erkennen zu lernen.
+- Spam-Mails, Werbemails und andere unaufgefordert erhaltene Zusendungen dürfen
+nicht beantwortet werden. Die Aufforderung an den Absender, weitere Zusendungen
+zu unterlassen, ist kontraproduktiv: Diese Rückmeldung bestätigt nur die Gültigkeit
+der Empfänger-Adresse und erhöht damit das Risiko, weitere Zusendungen zu
+erhalten. Das Abbestellen von E-Mails ist nur bei seriösen Zustellern sinnvoll.
+- Weitere Hinweise zur Erkennung von Viren oder Phishing-Versuchen finden Sie im
+„IT-Sicherheitshandbuch für Mitarbeiterinnen und Mitarbeiter“.</secontMueller:otherInformation>
         <rdfs:label xml:lang="de">5.8.2 Vermeidung bzw. Erkennung von Viren durch den Benutzer</rdfs:label>
         <rdfs:label xml:lang="en">5.8.2 Virus Avoidance and Recogniton by the User</rdfs:label>
     </owl:NamedIndividual>
@@ -19209,6 +19302,8 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#FirewallControl"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#FirewallRegulationControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#6_NetworkSecurity"/>
+        <secontMueller:otherInformation>Eine Firewall kontrolliert die Netzwerkverbindungen zwischen Firmennetzwerk und Internet und blockiert alle jene Verbindungen, die nicht explizit als „erlaubt“ deklariert wurden. Firewalls sind in unterschiedlichsten Ausführungen und Preisklassen erhältlich, die Palette reicht von Breitband-Routern mit integrierter Paketfilter-Firewall bis zu hochleistungsfähigen Firewall-Appliances mit verschiedenen Schutzzonen.
+Die richtige Planung und Konfiguration einer Firewall ist komplex. Sie ist von höchster Wichtigkeit für die Sicherheit des Firmennetzwerkes und der verwendeten Daten und sollte in jedem Fall durch qualifiziertes Fachpersonal durchgeführt werden. Wenn im Unternehmen kein ausreichendes Fachwissen vorliegt, ist es am sichersten, die Grundkonfiguration durch einen spezialisierten externen Dienstleister vornehmen zu lassen. Nachträgliche Änderungen können dann eventuell durch die eigenen Mitarbeiterinnen und Mitarbeiter erfolgen, sobald diese sich das nötige Fachwissen erarbeitet haben.</secontMueller:otherInformation>
         <rdfs:label xml:lang="en">6.1 Firewalls</rdfs:label>
     </owl:NamedIndividual>
     
@@ -19221,6 +19316,11 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#FirewallRegulationControl"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#PersonalFirewallControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#6_NetworkSecurity"/>
+        <secontMueller:otherInformation>In Fällen, in denen der Einsatz einer klassischen Firewall nicht möglich ist, vor allem beim Internetzugang unterwegs, über WLAN oder Mobile Internet, bieten Personal Firewalls einen grundlegenden Schutz gegen Fremdzugriffe. Bei korrekter Konfiguration können sie aber auch in Firmennetzen, die durch eine Hardware-Firewall geschützt sind, eingesetzt werden, um den Schutz vor unzulässigen Verbindungen zu verbessern.
+
+Typischerweise funktioniert eine Personal Firewall so, dass nur Programme mit dem Internet kommunizieren dürfen, die dazu eigens autorisiert wurden. Oft „erlernt“ sie zulässige Verbindungen aufgrund von Benutzereingaben: Beim ersten Verbindungsversuch eines Programms (z.B. des Internet-Browsers) mit dem Netzwerk wird die Benutzerin oder der Benutzer gefragt, ob diese Verbindung gestattet sein soll. Wenn die Verbindung erlaubt wird, wird sie in Zukunft ohne weitere Nachfrage zugelassen.
+
+Personal Firewalls sind in verschiedenster Form erhältlich: Manche erfordern keine oder nur wenig Benutzereingriffe, andere können ohne ausgeprägtes Fachwissen kaum bedient werden. Der Schutz, den diese Programme bieten, ist ebenfalls sehr unterschiedlich. Im Allgemeinen sollte eine Personal Firewall nur zum Schutz von Einzelplatzrechnern eingesetzt werden. Wenn mehrere Rechner geschützt werden müssen, muss sie durch eine Hardware-Firewall ergänzt werden.</secontMueller:otherInformation>
         <rdfs:label xml:lang="de">6.2 Personal Firewalls</rdfs:label>
         <rdfs:label xml:lang="en">6.2 Personal Firewalls</rdfs:label>
     </owl:NamedIndividual>
@@ -19259,6 +19359,12 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#SecurityTrainingControl"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#SocialNetworkControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#6_NetworkSecurity"/>
+        <secontMueller:otherInformation>Einige typische Bedrohungen müssen bei der Planung der Sicherheitsmaßnahmen für den Internet-Zugriff berücksichtigt werden.
+Beim Herunterladen von Dateien und/oder Programmen kann eine Vielzahl von Sicherheitsproblemen auftreten. Die bekanntesten sind Viren, Makro-Viren, Würmer und trojanische Pferde (Trojaner). Die Benutzerinnen und Benutzer sollten immer die Möglichkeit in Betracht ziehen, das heruntergeladene Dateien oder Programme Schadsoftware enthalten. Insbesondere das Installieren verschiedener Zusatzprogramme (Bildschirmschoner, Spiele, ...) aus dem Internet sollte unterlassen werden, da diese oft Schadprogramme (insbes. Spyware) enthalten
+
+Firmendaten werden vor allem durch Programmfunktionen gefährdet, die ohne weitere Nachfrage auf dem lokalen Rechner ausgeführt werden. So können in heruntergeladenen Dokumenten oder Bildern Befehle enthalten sein, die automatisch beim Betrachten ausgeführt werden und Schäden. verursachen können (z.B. Makro-Viren in Word- oder Excel-Dokumenten). Auf allen Rechnern mit Internetzugang müssen daher aktuelle Virenschutzprogramme installiert sein, die diese Dateien bereits beim Download oder beim Zugriff prüfen.
+
+Eine weitere Gefahr besteht in Phishing-Angriffen, bei denen ein Angreifer die Webseite einer Bank oder eines Webshops imitiert, um seine Opfer damit zur Herausgabe von Passwörtern oder geheimen Daten zu bewegen. Solche Angriffe werden üblicherweise durch E-Mail-Aussendungen eingeleitet und sind weit verbreitet. In diesem Zusammenhang ist besonders die Schulung der Benutzerinnen und Benutzer wichtig: Als Grundregel muss dabei gelten, dass kein seriöses Unternehmen via E-Mail zur Eingabe von Passwörtern, PINs oder TANs auffordert. Aussendungen dieser Art müssen daher von den Mitarbeiterinnen und Mitarbeitern als Betrugsversuch erkannt und gemeldet werden. Im Zweifelsfall sollte die Bank oder der Web-Anbieter telefonisch kontaktiert werden.</secontMueller:otherInformation>
         <rdfs:label xml:lang="de">6.5 Gefahren beim Internet-Zugriff</rdfs:label>
         <rdfs:label xml:lang="en">6.5 Internet Access Risks</rdfs:label>
     </owl:NamedIndividual>
@@ -19313,6 +19419,20 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <rdf:type rdf:resource="http://securityontology.sba-research.org/securityontology.owl#WKOITSicherheitshandbuch"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#DataBackupControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#7_1_DataBackup"/>
+        <secontMueller:otherInformation>Zunächst sollte in schriftlicher Form festgelegt werden, welche Daten von wem zu welchem Zeitpunkt gesichert werden. Folgende Punkte müssen dabei in jedem Fall behandelt werden:
+- Umfang und Klassifizierung der zu sichernden Daten (Geschäfts- und Produktionsdaten, Systemdateien, Datenbanken, Laufwerke, ...)
+- Sicherungstechnologie und -medien (Sicherungsbänder, Wechselfestplatten, Cloud-Speicher, USB-Sticks, CD/DVD, ...)
+- Zeitintervall und Zeitpunkt der Sicherungen (täglich, wöchentlich, an Werktagen, ...) 
+- Anzahl der aufzubewahrenden Sicherungen aus der Vergangenheit
+- Zuständigkeit für Durchführung, Überwachung und Dokumentation der Sicherungen
+- Aufbewahrung der Backup-Datenträger
+- Überprüfung der Datensicherungen, Wiederherstellungstests und -übungen
+
+Voraussetzung regelmäßiger Datensicherungen ist die zentrale Speicherung aller wichtigen Daten, die auch hinsichtlich der Datensicherheit zu empfehlen ist. Benutzerinnen und Benutzer müssen dazu angehalten werden, ihre Daten auf den Servern (und nicht den Festplatten ihrer Arbeitsplatzrechner) abzuspeichern. Vorrangig müssen Geschäfts- und Produktionsdaten (selbst erstellte Daten wie z.B. Dokumente, Kundendatei, Buchhaltung, E-Mail) gesichert werden, außerdem noch eventuelle Konfigurationsdateien der eingesetzten Software. Wichtige Computer, die nach einem Ausfall schnell wieder zur Verfügung stehen müssen, sollten dagegen (z.B. mittels Image-Sicherung) vollständig gesichert werden. Grundsätzlich sind alle Arten von Wechseldatenträgern als Sicherungsmedien geeignet. Im einfachsten Fall kann es ausreichen, die Produktionsdaten wöchentlich auf eine CD-ROM oder DVD zu brennen. Auch externe USB-Festplatten und Cloud-Speicher, eventuell auch USB-Sticks, können verwendet werden.
+
+Allerdings erfordert dieses Vorgehen hohen Arbeits- und Zeitaufwand und lässt sich schlecht automatisieren. Ab einer bestimmten Datenmenge ist es daher sinnvoller, geeignete Sicherungssoftware und spezielle Sicherungslaufwerke einzusetzen. Server-Betriebssystemen liegen einfache Versionen von Backup-Software bei, die bereits ausreichen können. Im Handel erhältliche Sicherungssoftware ist dagegen für komplexe Sicherungsaufgaben (z.B. dem Sichern eines Datenbank- oder Mailservers) besser geeignet und kann mit einer größeren Auswahl verschiedener Sicherungsmedien (z.B. Bandsicherungen) umgehen.
+Als Sicherungshardware können USB-Festplatten oder Bandlaufwerke eingesetzt werden. Für kleine bis mittlere Datenmengen lässt sich die Möglichkeit der Online-Datensicherung nützen. Dabei werden Daten über das Internet zu Anbietern von Cloud-Speicher übertragen, von denen sie im Notfall wieder abgerufen werden können.
+Um sicherzustellen, dass die Datensicherung richtig eingerichtet wurde, muss unbedingt die Wiederherstellung der gesicherten Daten getestet werden. Besonders gilt dies für die Wiederherstellung komplexer Server (Datenbank-, Mailserver, Domänencontroller): Die Notfallwiederherstellung solcher Server, von der neuen Hardware bis zur produktionsreifen Maschine, muss mindestens einmal durchgeführt und dokumentiert werden.</secontMueller:otherInformation>
         <rdfs:label xml:lang="en">7.1.1 Backup Strategy</rdfs:label>
         <rdfs:label xml:lang="de">7.1.1 Datensicherungskonzept und -planung</rdfs:label>
     </owl:NamedIndividual>
@@ -19351,6 +19471,17 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <rdf:type rdf:resource="http://securityontology.sba-research.org/securityontology.owl#WKOITSicherheitshandbuch"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#DataBackupControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#7_1_DataBackup"/>
+        <secontMueller:otherInformation>Wenn Notebooks oder Smartphones verwendet werden, um wichtige Daten „unterwegs“ zu erfassen oder zu bearbeiten, muss dafür gesorgt werden, dass auch die auf diesen Geräten abgelegten Daten gesichert werden.
+Dazu bieten sich folgende Verfahren an:
+- Datensicherung auf externen Datenträgern (externe Festplatten, USB-Sticks, DVD-ROMs etc.)
+Die Datenträger müssen getrennt von den zugehörigen Computern aufbewahrt werden, um den gleichzeitigen Verlust, etwa bei einem Diebstahl, zu verhindern. Die Sicherungsdaten müssen verschlüsselt sein, um Missbrauch beim Verlust eines Sicherungsdatenträgers ausschließen zu können.
+- Datensicherung über Fernverbindung zum Firmennetzwerk
+Dabei werden die Daten vom Standort der Mitarbeiterin oder des Mitarbeiters zu einem zentralen Firmenserver übertragen. Ausreichende Übertragungsgeschwindigkeit sowie die verschlüsselte Übertragung der Daten sind dafür unbedingte Voraussetzungen. Diese Methode ist daher nur dann einsetzbar, wenn auf der Firewall des Unternehmens verschlüsselte Fernzugänge z.B. für Telearbeit eingerichtet wurden.
+- Datensicherung auf Cloud-Speicher
+Sicherungsdaten von Mobilgeräten können in der Cloud gespeichert werden, wenn das Unternehmen über eigenen Online-Speicher verfügt. Cloud-Speicher für Privatkunden (iCloud, Google Drive …) ist aber ungeeignet und darf nicht verwendet werden, da Datenverlust auftreten könnte (z.B. bei einem Personalwechsel). Die Mitarbeiterinnen und Mitarbeiter müssen darauf entsprechend hingewiesen werden.
+- Datensicherung bei der Rückkehr ins Firmennetzwerk
+Dieses Verfahren ist nur dann empfehlenswert, wenn die Mitarbeiterin oder der Mitarbeiter regelmäßig (z.B. wöchentlich) in das Unternehmen zurückkehrt und der mögliche Verlust der zwischenzeitlich geänderten Daten tragbar erscheint.
+Die ersten drei Verfahren bringen zusätzlichen Aufwand und Verantwortung für die Benutzerinnen und Benutzer mit sich. Durch den Einsatz geeigneter Software-Tools ist es möglich, den nötigen Arbeitsaufwand zu verringern. Mitarbeiterinnen und Mitarbeiter mit mobilen IT-Systemen müssen aber besonders auf die Wichtigkeit regelmäßiger Datensicherungen und ihre Eigenverantwortung beim Schutz der Daten hingewiesen werden.</secontMueller:otherInformation>
         <rdfs:label xml:lang="en">7.1.4 Backup of mobile IT Devices</rdfs:label>
         <rdfs:label xml:lang="de">7.1.4 Datensicherung bei mobile IT-Systemen</rdfs:label>
     </owl:NamedIndividual>
@@ -19445,6 +19576,15 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#SmokeDetectorControl"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#WaterAlarmSystemControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#8_1_PhysicalProtection"/>
+        <secontMueller:otherInformation>Besonders schützenswerte Räume (Serverräume, Datenträgerarchive etc.) sollten nicht in exponierten oder gefährdeten Bereichen untergebracht sein.
+Insbesondere ist zu beachten:
+- Kellerräume sind durch Wasser gefährdet;
+- Räume im Erdgeschoß – zu öffentlichen Verkehrsflächen hin – sind durch Vandalismus
+und höhere Gewalt (Verkehrsunfälle in Gebäudenähe) gefährdet;
+- Räume im Erdgeschoß mit schlecht einsehbaren Höfen sind durch Einbruch und
+Sabotage gefährdet;
+- Räume unterhalb von Flachdächern sind durch eindringendes Regenwasser gefährdet.
+Im Allgemeinen sind schutzbedürftige Räume im Zentrum eines Gebäudes besser untergebracht als in dessen Außenbereichen; das ist bei der Planung neuer Räume für sensible oder betriebswichtige Komponenten zu berücksichtigen. Wenn die zentrale Anlage solcher Schutzbereiche aufgrund der bestehenden Bausubstanz oder Leitungsführung nicht möglich sein sollte, müssen zusätzliche Schutzmaßnahmen zur Abwehr der oben angeführten Gefährdungen eingerichtet werden (Wassermelder, Alarmanlagen, Fenstergitter etc.).</secontMueller:otherInformation>
         <rdfs:label xml:lang="en">8.1.1 Protectable Building Sections</rdfs:label>
         <rdfs:label xml:lang="de">8.1.1 Schützenswerte Gebäudeteile</rdfs:label>
     </owl:NamedIndividual>
@@ -19482,6 +19622,12 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <secontMueller:standardControl_relatedTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#AccessControlRegulationControl"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#EntryCheckpointControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#8_1_PhysicalProtection"/>
+        <secontMueller:otherInformation>Die Einrichtung eines Empfangsdienstes (Portier, Front-Sekretariat etc.) hat weit reichende positive Auswirkungen gegen eine ganze Reihe von Gefährdungen.
+Voraussetzung ist allerdings, dass bei der Umsetzung des Empfangsdienstes einige Grundprinzipien beachtet werden, die auch für vermeintlich vertrauenswürdige Personen (z.B. ehemalige Mitarbeiterinnen und Mitarbeiter) gelten müssen.
+- Die Mitarbeiterinnen und Mitarbeiter am Empfang beobachten und kontrollieren den Eingang zum Gebäude/Büro bzw. zu sicherheitsrelevanten Bereichen.
+- Unbekannte Personen müssen sich beim Empfang anmelden und ausweisen. 
+- Der Empfangsdienst hält vor Einlass fremder Personen bei der oder dem Besuchten Rückfrage.
+- Besucherinnen und Besucher werden am Eingang abgeholt und nach dem Besuch wieder hinausbegleitet.</secontMueller:otherInformation>
         <rdfs:label xml:lang="de">8.1.4 Empfang</rdfs:label>
         <rdfs:label xml:lang="en">8.1.4 Entry Check Point</rdfs:label>
     </owl:NamedIndividual>
@@ -19525,6 +19671,14 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#FireExtinguisherServerRoomControl"/>
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#SafetyDoorControl"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#8_2_FireProtection"/>
+        <secontMueller:otherInformation>- Die Feuerlöscher müssen regelmäßig geprüft und gewartet werden.
+- Die Feuerlöscher müssen so angebracht werden, dass sie im Brandfall leicht
+erreichbar sind.
+- Zur Brandbekämpfung bei IT-Geräten dürfen ausschließlich CO2-Löscher eingesetzt
+werden; dabei muss auf die Gefahr der Sauerstoffverdrängung geachtet werden.
+- Die Beschäftigten müssen über die Standorte der nächsten Feuerlöscher informiert
+und in deren Handhabung unterwiesen sein.
+Im Brandfall geht von der damit verbundenen Rauchentwicklung sowohl für Mensch als auch für IT-Geräte eine erhebliche Gefahr aus. Ein umfassender Rauchschutz, z.B. durch rauchdichte Brandschutztüren, ist daher ebenfalls vorzusehen.</secontMueller:otherInformation>
         <rdfs:label xml:lang="en">8.2.1 Fire Extinguisher</rdfs:label>
         <rdfs:label xml:lang="de">8.2.1 Handfeuerlöscher</rdfs:label>
     </owl:NamedIndividual>
@@ -19539,6 +19693,10 @@ Is the network access restricted and filtered by pre-defined tables or rules (re
         <standardControl_correspondsTo_Control rdf:resource="http://securityontology.sba-research.org/securityontology.owl#SmokeDetectorControl"/>
         <standardControl_hasChild_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#8_2_1_FireExtinguisher"/>
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#8_StructuralAndInfrastructuralMeasurements"/>
+        <secontMueller:otherInformation>Bei systemkritischen Räumen (Serverräume, Verteilerräume) ist der Einsatz von Brandschutztüren zur Bildung eines eigenen Brandabschnitts sowie von Sicherheitstüren, die einen höheren Schutz gegen Einbruch bieten, vorzusehen.
+Brandmeldeanlagen ermöglichen die Überwachung bestimmter, besonders gefährdeter Bereiche oder des gesamten Gebäudes. Brandmelder dienen zur Früherkennung von Brandgefahren und werden in automatische und nichtautomatische Melder unterschieden, welche an einer Brandmeldeanlage hängen oder als Einzelmelder fungieren.
+In Räumen mit Computern oder Datenträgern, in denen Brände oder Verschmutzungen hohe Schäden verursachen können, sollte ein Rauchverbot erlassen werden. Dieses Rauchverbot dient gleichermaßen dem vorbeugenden Brandschutz wie der Betriebssicherheit. Die Einhaltung des Rauchverbotes ist zu kontrollieren.
+Papier und andere leicht brennbare Materialien müssen unbedingt außerhalb der systemkritischen Räume (Serverraum, Verteilerraum) gelagert werden, um die Brandlast möglichst gering zu halten.</secontMueller:otherInformation>
         <rdfs:label xml:lang="de">8.2 Brandschutz</rdfs:label>
         <rdfs:label xml:lang="en">8.2 Fire Protection</rdfs:label>
     </owl:NamedIndividual>
