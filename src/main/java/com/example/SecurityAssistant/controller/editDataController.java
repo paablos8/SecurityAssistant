@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
+import com.example.SecurityAssistant.service.dataPrivacy;
 
 @Controller
 public class editDataController {
@@ -64,7 +65,8 @@ public class editDataController {
 
         // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
         // abgespeichert wird
-        infra.setCompanyName(submitController.pseudonymizeString(infra.getCompanyName()));
+        dataPrivacy privacy = new dataPrivacy();
+        infra.setCompanyName(privacy.pseudonymizeString(infra.getCompanyName()));
 
         repo.save(infra);
         model.addAttribute("userName", username);

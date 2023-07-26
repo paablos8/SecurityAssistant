@@ -1,8 +1,7 @@
 package com.example.SecurityAssistant.controller;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.SecurityAssistant.entities.Recommendation;
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
+import com.example.SecurityAssistant.service.dataPrivacy;
 import com.example.SecurityAssistant.service.statisticalService;
 import com.example.ontology.InitJena;
 import com.example.ontology.ReasoningJena;
@@ -118,13 +119,15 @@ public class submitController {
             reasoning.listCurrentTopLevelThreats();
             reasoning.listCurrentLowLevelThreats();
             
-            List <String> recommendations = reasoning.generateRecommendations();
-            model.addAttribute("recommendations",recommendations);
-	 
+            ArrayList <Recommendation> recommendations = reasoning.generateRecommendations();
+            
+            //Hinzufügen der erstellten recommendations zum Model um diese mit Thymeleaf im Frontend darzustellen
+            model.addAttribute("recommendations", recommendations);           
             
             // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
             // abgespeichert wird
-            infra.setCompanyName(pseudonymizeString(infra.getCompanyName()));
+            dataPrivacy privacy = new dataPrivacy();
+            infra.setCompanyName(privacy.pseudonymizeString(infra.getCompanyName()));
             // Speicherung des Form Inputs in der MySQL Datenbank
             repo.save(infra);
 
@@ -154,29 +157,6 @@ public class submitController {
         System.out.println("Der Username ist nicht vorhanden");
         return false;
     }
-
-    // Methode die aufgerufen wird um den Firmennamen zu Pseudonymisieren
-    public static String pseudonymizeString(String input) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(input.getBytes());
-
-            // Konvertiere das Byte-Array in einen Hexadezimal-String
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    
     
     
  // Get rid of all the whitespaces in the Strings of the inputs
