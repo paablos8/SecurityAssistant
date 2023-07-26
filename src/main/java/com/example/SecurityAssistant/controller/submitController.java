@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.SecurityAssistant.entities.Recommendation;
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
 import com.example.SecurityAssistant.service.statisticalService;
@@ -107,18 +108,18 @@ public class submitController {
             System.out.println("The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
 
           
-           // Reasoning
+         // Reasoning
             ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
             
             reasoning.listImplementedControls();
-            reasoning.listNotImplementedControls();
+            // reasoning.listNotImplementedControls(); 
             System.out.println("These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
             reasoning.listCurrentVulnerabilities();
             System.out.println("These are the current lowered Threats: " + reasoning.getLoweredThreats());
-            reasoning.listCurrentTopLevelThreats();
-            reasoning.listCurrentLowLevelThreats();
+            //reasoning.listCurrentTopLevelThreats();
+            //reasoning.listCurrentLowLevelThreats();
             
-            List <String> recommendations = reasoning.generateRecommendations();
+            List <Recommendation> recommendations = reasoning.generateRecommendations();
             model.addAttribute("recommendations",recommendations);
 	 
             
