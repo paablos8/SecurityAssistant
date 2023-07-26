@@ -29,6 +29,7 @@ import org.apache.jena.util.PrintUtil;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
 import com.example.SecurityAssistant.entities.Recommendation;
+import com.example.SecurityAssistant.service.EditStringService;
 
 public class ReasoningJena {
 	
@@ -43,6 +44,7 @@ public class ReasoningJena {
 	
 	Property controlMitigatesVulnerability; 
     Property vulnerabilityExploitedByThreat;
+    Property threatGivesRiseToThreat;
 	
 	ArrayList<Resource> implementedControls = new ArrayList<Resource>();
 	ArrayList<String> implementedControlsString = new ArrayList<String>();
@@ -98,7 +100,7 @@ public class ReasoningJena {
 		
         while (iter.hasNext()) {
             OntClass isSubtypeOfClass = iter.next();
-            System.out.println("The Business " + nameOfBusiness + " is compliant with the following Controls: " + isSubtypeOfClass.getLocalName());
+            System.out.println("The Business is compliant with the following Controls: " + isSubtypeOfClass.getLocalName());
         }
         
         // Get the controls the Organization is compliant with
@@ -109,6 +111,7 @@ public class ReasoningJena {
         
         controlMitigatesVulnerability = base.getProperty(NS + "control_mitigates_Vulnerability");
         vulnerabilityExploitedByThreat = base.getProperty(NS + "vulnerability_exploitedBy_Threat");
+        threatGivesRiseToThreat = base.getProperty(NS + "threat_givesRiseTo_Threat");
         
        
         while (listInstancesIter.hasNext()) {
@@ -120,8 +123,8 @@ public class ReasoningJena {
         	if (controlCompliantOrganization || controlCompliantBuilding || controlCompliantSection) {
         		implementedControls.add(controlInstance);
         		implementedControlsString.add(controlInstance.getLocalName());
-        		System.out.print("The business " + nameOfBusiness + " implements the control " + controlInstance.getLocalName());
-        		System.out.println(" this mitigates the vulnerability ");
+        		System.out.print("The business implements the control " + controlInstance.getLocalName());
+        		System.out.print(" this mitigates the vulnerability ");
         	// The implemented controls mitigate vulnerabilities
         		if (controlInstance.hasProperty(controlMitigatesVulnerability)) {
         			StmtIterator listMitgatedVulnerabilitesIter = base.listStatements(controlInstance, controlMitigatesVulnerability, (RDFNode) null);
@@ -145,7 +148,7 @@ public class ReasoningJena {
         						OntClass typeThreat = threatIndividual.getOntClass(true);
         						System.out.print(threat.getLocalName() +" (" + typeThreat.getLocalName() + ") ");
         					}
-        					System.out.print(" is lowered.");
+        					System.out.print("is lowered.");
         				}
         			}
         		}	
@@ -156,7 +159,7 @@ public class ReasoningJena {
         System.out.println(implementedControlsString);
 	}
 	
-	
+	/**
 	public ArrayList<String> listNotImplementedControls () {
 		OntClass control = base.getOntClass(NS + "Control");
 		ExtendedIterator<? extends OntResource> listInstancesIter = control.listInstances(false);
@@ -180,8 +183,9 @@ public class ReasoningJena {
 		System.out.println(notImplementedControlsString);
 		return notImplementedControlsString;
 	}
+	**/
 	
-	
+	// Does not make sense with only the small excerpt of input values we use
 	public ArrayList<String> listCurrentLowLevelThreats () {
 		OntClass lowLevelThreat = base.getOntClass(NS + "LowLevelThreat");
 		ExtendedIterator<? extends OntResource> listInstancesIter = lowLevelThreat.listInstances(false);
@@ -322,60 +326,78 @@ public class ReasoningJena {
 									recAlreadyInList = true;
 								}
 							}
-							if (recAlreadyInList == false) {
-								recommendationsAsClass.add(standardControl);
-								
-								Statement recommendationTitleStatement = standardControl.getProperty(annotationLabel);
-								String recommendationTitle = recommendationTitleStatement.getObject().toString().replace("@en", "").replace("@de", "");
-								
-								
-								if (standardControl.hasProperty(annotationInfo)) {
-									annotationInfoString = standardControl.getProperty(annotationInfo).getObject().toString();
+								if (recAlreadyInList == false) {
+									recommendationsAsClass.add(standardControl);
+									
+									Statement recommendationTitleStatement = standardControl.getProperty(annotationLabel);
+									String recommendationTitle = recommendationTitleStatement.getObject().toString().replace("@en", "").replace("@de", "");
+									
+									
+									if (standardControl.hasProperty(annotationInfo)) {
+										annotationInfoString = standardControl.getProperty(annotationInfo).getObject().toString().replace("@en", "").replace("@de", "");
+										annotationInfoString = EditStringService.replaceUmlaut(annotationInfoString);
+									}
+									else { annotationInfoString = "";
+									}
+									
+									if (standardControl.hasProperty(annotationControl)) {
+										annotationControlString = standardControl.getProperty(annotationControl).getObject().toString().replace("@en", "").replace("@de", "");
+										
+									}
+									else { annotationControlString = "";
+									}
+									
+									String otherInformation = annotationControlString + "\n" + annotationInfoString;
+									
+									
+									String originDocument = standardControlIndividual.getOntClass().getLocalName();
+									
+									
+									Recommendation recommendation = new Recommendation (recommendationTitle, otherInformation, originDocument);
+									
+									String threatsIfNotImplemented = "";
+									StmtIterator iter_5 = currentVulnerability.listProperties(vulnerabilityExploitedByThreat);
+	
+									while (iter_5.hasNext()) {
+										Statement stmt_5 = iter_5.next();
+										Resource threatIfNotImplemented = stmt_5.getObject().asResource();
+										threatsIfNotImplemented = threatIfNotImplemented.getLocalName();
+	
+										String threatsThatAreRised = "";
+										StmtIterator iter_6 = threatIfNotImplemented.listProperties(threatGivesRiseToThreat);
+										while (iter_6.hasNext()) {
+											Statement stmt_6 = iter_6.next();
+											Resource threatCanBeConsequence = stmt_6.getObject().asResource();
+											threatsThatAreRised = threatsThatAreRised + " " + threatCanBeConsequence.getLocalName();
+										}
+										threatsIfNotImplemented = threatsIfNotImplemented + " which also can increase the threat of" + threatsThatAreRised;
+										recommendation.addRiskIfNotImplemented(threatsIfNotImplemented);
+									}
+									
+									recommendation.addMitigatesVulnerabilities(currentVulnerability.getLocalName());
+									recommendations.add(recommendation);
+									System.out.println("A recommendation has been generated: " + recommendationTitle + ", it is based on the source " + originDocument);
+									System.out.println("This recommendation mitigates the vulnerability: " + currentVulnerability.getLocalName());
+									System.out.println("If the recommendation won't be implemented it gives rise to the treat: ");
+										for (String item : recommendation.getRiskIfNotImplemented()) {
+										            System.out.println("- " + item);
+										}
 								}
-								else { annotationInfoString = "";
-								}
-								
-								if (standardControl.hasProperty(annotationControl)) {
-									annotationControlString = standardControl.getProperty(annotationControl).getObject().toString();
-								}
-								else { annotationControlString = "";
-								}
-								
-								String otherInformation = annotationControlString + "\n" + annotationInfoString;
-								
-								
-								String originDocument = standardControlIndividual.getOntClass().getLocalName();
-								
-								
-								Recommendation recommendation = new Recommendation (recommendationTitle, otherInformation, originDocument);
-								
-								StmtIterator iter_5 = currentVulnerability.listProperties(vulnerabilityExploitedByThreat);
-								while (iter_5.hasNext()) {
-									Statement stmt_5 = iter_5.next();
-									Resource threatIfNotImplemented = stmt_5.getObject().asResource();
-									recommendation.addRiskIfNotImplemented(threatIfNotImplemented.getLocalName());
-								}
-								recommendations.add(recommendation);
-								System.out.println("A recommendation has been generated: " + recommendationTitle + ", it is based on the source " + originDocument);
-								System.out.println("This recommendation mitigates the vulnerability: " + currentVulnerability.getLocalName());
-								System.out.println("If the recommendation won't be implemented it gives rise to the treat: " + recommendation.getRiskIfNotImplemented());
-							}
 							}
 						}
-						}
-						
+					}
 					}
 				}
 			}
 		System.out.println("These are your recommendations: ");
-		for (Recommendation item : recommendations) {
-            System.out.println("- " + item.getTitle());
-            System.out.println("More Info: " + item.getInformation());
-            System.out.println(" ");
-            System.out.println(" ");
-            System.out.println("-------------------------------------------------------------------------------------------------- ");
-        }
+			for (Recommendation item : recommendations) {
+	            System.out.println("- " + item.getTitle());
+	            System.out.println("More Info: " + item.getInformation());
+	            System.out.println(" ");
+	            System.out.println(" The recommendation was generated because your business has the vulnerability: " + item.getMitigatesVulnerabilities());
+	            System.out.println(" ");
+	            System.out.println("-------------------------------------------------------------------------------------------------- ");
+	        }
 		return recommendations;
-		}
-	
+		}	
 }

@@ -108,16 +108,16 @@ public class submitController {
             System.out.println("The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
 
           
-           // Reasoning
+         // Reasoning
             ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
             
             reasoning.listImplementedControls();
-            reasoning.listNotImplementedControls();
+            // reasoning.listNotImplementedControls(); 
             System.out.println("These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
             reasoning.listCurrentVulnerabilities();
             System.out.println("These are the current lowered Threats: " + reasoning.getLoweredThreats());
-            reasoning.listCurrentTopLevelThreats();
-            reasoning.listCurrentLowLevelThreats();
+            //reasoning.listCurrentTopLevelThreats();
+            //reasoning.listCurrentLowLevelThreats();
             
             ArrayList <Recommendation> recommendations = reasoning.generateRecommendations();
             

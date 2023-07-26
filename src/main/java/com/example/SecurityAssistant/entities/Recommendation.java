@@ -12,6 +12,7 @@ public class Recommendation {
 	private String information;
 	private String originDocument;
 	private ArrayList<String> risksIfNotImplemented;
+	private ArrayList<String> mitigatesVulnerabilities;
 	
 	
 	public Recommendation (String title, String information, String originDocument) {
@@ -19,6 +20,7 @@ public class Recommendation {
 		this.information = information;
 		this.originDocument = originDocument;
 		this.risksIfNotImplemented = new ArrayList<String> ();
+		this.mitigatesVulnerabilities = new ArrayList<String> ();
 	}
 	
 	public String getTitle () {
@@ -39,6 +41,14 @@ public class Recommendation {
 	
 	public void addRiskIfNotImplemented (String risk) {
 		risksIfNotImplemented.add(risk);
+	}
+
+	public ArrayList<String> getMitigatesVulnerabilities() {
+		return mitigatesVulnerabilities;
+	}
+
+	public void addMitigatesVulnerabilities(String mitigatesVulnerability) {
+		mitigatesVulnerabilities.add(mitigatesVulnerability);
 	}
 
 	
