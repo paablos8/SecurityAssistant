@@ -29,6 +29,7 @@ import org.apache.jena.util.PrintUtil;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
 import com.example.SecurityAssistant.entities.Recommendation;
+import com.example.SecurityAssistant.service.EditStringService;
 
 public class ReasoningJena {
 	
@@ -334,12 +335,14 @@ public class ReasoningJena {
 									
 									if (standardControl.hasProperty(annotationInfo)) {
 										annotationInfoString = standardControl.getProperty(annotationInfo).getObject().toString().replace("@en", "").replace("@de", "");
+										annotationInfoString = EditStringService.replaceUmlaut(annotationInfoString);
 									}
 									else { annotationInfoString = "";
 									}
 									
 									if (standardControl.hasProperty(annotationControl)) {
 										annotationControlString = standardControl.getProperty(annotationControl).getObject().toString().replace("@en", "").replace("@de", "");
+										
 									}
 									else { annotationControlString = "";
 									}
@@ -396,6 +399,5 @@ public class ReasoningJena {
 	            System.out.println("-------------------------------------------------------------------------------------------------- ");
 	        }
 		return recommendations;
-		}
-	
+		}	
 }
