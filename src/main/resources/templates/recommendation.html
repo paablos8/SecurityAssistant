@@ -6,7 +6,19 @@
     <title>Recommendation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+        .container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f0f0f0;
+        }
+
+        .title {
+            font-weight: bold;
+        }
+
         h1 {
             color: #333;
             font-size: 24px;
@@ -16,7 +28,7 @@
         .statistics {
             text-align: center;
             position: relative;
-            background-color: #BCDBEA;
+            background-color: #e66161;
             border-radius: 50%;
             width: 24px;
             height: 24px;
@@ -93,6 +105,58 @@
                 opacity: 100%;
             }
         }
+
+        .title {
+            background-color: #3f99fa;
+            color: white;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            display: block;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .collapsible {
+            background-color: #777;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .active,
+        .collapsible:hover {
+            background-color: #555;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .moreInfo {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: #f1f1f1;
+        }
     </style>
 </head>
 
@@ -100,11 +164,12 @@
 
     <div th:replace="~{fragments/header :: header}"></div>
 
-    <h1>Es wurden die folgenden Empfehlungen auf Ihre Eingaben zugeschnitten:</h1>
     <div class="container">
-        <ul>
-            <li th:each="recommendation : ${recommendations}">
-                <span><strong th:text="'Titel: ' +${recommendation.title}"></strong></span>
+        <h1>Es wurden die folgenden Empfehlungen auf Ihre Eingaben zugeschnitten:</h1>
+
+        <div th:each="recommendation : ${recommendations}">
+
+            <div class="title"><strong th:text="'Titel: ' +${recommendation.title}"></strong>
 
                 <div class="statistics">
                     <p class="tooltip-content"
@@ -157,47 +222,68 @@
                     </p>
 
                 </div>
+            </div>
 
-                <span th:text="'More Information: ' + ${recommendation.information}"></span>
-            </li>
-        </ul><br><br>
+            <button class="collapsible">More Information</button>
+
+            <div class="moreInfo">
+                <span th:text="${recommendation.information}"></span>
+            </div><br><br>
+        </div>
+    </div>
 
 
-        <!-- <div class="chartPolicyDoc">
+
+    <!-- <div class="chartPolicyDoc">
             <canvas id="chartPolicyDoc" style="max-height:200px;"></canvas>
             </div>
         </div>  -->
 
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            var dataPolicyDoc = /*[[${policyDocCount}]]*/ 'default';
-            var dataTrainings = /*[[${trainingsCount}]]*/ 'default';
-            /*]]>*/
+    <script th:inline="javascript">
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
 
-            var labelsYesNo = ["Yes", "No"];
-            var colorsYesNo = ["#82FA58", "#FE2E2E"]
-
-            new Chart("chartPolicyDoc", {
-                type: 'pie',
-                data: {
-                    labels: labelsYesNo,
-                    datasets: [{
-                        backgroundColor: colorsYesNo,
-                        data: dataPolicyDoc
-                    }]
-                },
-                options: {
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: "Policy Document:"
-                        }
-                    }
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var moreInfo = this.nextElementSibling;
+                if (moreInfo.style.maxHeight) {
+                    moreInfo.style.maxHeight = null;
+                } else {
+                    moreInfo.style.maxHeight = moreInfo.scrollHeight + "px";
                 }
             });
+        }
+
+        /*<![CDATA[*/
+        var dataPolicyDoc = /*[[${policyDocCount}]]*/ 'default';
+        var dataTrainings = /*[[${trainingsCount}]]*/ 'default';
+        /*]]>*/
+
+        var labelsYesNo = ["Yes", "No"];
+        var colorsYesNo = ["#82FA58", "#FE2E2E"]
+
+        new Chart("chartPolicyDoc", {
+            type: 'pie',
+            data: {
+                labels: labelsYesNo,
+                datasets: [{
+                    backgroundColor: colorsYesNo,
+                    data: dataPolicyDoc
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Policy Document:"
+                    }
+                }
+            }
+        });
 
 
-        </script>
+    </script>
 
 </body>
 
