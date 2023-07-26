@@ -3,6 +3,9 @@ package com.example.SecurityAssistant.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 public class Recommendation {
 	
 	private String title;

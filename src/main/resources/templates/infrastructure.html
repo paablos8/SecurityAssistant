@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="./feedbackButton.css" type="text/css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
-
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -24,17 +23,21 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: bold;
         }
+
         .help-tip {
             text-align: center;
             position: relative;
-            background-color: #BCDBEA;
+            background-color: #70c1ea;
             border-radius: 50%;
             width: 24px;
             height: 24px;
             font-size: 14px;
             line-height: 26px;
             z-index: 9999;
+            margin-left: 5px;
         }
 
         .help-tip:before {
@@ -122,6 +125,8 @@
             text-align: left;
             margin-bottom: 5px;
             font-weight: bold;
+            display: flex;
+            align-items: center;
         }
 
         .userInput input,
@@ -161,6 +166,10 @@
     <div th:replace="~{fragments/header :: header}"></div>
 
     <p>Bitte tragen Sie hier detaillierte Informationen zu Ihrer IT Sicherheitsinfrastruktur ein!</p>
+
+    <div class="loading-overlay">
+        <div class="loading-message">Processing...</div>
+    </div>
 
     <form id="feedbackform" action="/recommendation" method="post">
         <div class="personalData">
@@ -300,7 +309,7 @@
             <select id="incidentResponse" name="incidentResponse">
                 <option value="Well specified">Ja, der ist gut spezifiziert</option>
                 <option value="There is a rough plan">Ja, wir haben einen groben Plan</option>
-                <option value="There is no plan">Wir haben keine Plan festgelegt</option>
+                <option value="There is no plan">Wir haben keinen Plan festgelegt</option>
             </select>
             <div class="feedback5">
                 <span class="feedback-button" title="Good"
@@ -355,7 +364,7 @@
         </div>
 
         <div class="frage11">
-            <label for="alarm">Haben Sie eine Alarmanlage im EInsatz?</label>
+            <label for="alarm">Haben Sie eine Alarmanlage im Einsatz?</label>
             <select id="alarm" name="alarm">
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
@@ -429,10 +438,24 @@
             </select><br><br>
         </div>
 
-        <button type="submit">Bestätigen</button>
+        <button type="submit" onclick="onSubmitForm()">Bestätigen</button>
     </form>
 </body>
 <script>
+    function showLoadingOverlay() {
+        const overlay = document.querySelector('.loading-overlay');
+        overlay.style.display = 'block';
+    }
+
+    function hideLoadingOverlay() {
+        const overlay = document.querySelector('.loading-overlay');
+        overlay.style.display = 'none';
+    }
+
+    function onSubmitForm() {
+        showLoadingOverlay();
+    }
+
     function submitFeedback(value, question) {
         swal("Thank you!", "Your feedback is submitted", "success");
         const url = '/feedback'; // Die URL zum Spring Boot-Controller-Endpunkt
