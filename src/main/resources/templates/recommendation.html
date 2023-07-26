@@ -12,6 +12,7 @@
             font-size: 24px;
             text-align: center;
         }
+
         .statistics {
             text-align: center;
             position: relative;
@@ -22,6 +23,7 @@
             font-size: 14px;
             line-height: 26px;
             z-index: 9999;
+            margin-left: 5px;
         }
 
         .statistics:before {
@@ -105,37 +107,56 @@
                 <span><strong th:text="'Titel: ' +${recommendation.title}"></strong></span>
 
                 <div class="statistics">
-                    <p class="tooltip-content" th:if="${recommendation.title == '4.4 Sicherheitssensibilisierung und -schulung'}"
-                        th:text="'Ein Anteil von ' + ${trainingsCount[0]} + '% veranstalten regelmäßige Mitarbeiterschulungen'"></p>
+                    <p class="tooltip-content"
+                        th:if="${recommendation.title == '4.4 Sicherheitssensibilisierung und -schulung'}"
+                        th:text="'Ein Anteil von ' + ${trainingsCount[0]} + '% veranstalten regelmäßige Mitarbeiterschulungen'">
+                    </p>
 
                     <p class="tooltip-content" th:else th:if="${recommendation.title == 'A.10.5.1 Information back-up'}"
-                        th:text="'Ein Anteil von ' + ${backupCount[3]} + '% machen ein vollständiges Backup einmal pro Woche, inkrementelles oder vollständiges Backup täglich; Haben eine Strategie  definiert und dokumentiert, die für alle geschützten Systeme umgesetzt wird.'"></p>
+                        th:text="'Ein Anteil von ' + ${backupCount[2] + backupCount[3]} + '% aller Firmen haben eine Backup-Strategie mit regelmäßigen Backups umgesetzt.'">
+                    </p>
 
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == 'A.9.1.1 Physical security perimeter'}"
-                        th:text="'Ein Anteil von ' + ${criticalInfraCount[0]} + '% der Firmen haben den physischen Zugang zu kritischer Infrastruktur begrenzt'"></p>
+                    <p class="tooltip-content" th:else
+                        th:if="${recommendation.title == 'A.9.1.1 Physical security perimeter'}"
+                        th:text="'Ein Anteil von ' + ${criticalInfraCount[0]} + '% der Firmen haben den physischen Zugang zu kritischer Infrastruktur begrenzt'">
+                    </p>
 
                     <p class="tooltip-content" th:else th:if="${recommendation.title == '8.2 Fire Protection'}"
-                        th:text="'Ein Anteil von ' + ${smokeDetCount[0]} + '% der Firmen haben einen Rauchmelder zum Brandschutz installiert'"></p>
+                        th:text="'Ein Anteil von ' + ${smokeDetCount[0]} + '% der Firmen haben einen Rauchmelder zum Brandschutz installiert'">
+                    </p>
 
                     <p class="tooltip-content" th:else th:if="${recommendation.title == '8.2.1 Handfeuerlöscher'}"
-                        th:text="'Ein Anteil von ' + ${fireExCount[0]} + '% der Firmen haben einen Feuerlöscher in der Reichweite kritischer Infrastruktur.'"></p>
+                        th:text="'Ein Anteil von ' + ${fireExCount[0]} + '% der Firmen haben einen Feuerlöscher in der Reichweite kritischer Infrastruktur.'">
+                    </p>
 
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == 'A.11.5.3 Password management system'}"
-                        th:text="'Nur ein Anteil von ' + ${pwPropertiesCount[0]} + '% der Firmen haben gar keine Anforderungen an die Passworterstellung.'"></p>
+                    <p class="tooltip-content" th:else
+                        th:if="${recommendation.title == 'A.11.5.3 Password management system'}"
+                        th:text="'Nur ein Anteil von ' + ${pwPropertiesCount[0]} + '% der Firmen haben gar keine Anforderungen an die Passworterstellung.'">
+                    </p>
 
                     <p class="tooltip-content" th:else th:if="${recommendation.title == '6.5 Internet Access Risks'}"
-                        th:text="'Ein Anteil von ' + ${trainingsCount[0]} + '% der Firmen schulen Ihre Mitarbeiter regelmäßig zum Thema IT Sicherheit.'"></p>
+                        th:text="'Ein Anteil von ' + ${trainingsCount[0]} + '% der Firmen schulen Ihre Mitarbeiter regelmäßig zum Thema IT Sicherheit.'">
+                    </p>
 
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == 'A.15.2.2 Technical compliance checking'}"
-                        th:text="'Ein Anteil von ' + ${externalProviderCount[0]} + '% der Firmen arbeiten mit externen Dienstleister zum Thema zusammen.'"></p>
+                    <p class="tooltip-content" th:else
+                        th:if="${recommendation.title == 'A.15.2.2 Technical compliance checking'}"
+                        th:text="'Ein Anteil von ' + ${externalProviderCount[0]} + '% der Firmen arbeiten mit externen Dienstleister zum Thema zusammen.'">
+                    </p>
 
                     <p class="tooltip-content" th:else th:if="${recommendation.title == '6.1 Firewalls'}"
-                        th:text="'Nur ein Anteil von ' + ${firewallCount[3]} + '% der Firmen haben keine Firewall aktiviert.'"></p>
+                        th:text="'Nur ein Anteil von ' + ${firewallCount[3]} + '% der Firmen haben keine Firewall aktiviert.'">
+                    </p>
 
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == '5.8.2 Virus Avoidance and Recogniton by the User'}"
-                        th:text="'Ein Anteil von ' + ${policyDocCount[0]} + '% der Firmen nutzen ein Dokument mit festgelegten Richtlinien um mögliche Gefahren vorzubeugen.'"></p>
+                    <p class="tooltip-content" th:else
+                        th:if="${recommendation.title == '5.8.2 Virus Avoidance and Recogniton by the User'}"
+                        th:text="'Ein Anteil von ' + ${policyDocCount[0]} + '% der Firmen nutzen ein Dokument mit festgelegten Richtlinien um mögliche Gefahren vorzubeugen.'">
+                    </p>
 
-                    </div>
+                    <p class="tooltip-content" th:else th:if="${recommendation.title == '5.1 Password Selection'}"
+                        th:text="'Ein Anteil von ' + ${pwChangeCount[1]+pwChangeCount[2]} + '% der Firmen haben eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
+                    </p>
+
+                </div>
 
                 <span th:text="'More Information: ' + ${recommendation.information}"></span>
             </li>

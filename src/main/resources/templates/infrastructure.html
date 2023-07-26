@@ -37,6 +37,7 @@
             font-size: 14px;
             line-height: 26px;
             z-index: 9999;
+            margin-left: 5px;
         }
 
         .help-tip:before {
@@ -124,6 +125,8 @@
             text-align: left;
             margin-bottom: 5px;
             font-weight: bold;
+            display: flex;
+            align-items: center;
         }
 
         .userInput input,
@@ -439,19 +442,19 @@
     </form>
 </body>
 <script>
-     function showLoadingOverlay() {
-            const overlay = document.querySelector('.loading-overlay');
-            overlay.style.display = 'block';
-        }
+    function showLoadingOverlay() {
+        const overlay = document.querySelector('.loading-overlay');
+        overlay.style.display = 'block';
+    }
 
-        function hideLoadingOverlay() {
-            const overlay = document.querySelector('.loading-overlay');
-            overlay.style.display = 'none';
-        }
+    function hideLoadingOverlay() {
+        const overlay = document.querySelector('.loading-overlay');
+        overlay.style.display = 'none';
+    }
 
-        function onSubmitForm() {
-            showLoadingOverlay();
-        }
+    function onSubmitForm() {
+        showLoadingOverlay();
+    }
 
     function submitFeedback(value, question) {
         swal("Thank you!", "Your feedback is submitted", "success");
