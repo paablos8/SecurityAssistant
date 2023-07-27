@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
         .container {
             border: 1px solid #ccc;
@@ -157,6 +158,19 @@
             transition: max-height 0.2s ease-out;
             background-color: #f1f1f1;
         }
+
+        .feedback-button {
+            cursor: pointer;
+            display: inline-block;
+            padding: 10px;
+            background-color: #ccc;
+            transition: background-color 0.3s;
+        }
+
+        .feedback-button:hover {
+            background-color: rgb(100, 103, 100);
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -228,7 +242,16 @@
 
             <div class="moreInfo">
                 <span th:text="${recommendation.information}"></span>
-            </div><br><br>
+            </div><br>
+            <div class="Feedback">
+                <span class="feedback-button" title="Good" th:data-id="${recommendation.title}" 
+                    onclick="submitFeedback('good', this.getAttribute('data-id'))">&#128522;</span>
+                <span class="feedback-button" title="Neutral" th:data-id="${recommendation.title}"
+                    onclick="submitFeedback('neutral', this.getAttribute('data-id'))">&#128528;</span>
+                <span class="feedback-button" title="Bad" th:data-id="${recommendation.title}"
+                    onclick="submitFeedback('bad', this.getAttribute('data-id'))">&#128542;</span>
+            </div>
+            <br>
         </div>
     </div>
 
@@ -240,6 +263,8 @@
         </div>  -->
 
     <script th:inline="javascript">
+
+        //Making the Recommendation Titles Collapsible and onClick show/hide more detailed Infromation
         var coll = document.getElementsByClassName("collapsible");
         var i;
 
@@ -253,6 +278,33 @@
                     moreInfo.style.maxHeight = moreInfo.scrollHeight + "px";
                 }
             });
+        }
+
+        //Function that handles the Feedback submitted through the Feedback Buttons
+        function submitFeedback(value, relatedTo) {
+            swal("Thank you!", "Your feedback is submitted", "success");
+            const url = '/feedback'; // Die URL zum Spring Boot-Controller-Endpunkt
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ value: value, relatedTo: relatedTo }) // Die Daten, die du an den Controller senden möchtest
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Erfolgreiche Antwort erhalten
+                        console.log('POST-Anfrage erfolgreich gesendet');
+                    } else {
+                        // Fehlerhafte Antwort erhalten
+                        console.error('Fehler beim Senden der POST-Anfrage');
+                    }
+                })
+                .catch(error => {
+                    // Ein Fehler ist aufgetreten
+                    console.error('Fehler aufgetreten:', error);
+                });
+
         }
 
         /*<![CDATA[*/

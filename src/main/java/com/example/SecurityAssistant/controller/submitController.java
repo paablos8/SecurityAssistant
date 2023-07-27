@@ -119,10 +119,11 @@ public class submitController {
             //reasoning.listCurrentTopLevelThreats();
             //reasoning.listCurrentLowLevelThreats();
             
+            //Generierung der recommendations 
             ArrayList <Recommendation> recommendations = reasoning.generateRecommendations();
             
             //Hinzufügen der erstellten recommendations zum Model um diese mit Thymeleaf im Frontend darzustellen
-            model.addAttribute("recommendations", recommendations);           
+            model.addAttribute("recommendations", recommendations);               
             
             // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
             // abgespeichert wird

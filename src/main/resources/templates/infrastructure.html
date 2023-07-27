@@ -158,6 +158,28 @@
             border-radius: 4px;
             margin-top: 10px;
         }
+         .submitButton {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .submitButton:hover {
+            background-color: #0056b3;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -223,11 +245,11 @@
             </select>
             <div class="feedback1">
                 <span class="feedback-button" title="Good"
-                    onclick="submitFeedback('good', 'pwChangeFeedback')">&#128522;</span>
+                    onclick="submitFeedback('good', 'pwChange')">&#128522;</span>
                 <span class="feedback-button" title="Neutral"
-                    onclick="submitFeedback('neutral', 'pwChangeFeedback')">&#128528;</span>
+                    onclick="submitFeedback('neutral', 'pwChange')">&#128528;</span>
                 <span class="feedback-button" title="Bad"
-                    onclick="submitFeedback('bad', 'pwChangeFeedback')">&#128542;</span>
+                    onclick="submitFeedback('bad', 'pwChange')">&#128542;</span>
             </div><br>
         </div>
 
@@ -246,11 +268,11 @@
             </select>
             <div class="feedback2">
                 <span class="feedback-button" title="Good"
-                    onclick="submitFeedback('good', 'pwPropertiesFeedback')">&#128522;</span>
+                    onclick="submitFeedback('good', 'pwProperties')">&#128522;</span>
                 <span class="feedback-button" title="Neutral"
-                    onclick="submitFeedback('neutral', 'pwPropertiesFeedback')">&#128528;</span>
+                    onclick="submitFeedback('neutral', 'pwProperties')">&#128528;</span>
                 <span class="feedback-button" title="Bad"
-                    onclick="submitFeedback('bad', 'pwPropertiesFeedback')">&#128542;</span>
+                    onclick="submitFeedback('bad', 'pwProperties')">&#128542;</span>
             </div><br>
         </div>
 
@@ -283,11 +305,11 @@
             </select>
             <div class="feedback4">
                 <span class="feedback-button" title="Good"
-                    onclick="submitFeedback('good', 'backupFeedback')">&#128522;</span>
+                    onclick="submitFeedback('good', 'backup')">&#128522;</span>
                 <span class="feedback-button" title="Neutral"
-                    onclick="submitFeedback('neutral', 'backupFeedback')">&#128528;</span>
+                    onclick="submitFeedback('neutral', 'backup')">&#128528;</span>
                 <span class="feedback-button" title="Bad"
-                    onclick="submitFeedback('bad', 'backupFeedback')">&#128542;</span>
+                    onclick="submitFeedback('bad', 'backup')">&#128542;</span>
             </div><br>
         </div>
 
@@ -313,11 +335,11 @@
             </select>
             <div class="feedback5">
                 <span class="feedback-button" title="Good"
-                    onclick="submitFeedback('good', 'incidentResponseFeedback')">&#128522;</span>
+                    onclick="submitFeedback('good', 'incidentResponse')">&#128522;</span>
                 <span class="feedback-button" title="Neutral"
-                    onclick="submitFeedback('neutral', 'incidentResponseFeedback')">&#128528;</span>
+                    onclick="submitFeedback('neutral', 'incidentResponse')">&#128528;</span>
                 <span class="feedback-button" title="Bad"
-                    onclick="submitFeedback('bad', 'incidentResponseFeedback')">&#128542;</span>
+                    onclick="submitFeedback('bad', 'incidentResponse')">&#128542;</span>
             </div><br>
         </div>
 
@@ -438,7 +460,7 @@
             </select><br><br>
         </div>
 
-        <button type="submit" onclick="onSubmitForm()">Bestätigen</button>
+        <button class="submitButton" type="submit" onclick="onSubmitForm()">Bestätigen</button>
     </form>
 </body>
 <script>
@@ -456,7 +478,7 @@
         showLoadingOverlay();
     }
 
-    function submitFeedback(value, question) {
+    function submitFeedback(value, relatedTo) {
         swal("Thank you!", "Your feedback is submitted", "success");
         const url = '/feedback'; // Die URL zum Spring Boot-Controller-Endpunkt
         fetch(url, {
@@ -464,7 +486,7 @@
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ value: value, question: question }) // Die Daten, die du an den Controller senden möchtest
+            body: JSON.stringify({ value: value, relatedTo: relatedTo }) // Die Daten, die du an den Controller senden möchtest
         })
             .then(response => {
                 if (response.ok) {

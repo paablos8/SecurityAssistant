@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .grid-container {
+        .recommendation-container,
+        .form-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-gap: 20px;
@@ -22,39 +23,81 @@
         .chart-container.red-background {
             background-color: #FFCCCC;
         }
-        
+
+        .resetButton {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            align-self: center;
+        }
+
+        .resetButton:hover {
+            background-color: #0056b3;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        hr.solid {
+            border-top: 3px solid #bbb;
+        }
     </style>
 </head>
 
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
 
-    <h1 align="center">User Feedback:</h1>
-
     <!--Die Pie Charts werden hier im HTML Code eingebettet-->
-    <div class="grid-container">
-        <div class="chart-container"
+
+    <h1 align="center">User Feedback zu der Verständlichkeit der Input Form:</h1>
+    <div class="form-container">
+            <div class="chart-container" th:each="question : ${questions}">
+                <canvas th:id="${question}" style="max-height:200px;"></canvas>
+            </div>
+        <!-- <div class="chart-container"
             th:classappend="${feedbackCountPwChange[0] < feedbackCountPwChange[2]} ? 'red-background'">
-            <canvas id="chart1" style="max-height:200px;"></canvas>
+            <canvas id="chartPwChange" style="max-height:200px;"></canvas>
         </div>
         <div class="chart-container"
             th:classappend="${feedbackCountPwProperties[0] < feedbackCountPwProperties[2]} ? 'red-background'">
-            <canvas id="chart2" style="max-height:200px;"></canvas>
+            <canvas id="chartPwPolicy" style="max-height:200px;"></canvas>
         </div>
         <div class="chart-container"
             th:classappend="${feedbackCountBackup[0] < feedbackCountBackup[2]} ? 'red-background'">
-            <canvas id="chart4" style="max-height:200px;"></canvas>
+            <canvas id="chartBackup" style="max-height:200px;"></canvas>
         </div>
         <div class="chart-container"
             th:classappend="${feedbackCountIncidentResponse[0] < feedbackCountIncidentResponse[2]} ? 'red-background'">
-            <canvas id="chart5" style="max-height:200px;"></canvas>
+            <canvas id="chartIncidentResponse" style="max-height:200px;"></canvas>
+        </div> -->
+    </div>
+
+    <hr class="solid"><br>
+
+    <h1 align="center">User Feedback zur Verständlichkeit der Recommendations:</h1>
+    <div class="recommendation-container" >
+        <div class="chart-container" th:each="title : ${titles}">
+            <canvas th:id="${title}" style="max-height:200px;"></canvas>
         </div>
-        <div>
-            <!-- Button um das User Feedback zurückzusetzen -->
-            <form id="reset" action="/resetUserFeedback" method="post">
-                <button type="submit">Userfeedback zurücksetzen</button>
-            </form>
-        </div>
+    </div>
+
+    <br><br>
+
+    <div>
+        <!-- Button um das User Feedback zurückzusetzen -->
+        <form id="reset" action="/resetUserFeedback" method="post">
+            <button class="resetButton" type="submit">Userfeedback zurücksetzen</button>
+        </form>
     </div>
 
     <!--Mit Hilfe dieser Data Annotation können innerhalb des JavaScript Codes mit Unterstützung 
@@ -62,10 +105,15 @@
         abgespeichert werden-->
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var data1 = /*[[${feedbackCountPwChange}]]*/ 'default';
-        var data2 = /*[[${feedbackCountPwProperties}]]*/ 'default';
-        var data4 = /*[[${feedbackCountBackup}]]*/ 'default';
-        var data5 = /*[[${feedbackCountIncidentResponse}]]*/ 'default';
+
+        //Die Feedback Daten zur Input Form
+        
+        var formData = /*[[${formCounts}]]*/ 'default';
+        var questions = /*[[${questions}]]*/ 'default';
+
+        //Die Feedback Daten zur den Recommendations
+        var recommendationData = /*[[${recommendationCounts}]]*/ 'default';
+        var titles = /*[[${titles}]]*/ 'default';
         /*]]>*/
 
         /*Standard Festlegung der Diagramm Labels und Farben*/
@@ -73,13 +121,13 @@
         var colors = ["#82FA58", "#F4FA58", "#FE2E2E"]
 
         /*Generierung von mehreren JS Pie Charts mit Hilfe von chart.js. Hier erfolgt auch die jeweilige Übergabe der Datensätze unter Datasets*/
-        new Chart("chart1", {
+       /*  new Chart("chartPwChange", {
             type: 'pie',
             data: {
                 labels: labels,
                 datasets: [{
                     backgroundColor: colors,
-                    data: data1
+                    data: dataPwChange
                 }]
             },
             options: {
@@ -91,13 +139,13 @@
                 }
             }
         });
-        new Chart("chart2", {
+        new Chart("chartPwPolicy", {
             type: 'pie',
             data: {
                 labels: labels,
                 datasets: [{
                     backgroundColor: colors,
-                    data: data2
+                    data: dataPwProperties
                 }]
             },
             options: {
@@ -110,13 +158,13 @@
             }
         });
 
-        new Chart("chart4", {
+        new Chart("chartBackup", {
             type: 'pie',
             data: {
                 labels: labels,
                 datasets: [{
                     backgroundColor: colors,
-                    data: data4
+                    data: dataBackup
                 }]
             },
             options: {
@@ -128,13 +176,13 @@
                 }
             }
         });
-        new Chart("chart5", {
+        new Chart("chartIncidentResponse", {
             type: 'pie',
             data: {
                 labels: labels,
                 datasets: [{
                     backgroundColor: colors,
-                    data: data5
+                    data: dataIncidentResponse
                 }]
             },
             options: {
@@ -145,7 +193,52 @@
                     }
                 }
             }
-        });
+        }); */
+
+        for (var i = 0; i < formData.length; i++) {
+                var chartID = questions[i];
+                new Chart(chartID, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            backgroundColor: colors,
+                            data: formData[i]
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: "Feedback zur Input Form Frage {" + questions[i] + " Policy}:"
+                            }
+                        }
+                    }
+                });
+            }
+
+        for (var i = 0; i < recommendationData.length; i++) {
+            var chartID = titles[i];
+            new Chart(chartID, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        backgroundColor: colors,
+                        data: recommendationData[i]
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: "Feedback zur Recommendation {" + titles[i] + "}:"
+                        }
+                    }
+                }
+            });
+        }
+
     </script>
 </body>
 
