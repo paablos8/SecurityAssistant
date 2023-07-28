@@ -191,12 +191,12 @@
     <p>Bitte tragen Sie hier detaillierte Informationen zu Ihrer IT Sicherheitsinfrastruktur ein!</p>
 
     <div class="loading-overlay">
-        <div class="loading-message">Processing...</div>
+        <div class="loading-message">Processing... Merken Sie sich Ihren Usernamen für das Bearbeiten Ihrer Daten!</div>
     </div>
 
     <form id="feedbackform" action="/recommendation" method="post">
         <div class="personalData">
-            <label for="userName">Username:</label>
+            <label for="userName">Username (bitte Username merken):</label>
             <input type="text" id="userName" name="userName" placeholder="Username" required><br><br>
             <div th:if="${errorMessage}" class="error-message">
                 <p th:text="${errorMessage}"></p>

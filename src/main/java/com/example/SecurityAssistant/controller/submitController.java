@@ -134,9 +134,9 @@ public class submitController {
 
             // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
             // abgespeichert wird
-            dataPrivacy privacy = new dataPrivacy();
-            infra.setCompanyName(privacy.pseudonymizeString(infra.getCompanyName()));
-            infra.setRegion(privacy.pseudonymizeString(infra.getRegion()));
+            infra.setUserName(dataPrivacy.pseudonymizeString(infra.getUserName()));
+            infra.setCompanyName(dataPrivacy.pseudonymizeString(infra.getCompanyName()));
+            infra.setRegion(dataPrivacy.pseudonymizeString(infra.getRegion()));
             // Speicherung des Form Inputs in der MySQL Datenbank
             repo.save(infra);
 

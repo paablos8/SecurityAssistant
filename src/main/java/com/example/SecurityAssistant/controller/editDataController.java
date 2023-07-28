@@ -58,12 +58,12 @@ public class editDataController {
     @PostMapping("/editSuccess")
     public String editData(@ModelAttribute SecurityInfrastructure infra, Model model) {
         infra.setId(userID);
-        infra.setUserName(username);
-
+        
         // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
         // abgespeichert wird
-        dataPrivacy privacy = new dataPrivacy();
-        infra.setCompanyName(privacy.pseudonymizeString(infra.getCompanyName()));
+        infra.setUserName(dataPrivacy.pseudonymizeString(username));
+        infra.setCompanyName(dataPrivacy.pseudonymizeString(infra.getCompanyName()));
+        infra.setRegion(dataPrivacy.pseudonymizeString(infra.getRegion()));
 
         repo.save(infra);
         model.addAttribute("userName", username);
@@ -98,7 +98,7 @@ public class editDataController {
         // Username out of the Input field is compared to the userNames stored in the
         // database
         for (SecurityInfrastructure item : dataList) {
-            if (item.getUserName().equals(username)) {
+            if (dataPrivacy.checkUsername(username, item.getUserName())) {
                 userID = item.getId();
                 break;
             } else {
@@ -116,7 +116,7 @@ public class editDataController {
         // Username out of the Input field is compared to the userNames stored in the
         // database
         for (SecurityInfrastructure item : dataList) {
-            if (item.getUserName().equals(username)) {
+            if (dataPrivacy.checkUsername(username ,item.getUserName()) ) {
                 System.out.println("Der Username ist bereits vorhanden");
                 return true;
             }

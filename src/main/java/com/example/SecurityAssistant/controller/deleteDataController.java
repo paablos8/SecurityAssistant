@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
+import com.example.SecurityAssistant.service.dataPrivacy;
 
 @Controller
 public class deleteDataController {
@@ -43,7 +44,7 @@ public class deleteDataController {
         // Username out of the Input field is compared to the userNames stored in the
         // database
         for (SecurityInfrastructure item : dataList) {
-            if (item.getUserName().equals(username)) {
+            if (dataPrivacy.checkUsername(username, item.getUserName())) {
                 userID = item.getId();
                 break;
             } else {
@@ -61,7 +62,7 @@ public class deleteDataController {
         // Username out of the Input field is compared to the userNames stored in the
         // database
         for (SecurityInfrastructure item : dataList) {
-            if (item.getUserName().equals(username)) {
+            if (dataPrivacy.checkUsername(username, item.getUserName())) {
                 System.out.println("Der Username ist bereits vorhanden");
                 return true;
             }
