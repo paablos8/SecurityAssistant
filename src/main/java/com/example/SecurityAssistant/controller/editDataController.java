@@ -29,10 +29,7 @@ public class editDataController {
             SecurityInfrastructure userData = repo.findById(userID).orElse(null);
             this.username = username;
             model.addAttribute("userName", username);
-            model.addAttribute("companyName", userData.getCompanyName());
             model.addAttribute("employeeNR", userData.getEmployeeNR());
-            model.addAttribute("branche", userData.getBranche());
-            model.addAttribute("region", userData.getRegion());
             model.addAttribute("pwChange", userData.getPwChange());
             model.addAttribute("pwProperties", userData.getPwProperties());
             model.addAttribute("trainings", userData.getTrainings());
@@ -70,10 +67,8 @@ public class editDataController {
 
         repo.save(infra);
         model.addAttribute("userName", username);
-        model.addAttribute("companyName", infra.getCompanyName());
         model.addAttribute("employeeNR", infra.getEmployeeNR());
         model.addAttribute("branche", infra.getBranche());
-        model.addAttribute("region", infra.getRegion());
         model.addAttribute("pwChange", infra.getPwChange());
         model.addAttribute("pwProperties", infra.getPwProperties());
         model.addAttribute("trainings", infra.getTrainings());

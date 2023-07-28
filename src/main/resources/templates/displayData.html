@@ -217,14 +217,12 @@
             <option value="No Backups are made">Es werden keine Backups gemacht</option>
             <option value="No defined Backup strategy, sporadical backups">Keine Strategie, sporadische Backups
             </option>
-            <option value="Full Backup once per week, incremental or full Backup daily; Strategy is defined and documented, 
-        is implemented for the most important protected systems">Vollständiges Backup einmal pro Woche, inkrementelles
+            <option value="Full Backup Strategy for the most important protected systems">Vollständiges Backup einmal pro Woche, inkrementelles
                 oder vollständiges Backup täglich; Strategie ist definiert und dokumentiert, wird für die
                 wichtigsten
                 geschützten
                 Systeme umgesetzt</option>
-            <option value=" Full Backup once per week, incremental or full Backup daily; Strategy is defined and documented, 
-        is implemented for all protected systems">Vollständiges Backup einmal pro Woche, inkrementelles oder
+            <option value="Full Backup Strategy for all protected systems">Vollständiges Backup einmal pro Woche, inkrementelles oder
                 vollständiges
                 Backup täglich; Strategie ist definiert und dokumentiert, wird für alle geschützten Systeme
                 umgesetzt
@@ -378,11 +376,11 @@
     function displayData() {
         /*<![CDATA[*/
         var branche = /*[[${branche}]]*/ 'default';
-        var region = /*[[${region}]]*/ 'default';
         var pwChange = /*[[${pwChange}]]*/ 'default';
         var pwProperties = /*[[${pwProperties}]]*/ 'default';
         var trainings = /*[[${trainings}]]*/ 'default';
         var backup = /*[[${backup}]]*/ 'default';
+        console.log(backup);
         var incidentResponse = /*[[${incidentResponse}]]*/ 'default';
         var policyDoc = /*[[${policyDoc}]]*/ 'default';
         var storage = /*[[${storage}]]*/ 'default';
@@ -397,8 +395,6 @@
         var printer = /*[[${printer}]]*/ 'default';
         var OS = /*[[${OS}]]*/ 'default';
         /*]]>*/
-        document.getElementById('branche').value = branche;
-        document.getElementById('region').value = region;
         document.getElementById('pwChange').value = pwChange;
         document.getElementById('pwProperties').value = pwProperties;
         document.getElementById('trainings').value = trainings;

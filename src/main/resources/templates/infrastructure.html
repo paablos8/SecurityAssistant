@@ -158,7 +158,8 @@
             border-radius: 4px;
             margin-top: 10px;
         }
-         .submitButton {
+
+        .submitButton {
             display: block;
             width: 200px;
             margin: 0 auto;
@@ -290,14 +291,12 @@
                 <option value="No Backups are made">Es werden keine Backups gemacht</option>
                 <option value="No defined Backup strategy, sporadical backups">Keine Strategie, sporadische Backups
                 </option>
-                <option value="Full Backup once per week, incremental or full Backup daily; Strategy is defined and documented, 
-        is implemented for the most important protected systems">Vollständiges Backup einmal pro Woche, inkrementelles
+                <option value="Full Backup Strategy for the most important protected systems">Vollständiges Backup einmal pro Woche, inkrementelles
                     oder vollständiges Backup täglich; Strategie ist definiert und dokumentiert, wird für die
                     wichtigsten
                     geschützten
                     Systeme umgesetzt</option>
-                <option value="Full Backup once per week, incremental or full Backup daily; Strategy is defined and documented, 
-        is implemented for all protected systems">Vollständiges Backup einmal pro Woche, inkrementelles oder
+                <option value="Full Backup Strategy for all protected systems">Vollständiges Backup einmal pro Woche, inkrementelles oder
                     vollständiges
                     Backup täglich; Strategie ist definiert und dokumentiert, wird für alle geschützten Systeme
                     umgesetzt
@@ -316,16 +315,16 @@
         <div class="frage5">
             <label for="incidentResponse">Gibt es bei Ihnen in der Firma einen Incident Response Plan?
                 <div class="help-tip">
-                    <p>1. Are there procedures defined to handle different types of incidents: information system
-                        failures or loss
-                        of service, malicious code, denial of service, errors due to incomplete/inaccurate business
-                        data, confidentality
-                        or integrity breach, misuse of information systems?</p>
-                    <p>2. Do the procedures also specifiy analysis and identification of the cause, containment,
-                        planning and
-                        implementation of corrective steps, communication with involved/affected individuals, and
-                        reporting to
-                        appropriate authority?</p>
+                    <p>1. Gibt es Verfahren zur Behandlung verschiedener Arten von Vorfällen: Ausfälle von
+                        Informationssystemen Ausfälle oder Verlust des Services
+                        bösartiger Code, Denial of Service, Fehler aufgrund unvollständiger/unrichtiger Geschäftsdaten
+                        , Verletzung der Vertraulichkeit oder Integritätsverletzung, Missbrauch von
+                        Informationssystemen?</p>
+                    <p>2. Spezifizieren die Verfahren auch die Analyse und Identifizierung der Ursache, die Eindämmung,
+                        Planung und Durchführung von Abhilfemaßnahmen, Kommunikation mit beteiligten/betroffenen
+                        Personen und
+                        Berichterstattung an
+                        zuständige Behörden?</p>
                 </div>
             </label>
             <select id="incidentResponse" name="incidentResponse">
@@ -405,17 +404,19 @@
 
         <div class="frage14">
             <label for="firewallPolicy">Haben Sie eine Firewall Policy?<div class="help-tip">
-                    <p>Policy should contain:
-                        Regulation that every connection between internet and the internal network must be secured with
-                        a firewall,
-                        Decision if Internet Provider should be responsible for firewall-services (Managed Security
-                        Contract) or not,
-                        Updates for firewalls - who is responsible, when do the update,
-                        Configuration and administration of firewall - must be possible through a secure connection,
-                        Configuration information - where and how to store, keep up to date,
-                        Determination which connections to and from the internal network are allowed and disallowed,
-                        Determination of Logging-Level and responsibilty for regular checking of logging-files,
-                        Configuration of Personal Firewalls</p>
+                    <p>Die Richtlinie sollte enthalten:
+                        Regelung, dass jede Verbindung zwischen dem Internet und dem internen Netz mit
+                        einer Firewall gesichert werden muss, Entscheidung, ob der Internet-Provider für die
+                        Firewall-Services verantwortlich sein soll (Managed Security
+                        Vertrag) oder nicht, Updates für Firewalls - wer ist verantwortlich, wann wird das Update
+                        durchgeführt,
+                        Konfiguration und Verwaltung der Firewall - muss über eine sichere Verbindung möglich sein,
+                        Konfigurationsinformationen - wo und wie werden sie gespeichert, auf dem neuesten Stand
+                        gehalten,
+                        Festlegung, welche Verbindungen zum und vom internen Netz erlaubt und verboten sind,
+                        Festlegung des Logging-Levels und Verantwortlichkeit für die regelmäßige Überprüfung der
+                        Logging-Dateien,
+                        Konfiguration von Personal Firewalls</p>
                 </div></label>
             <select id="firewallPolicy" name="firewallPolicy">
                 <option value="Yes">Yes</option>
