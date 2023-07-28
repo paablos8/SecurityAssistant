@@ -185,56 +185,67 @@
 
             <div class="title"><strong th:text="'Titel: ' +${recommendation.title}"></strong>
 
-                <div class="statistics">
+                <div class="statistics"
+                    th:if="${recommendation.title == '4.4 Sicherheitssensibilisierung und -schulung'}">
                     <p class="tooltip-content"
-                        th:if="${recommendation.title == '4.4 Sicherheitssensibilisierung und -schulung'}"
                         th:text="'Ein Anteil von ' + ${trainingsCount[0]} + '% veranstalten regelmäßige Mitarbeiterschulungen'">
                     </p>
+                </div>
 
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == 'A.10.5.1 Information back-up'}"
-                        th:text="'Ein Anteil von ' + ${backupCount[2] + backupCount[3]} + '% aller Firmen haben eine Backup-Strategie mit regelmäßigen Backups umgesetzt.'">
+                <div class="statistics" th:else th:if="${recommendation.title == 'A.10.5.1 Information back-up'}">
+                    <p class="tooltip-content"
+                        th:text="'Ein Anteil von ' + ${backupCount[2]} + '% aller Firmen haben eine Backup-Strategie mit regelmäßigen Backups umgesetzt.'">
                     </p>
+                </div>
 
-                    <p class="tooltip-content" th:else
-                        th:if="${recommendation.title == 'A.9.1.1 Physical security perimeter'}"
+                <div class="statistics" th:else
+                    th:if="${recommendation.title == 'A.9.1.1 Physical security perimeter'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${criticalInfraCount[0]} + '% der Firmen haben den physischen Zugang zu kritischer Infrastruktur begrenzt'">
                     </p>
-
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == '8.2 Fire Protection'}"
+                </div>
+                <div class="statistics" th:else th:if="${recommendation.title == '8.2 Fire Protection'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${smokeDetCount[0]} + '% der Firmen haben einen Rauchmelder zum Brandschutz installiert'">
                     </p>
-
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == '8.2.1 Handfeuerlöscher'}"
+                </div>
+                <div class="statistics" th:else th:if="${recommendation.title == '8.2.1 Handfeuerlöscher'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${fireExCount[0]} + '% der Firmen haben einen Feuerlöscher in der Reichweite kritischer Infrastruktur.'">
                     </p>
-
-                    <p class="tooltip-content" th:else
-                        th:if="${recommendation.title == 'A.11.5.3 Password management system'}"
+                </div>
+                <div class="statistics" th:else
+                    th:if="${recommendation.title == 'A.11.5.3 Password management system'}">
+                    <p class="tooltip-content"
                         th:text="'Nur ein Anteil von ' + ${pwPropertiesCount[0]} + '% der Firmen haben gar keine Anforderungen an die Passworterstellung.'">
                     </p>
-
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == '6.5 Internet Access Risks'}"
+                </div>
+                <div class="statistics" th:else th:if="${recommendation.title == '6.5 Internet Access Risks'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${trainingsCount[0]} + '% der Firmen schulen Ihre Mitarbeiter regelmäßig zum Thema IT Sicherheit.'">
                     </p>
-
-                    <p class="tooltip-content" th:else
-                        th:if="${recommendation.title == 'A.15.2.2 Technical compliance checking'}"
+                </div>
+                <div class="statistics" th:else
+                    th:if="${recommendation.title == 'A.15.2.2 Technical compliance checking'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${externalProviderCount[0]} + '% der Firmen arbeiten mit externen Dienstleister zum Thema zusammen.'">
                     </p>
-
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == '6.1 Firewalls'}"
+                </div>
+                <div class="statistics" th:else th:if="${recommendation.title == '6.1 Firewalls'}">
+                    <p class="tooltip-content"
                         th:text="'Nur ein Anteil von ' + ${firewallCount[3]} + '% der Firmen haben keine Firewall aktiviert.'">
                     </p>
-
-                    <p class="tooltip-content" th:else
-                        th:if="${recommendation.title == '5.8.2 Virus Avoidance and Recogniton by the User'}"
+                </div>
+                <div class="statistics" th:else
+                    th:if="${recommendation.title == '5.8.2 Virus Avoidance and Recogniton by the User'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${policyDocCount[0]} + '% der Firmen nutzen ein Dokument mit festgelegten Richtlinien um mögliche Gefahren vorzubeugen.'">
                     </p>
-
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == '5.1 Password Selection'}"
-                        th:text="'Ein Anteil von ' + ${pwChangeCount[1]+pwChangeCount[2]} + '% der Firmen haben eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
+                </div>
+                <div class="statistics" th:else th:if="${recommendation.title == '5.1 Password Selection'}">
+                    <p class="tooltip-content"
+                        th:text="'Ein Anteil von ' + ${pwChangeCount[1]} + '% der Firmen haben eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
                     </p>
-
                 </div>
             </div>
 
@@ -244,7 +255,7 @@
                 <span th:text="${recommendation.information}"></span>
             </div><br>
             <div class="Feedback">
-                <span class="feedback-button" title="Good" th:data-id="${recommendation.title}" 
+                <span class="feedback-button" title="Good" th:data-id="${recommendation.title}"
                     onclick="submitFeedback('good', this.getAttribute('data-id'))">&#128522;</span>
                 <span class="feedback-button" title="Neutral" th:data-id="${recommendation.title}"
                     onclick="submitFeedback('neutral', this.getAttribute('data-id'))">&#128528;</span>
@@ -254,13 +265,6 @@
             <br>
         </div>
     </div>
-
-
-
-    <!-- <div class="chartPolicyDoc">
-            <canvas id="chartPolicyDoc" style="max-height:200px;"></canvas>
-            </div>
-        </div>  -->
 
     <script th:inline="javascript">
 

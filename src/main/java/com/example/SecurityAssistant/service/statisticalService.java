@@ -65,7 +65,7 @@ public class statisticalService {
                 count4 = count4 + 1;
             }
         }
-        return calculatePercentage(new double[] { count1, count2, count3, count4 });
+        return calculatePercentage(new double[] { count1, (count2 + count3), count4 });
     }
 
     // Liest die Anzahl an Firmen mit Backup Policy aus
@@ -76,13 +76,11 @@ public class statisticalService {
                 count1 = count1 + 1;
             } else if (item.getBackup().equals("No defined Backup strategy, sporadical backups")) {
                 count2 = count2 + 1;
-            } else if (item.getBackup().equals("Full Backup once per week, incremental or full Backup daily; Strategy is defined and documented, is implemented for the most important protected systems")) {
+            } else {
                 count3 = count3 + 1;
-            } else if (item.getBackup().equals("Full Backup once per week, incremental or full Backup daily; Strategy is defined and documented, is implemented for all protected systems")) {
-                count4 = count4 + 1;
-            }
+            } 
         }
-        return calculatePercentage(new double[] { count1, count2, count3, count4 });
+        return calculatePercentage(new double[] { count1 , count2, count3 });
     }
     
     // Liest die verschiedenen Datensicherungskonzepte der Firmen aus
