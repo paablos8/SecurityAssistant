@@ -56,12 +56,6 @@ public class feedbackController {
     @GetMapping("/admin")
     public String getAdminPage(Model model) {
         // Feedback zur Input Form
-        /*
-         * calculatePwChangeFeedback(model);
-         * calculatePwPropertiesFeedback(model);
-         * calculatebackupFeedback(model);
-         * calculateIncidentResponseFeedback(model);
-         */
         calculateFormFeedback(model);
         model.addAttribute("questions", questions);
 

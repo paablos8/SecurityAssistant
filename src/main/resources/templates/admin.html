@@ -61,31 +61,15 @@
 
     <h1 align="center">User Feedback zu der Verständlichkeit der Input Form:</h1>
     <div class="form-container">
-            <div class="chart-container" th:each="question : ${questions}">
-                <canvas th:id="${question}" style="max-height:200px;"></canvas>
-            </div>
-        <!-- <div class="chart-container"
-            th:classappend="${feedbackCountPwChange[0] < feedbackCountPwChange[2]} ? 'red-background'">
-            <canvas id="chartPwChange" style="max-height:200px;"></canvas>
+        <div class="chart-container" th:each="question : ${questions}">
+            <canvas th:id="${question}" style="max-height:200px;"></canvas>
         </div>
-        <div class="chart-container"
-            th:classappend="${feedbackCountPwProperties[0] < feedbackCountPwProperties[2]} ? 'red-background'">
-            <canvas id="chartPwPolicy" style="max-height:200px;"></canvas>
-        </div>
-        <div class="chart-container"
-            th:classappend="${feedbackCountBackup[0] < feedbackCountBackup[2]} ? 'red-background'">
-            <canvas id="chartBackup" style="max-height:200px;"></canvas>
-        </div>
-        <div class="chart-container"
-            th:classappend="${feedbackCountIncidentResponse[0] < feedbackCountIncidentResponse[2]} ? 'red-background'">
-            <canvas id="chartIncidentResponse" style="max-height:200px;"></canvas>
-        </div> -->
     </div>
 
     <hr class="solid"><br>
 
     <h1 align="center">User Feedback zur Verständlichkeit der Recommendations:</h1>
-    <div class="recommendation-container" >
+    <div class="recommendation-container">
         <div class="chart-container" th:each="title : ${titles}">
             <canvas th:id="${title}" style="max-height:200px;"></canvas>
         </div>
@@ -107,7 +91,7 @@
         /*<![CDATA[*/
 
         //Die Feedback Daten zur Input Form
-        
+
         var formData = /*[[${formCounts}]]*/ 'default';
         var questions = /*[[${questions}]]*/ 'default';
 
@@ -120,103 +104,32 @@
         var labels = ["Good", "Neutral", "Bad"];
         var colors = ["#82FA58", "#F4FA58", "#FE2E2E"]
 
-        /*Generierung von mehreren JS Pie Charts mit Hilfe von chart.js. Hier erfolgt auch die jeweilige Übergabe der Datensätze unter Datasets*/
-       /*  new Chart("chartPwChange", {
-            type: 'pie',
-            data: {
-                labels: labels,
-                datasets: [{
-                    backgroundColor: colors,
-                    data: dataPwChange
-                }]
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: "Feedback zu Password Change Policy:"
-                    }
-                }
-            }
-        });
-        new Chart("chartPwPolicy", {
-            type: 'pie',
-            data: {
-                labels: labels,
-                datasets: [{
-                    backgroundColor: colors,
-                    data: dataPwProperties
-                }]
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: "Feedback zu Password Property Policy:"
-                    }
-                }
-            }
-        });
-
-        new Chart("chartBackup", {
-            type: 'pie',
-            data: {
-                labels: labels,
-                datasets: [{
-                    backgroundColor: colors,
-                    data: dataBackup
-                }]
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: "Feedback zu Backup:"
-                    }
-                }
-            }
-        });
-        new Chart("chartIncidentResponse", {
-            type: 'pie',
-            data: {
-                labels: labels,
-                datasets: [{
-                    backgroundColor: colors,
-                    data: dataIncidentResponse
-                }]
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: "Feedback zu Incident Response:"
-                    }
-                }
-            }
-        }); */
-
+        /*Generierung von mehreren JS Pie Charts mit Hilfe von chart.js. Hier erfolgt auch die jeweilige Übergabe 
+        der Datensätze mit den Feedback Informationen zur Input Form unter Datasets*/
         for (var i = 0; i < formData.length; i++) {
-                var chartID = questions[i];
-                new Chart(chartID, {
-                    type: 'pie',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            backgroundColor: colors,
-                            data: formData[i]
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: "Feedback zur Input Form Frage {" + questions[i] + " Policy}:"
-                            }
+            var chartID = questions[i];
+            new Chart(chartID, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        backgroundColor: colors,
+                        data: formData[i]
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: "Feedback zur Input Form Frage {" + questions[i] + " Policy}:"
                         }
                     }
-                });
-            }
+                }
+            });
+        }
 
+        /*Generierung von mehreren JS Pie Charts mit Hilfe von chart.js. Hier erfolgt auch die jeweilige Übergabe der 
+        Datensätze mit den Feedback Informationen zu den REcommendations unter Datasets*/
         for (var i = 0; i < recommendationData.length; i++) {
             var chartID = titles[i];
             new Chart(chartID, {
