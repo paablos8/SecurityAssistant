@@ -57,10 +57,10 @@ public class submitController {
                 case "NodefinedBackupstrategysporadicalbackups":
                     initJena.addPolicy("DataBackupPolicyC", "BackupPolicyOf" + companyName);
                     break;
-                case "FullBackuponceperweekincrementalorfullBackupdailyStrategyisdefinedanddocumentedisimplementedforthemostimportantprotectedsystems":
+                case "FullBackupStrategyforthemostimportantprotected systems":
                     initJena.addPolicy("DataBackupPolicyB", "BackupPolicyOf" + companyName);
                     break;
-                case "FullBackuponceperweekincrementalorfullBackupdailyStrategyisdefinedanddocumentedisimplementedforallprotectedsystems":
+                case "FullBackupStrategyforallprotectedsystems":
                     initJena.addPolicy("DataBackupPolicyA", "BackupPolicyOf" + companyName);
                     break;
                 default:
@@ -121,9 +121,9 @@ public class submitController {
             System.out.println(
                     "These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
             reasoning.listCurrentVulnerabilities();
+            
             System.out.println("These are the current lowered Threats: " + reasoning.getLoweredThreats());
-            // reasoning.listCurrentTopLevelThreats();
-            // reasoning.listCurrentLowLevelThreats();
+            int complianceScore = reasoning.createOverallComplianceScore();
 
             // Generierung der recommendations
             ArrayList<Recommendation> recommendations = reasoning.generateRecommendations();
