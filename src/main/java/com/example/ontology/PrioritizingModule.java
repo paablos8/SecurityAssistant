@@ -39,13 +39,17 @@ public class PrioritizingModule {
 		
 		
 		public ArrayList<Recommendation> prioritizeRecommendations (ArrayList<Recommendation> recommendations) {
+			System.out.println("Priorization Method started!");
+			System.out.println("Size of the List Recommendations is: " + recommendations.size());
 			
 			for (int i = 0; i < recommendations.size(); i++) {
 				Recommendation currentRecommendation = recommendations.get(i);
+				System.out.println("This is the current analyzed recommendation: " + currentRecommendation.getTitle());
 				int priorityScore = 0;
 				
 				ArrayList<Resource> threats = new ArrayList<Resource>();
 				threats = currentRecommendation.getRiskIfNotImplementedResource();
+				System.out.println("Size of the List Threats is: " + threats.size());
 				
 				for (int j = 0; j < threats.size(); j++) {
 					String currentThreat = threats.get(j).getURI();
@@ -54,6 +58,7 @@ public class PrioritizingModule {
 					while (iter.hasNext()) {
 						OntClass threatType = iter.next();		
 						String typeOfThreat = threatType.getURI();
+						System.out.println("This is the URI of the analyzed threat Type: " + typeOfThreat);
 						
 						if (typeOfThreat.equals("http://securityontology.sba-research.org/securityontology.owl#TopLevelThreat")) {
 							priorityScore = priorityScore + 20;

@@ -369,6 +369,7 @@ public class ReasoningJena {
 										}
 										threatsIfNotImplemented = threatsIfNotImplemented + " which also can increase the threat of" + threatsThatAreRised;
 										recommendation.addRiskIfNotImplemented(threatsIfNotImplemented);
+										recommendation.addRiskIfNotImplementedResource(threatIfNotImplemented);
 									}
 									
 									recommendation.addMitigatesVulnerabilitiesString(currentVulnerability.getLocalName());
