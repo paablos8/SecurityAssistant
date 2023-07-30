@@ -29,7 +29,6 @@ import org.apache.jena.util.PrintUtil;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
 import com.example.SecurityAssistant.entities.Recommendation;
-import com.example.SecurityAssistant.service.EditStringService;
 
 public class ReasoningJena {
 	
@@ -335,14 +334,12 @@ public class ReasoningJena {
 									
 									if (standardControl.hasProperty(annotationInfo)) {
 										annotationInfoString = standardControl.getProperty(annotationInfo).getObject().toString().replace("@en", "").replace("@de", "");
-										annotationInfoString = EditStringService.replaceUmlaut(annotationInfoString);
 									}
 									else { annotationInfoString = "";
 									}
 									
 									if (standardControl.hasProperty(annotationControl)) {
 										annotationControlString = standardControl.getProperty(annotationControl).getObject().toString().replace("@en", "").replace("@de", "");
-										
 									}
 									else { annotationControlString = "";
 									}
@@ -374,7 +371,7 @@ public class ReasoningJena {
 										recommendation.addRiskIfNotImplemented(threatsIfNotImplemented);
 									}
 									
-									recommendation.addMitigatesVulnerabilities(currentVulnerability.getLocalName());
+									recommendation.addMitigatesVulnerabilitiesString(currentVulnerability.getLocalName());
 									recommendations.add(recommendation);
 									System.out.println("A recommendation has been generated: " + recommendationTitle + ", it is based on the source " + originDocument);
 									System.out.println("This recommendation mitigates the vulnerability: " + currentVulnerability.getLocalName());
@@ -394,10 +391,23 @@ public class ReasoningJena {
 	            System.out.println("- " + item.getTitle());
 	            System.out.println("More Info: " + item.getInformation());
 	            System.out.println(" ");
-	            System.out.println(" The recommendation was generated because your business has the vulnerability: " + item.getMitigatesVulnerabilities());
+	            System.out.println(" The recommendation was generated because your business has the vulnerability: " + item.getMitigatesVulnerabilitiesString());
+	            System.out.println(" ");
+	            System.out.println("-------------------------------------------------------------------------------------------------- ");
+	        }
+			
+			PrioritizingModule prio = new PrioritizingModule(base, businessIRI);
+			recommendations = prio.prioritizeRecommendations(recommendations);
+			
+			
+			System.out.println("These are your Prioritized recommendations: ");
+			for (Recommendation item : recommendations) {
+	            System.out.println("- " + item.getTitle());
+	            System.out.println("Priority Score: " + item.getPriorityScore());
 	            System.out.println(" ");
 	            System.out.println("-------------------------------------------------------------------------------------------------- ");
 	        }
 		return recommendations;
-		}	
+		}
+	
 }

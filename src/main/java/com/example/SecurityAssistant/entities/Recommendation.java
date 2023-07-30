@@ -3,8 +3,7 @@ package com.example.SecurityAssistant.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.apache.jena.rdf.model.Resource;
 
 public class Recommendation {
 	
@@ -12,7 +11,11 @@ public class Recommendation {
 	private String information;
 	private String originDocument;
 	private ArrayList<String> risksIfNotImplemented;
-	private ArrayList<String> mitigatesVulnerabilities;
+	private ArrayList<Resource> risksIfNotImplementedResource;
+	private ArrayList<String> mitigatesVulnerabilitiesString;
+	private ArrayList<Resource> mitigatesVulnerabilitiesResource;
+
+	private int priorityScore;
 	
 	
 	public Recommendation (String title, String information, String originDocument) {
@@ -20,7 +23,9 @@ public class Recommendation {
 		this.information = information;
 		this.originDocument = originDocument;
 		this.risksIfNotImplemented = new ArrayList<String> ();
-		this.mitigatesVulnerabilities = new ArrayList<String> ();
+		this.risksIfNotImplementedResource = new ArrayList<Resource>();
+		this.mitigatesVulnerabilitiesString = new ArrayList<String> ();
+		this.mitigatesVulnerabilitiesResource = new ArrayList<Resource> ();
 	}
 	
 	public String getTitle () {
@@ -42,13 +47,37 @@ public class Recommendation {
 	public void addRiskIfNotImplemented (String risk) {
 		risksIfNotImplemented.add(risk);
 	}
-
-	public ArrayList<String> getMitigatesVulnerabilities() {
-		return mitigatesVulnerabilities;
+	
+	public ArrayList<Resource> getRiskIfNotImplementedResource() {
+		return risksIfNotImplementedResource;
+	}
+	
+	public void addRiskIfNotImplementedResource (Resource risk) {
+		risksIfNotImplementedResource.add(risk);
 	}
 
-	public void addMitigatesVulnerabilities(String mitigatesVulnerability) {
-		mitigatesVulnerabilities.add(mitigatesVulnerability);
+	public ArrayList<String> getMitigatesVulnerabilitiesString() {
+		return mitigatesVulnerabilitiesString;
+	}
+
+	public void addMitigatesVulnerabilitiesString(String mitigatesVulnerability) {
+		mitigatesVulnerabilitiesString.add(mitigatesVulnerability);
+	}
+	
+	public ArrayList<Resource> getMitigatesVulnerabilitiesResource() {
+		return mitigatesVulnerabilitiesResource;
+	}
+
+	public void addMitigatesVulnerabilitiesResource(Resource mitigatesVulnerability) {
+		mitigatesVulnerabilitiesResource.add(mitigatesVulnerability);
+	}
+	
+	public void setPriorityScore (int priorityScore) {
+		this.priorityScore = priorityScore;
+	}
+	
+	public int getPriorityScore () {
+		return priorityScore;
 	}
 
 	
