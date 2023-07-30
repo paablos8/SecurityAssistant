@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
         .container {
             border: 1px solid #ccc;
@@ -157,6 +158,19 @@
             transition: max-height 0.2s ease-out;
             background-color: #f1f1f1;
         }
+
+        .feedback-button {
+            cursor: pointer;
+            display: inline-block;
+            padding: 10px;
+            background-color: #ccc;
+            transition: background-color 0.3s;
+        }
+
+        .feedback-button:hover {
+            background-color: rgb(100, 103, 100);
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -171,56 +185,67 @@
 
             <div class="title"><strong th:text="'Titel: ' +${recommendation.title}"></strong>
 
-                <div class="statistics">
+                <div class="statistics"
+                    th:if="${recommendation.title == '4.4 Sicherheitssensibilisierung und -schulung'}">
                     <p class="tooltip-content"
-                        th:if="${recommendation.title == '4.4 Sicherheitssensibilisierung und -schulung'}"
                         th:text="'Ein Anteil von ' + ${trainingsCount[0]} + '% veranstalten regelmäßige Mitarbeiterschulungen'">
                     </p>
+                </div>
 
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == 'A.10.5.1 Information back-up'}"
-                        th:text="'Ein Anteil von ' + ${backupCount[2] + backupCount[3]} + '% aller Firmen haben eine Backup-Strategie mit regelmäßigen Backups umgesetzt.'">
+                <div class="statistics" th:else th:if="${recommendation.title == 'A.10.5.1 Information back-up'}">
+                    <p class="tooltip-content"
+                        th:text="'Ein Anteil von ' + ${backupCount[2]} + '% aller Firmen haben eine Backup-Strategie mit regelmäßigen Backups umgesetzt.'">
                     </p>
+                </div>
 
-                    <p class="tooltip-content" th:else
-                        th:if="${recommendation.title == 'A.9.1.1 Physical security perimeter'}"
+                <div class="statistics" th:else
+                    th:if="${recommendation.title == 'A.9.1.1 Physical security perimeter'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${criticalInfraCount[0]} + '% der Firmen haben den physischen Zugang zu kritischer Infrastruktur begrenzt'">
                     </p>
-
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == '8.2 Fire Protection'}"
+                </div>
+                <div class="statistics" th:else th:if="${recommendation.title == '8.2 Fire Protection'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${smokeDetCount[0]} + '% der Firmen haben einen Rauchmelder zum Brandschutz installiert'">
                     </p>
-
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == '8.2.1 Handfeuerlöscher'}"
+                </div>
+                <div class="statistics" th:else th:if="${recommendation.title == '8.2.1 Handfeuerlöscher'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${fireExCount[0]} + '% der Firmen haben einen Feuerlöscher in der Reichweite kritischer Infrastruktur.'">
                     </p>
-
-                    <p class="tooltip-content" th:else
-                        th:if="${recommendation.title == 'A.11.5.3 Password management system'}"
+                </div>
+                <div class="statistics" th:else
+                    th:if="${recommendation.title == 'A.11.5.3 Password management system'}">
+                    <p class="tooltip-content"
                         th:text="'Nur ein Anteil von ' + ${pwPropertiesCount[0]} + '% der Firmen haben gar keine Anforderungen an die Passworterstellung.'">
                     </p>
-
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == '6.5 Internet Access Risks'}"
+                </div>
+                <div class="statistics" th:else th:if="${recommendation.title == '6.5 Internet Access Risks'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${trainingsCount[0]} + '% der Firmen schulen Ihre Mitarbeiter regelmäßig zum Thema IT Sicherheit.'">
                     </p>
-
-                    <p class="tooltip-content" th:else
-                        th:if="${recommendation.title == 'A.15.2.2 Technical compliance checking'}"
+                </div>
+                <div class="statistics" th:else
+                    th:if="${recommendation.title == 'A.15.2.2 Technical compliance checking'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${externalProviderCount[0]} + '% der Firmen arbeiten mit externen Dienstleister zum Thema zusammen.'">
                     </p>
-
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == '6.1 Firewalls'}"
+                </div>
+                <div class="statistics" th:else th:if="${recommendation.title == '6.1 Firewalls'}">
+                    <p class="tooltip-content"
                         th:text="'Nur ein Anteil von ' + ${firewallCount[3]} + '% der Firmen haben keine Firewall aktiviert.'">
                     </p>
-
-                    <p class="tooltip-content" th:else
-                        th:if="${recommendation.title == '5.8.2 Virus Avoidance and Recogniton by the User'}"
+                </div>
+                <div class="statistics" th:else
+                    th:if="${recommendation.title == '5.8.2 Virus Avoidance and Recogniton by the User'}">
+                    <p class="tooltip-content"
                         th:text="'Ein Anteil von ' + ${policyDocCount[0]} + '% der Firmen nutzen ein Dokument mit festgelegten Richtlinien um mögliche Gefahren vorzubeugen.'">
                     </p>
-
-                    <p class="tooltip-content" th:else th:if="${recommendation.title == '5.1 Password Selection'}"
-                        th:text="'Ein Anteil von ' + ${pwChangeCount[1]+pwChangeCount[2]} + '% der Firmen haben eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
+                </div>
+                <div class="statistics" th:else th:if="${recommendation.title == '5.1 Password Selection'}">
+                    <p class="tooltip-content"
+                        th:text="'Ein Anteil von ' + ${pwChangeCount[1]} + '% der Firmen haben eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
                     </p>
-
                 </div>
             </div>
 
@@ -228,18 +253,22 @@
 
             <div class="moreInfo">
                 <span th:text="${recommendation.information}"></span>
-            </div><br><br>
+            </div><br>
+            <div class="Feedback">
+                <span class="feedback-button" title="Good" th:data-id="${recommendation.title}"
+                    onclick="submitFeedback('good', this.getAttribute('data-id'))">&#128522;</span>
+                <span class="feedback-button" title="Neutral" th:data-id="${recommendation.title}"
+                    onclick="submitFeedback('neutral', this.getAttribute('data-id'))">&#128528;</span>
+                <span class="feedback-button" title="Bad" th:data-id="${recommendation.title}"
+                    onclick="submitFeedback('bad', this.getAttribute('data-id'))">&#128542;</span>
+            </div>
+            <br>
         </div>
     </div>
 
-
-
-    <!-- <div class="chartPolicyDoc">
-            <canvas id="chartPolicyDoc" style="max-height:200px;"></canvas>
-            </div>
-        </div>  -->
-
     <script th:inline="javascript">
+
+        //Making the Recommendation Titles Collapsible and onClick show/hide more detailed Infromation
         var coll = document.getElementsByClassName("collapsible");
         var i;
 
@@ -253,6 +282,33 @@
                     moreInfo.style.maxHeight = moreInfo.scrollHeight + "px";
                 }
             });
+        }
+
+        //Function that handles the Feedback submitted through the Feedback Buttons
+        function submitFeedback(value, relatedTo) {
+            swal("Thank you!", "Your feedback is submitted", "success");
+            const url = '/feedback'; // Die URL zum Spring Boot-Controller-Endpunkt
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ value: value, relatedTo: relatedTo }) // Die Daten, die du an den Controller senden möchtest
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Erfolgreiche Antwort erhalten
+                        console.log('POST-Anfrage erfolgreich gesendet');
+                    } else {
+                        // Fehlerhafte Antwort erhalten
+                        console.error('Fehler beim Senden der POST-Anfrage');
+                    }
+                })
+                .catch(error => {
+                    // Ein Fehler ist aufgetreten
+                    console.error('Fehler aufgetreten:', error);
+                });
+
         }
 
         /*<![CDATA[*/

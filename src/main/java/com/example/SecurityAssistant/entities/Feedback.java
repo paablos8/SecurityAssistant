@@ -14,27 +14,24 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-   private String value;
-   private String question;
-   
-   public String getValue() {
-    return value;
-}
-public void setValue(String value) {
-    this.value = value;
-}
-public String getQuestion() {
-    return question;
-}
-public void setQuestion(String question) {
-    this.question = question;
-}
-@Override
-public String toString() {
-    return "Feedback [id=" + id + ", value=" + value + ", question=" + question + "]";
-}
+    private String value;
+    private String relatedTo;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getRelatedTo() {
+        return relatedTo;
+    }
+
+    public void setRelatedTo(String relatedTo) {
+        this.relatedTo = relatedTo;
+    }
 
 
-
-    
 }

@@ -10,13 +10,14 @@
         .help-tip {
             text-align: center;
             position: relative;
-            background-color: #BCDBEA;
+            background-color: #70c1ea;
             border-radius: 50%;
             width: 24px;
             height: 24px;
             font-size: 14px;
             line-height: 26px;
             z-index: 9999;
+            margin-left: 5px;
         }
 
         .help-tip:before {
@@ -42,7 +43,7 @@
             box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
             right: -4px;
             color: #FFF;
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.4;
             z-index: 9999;
         }
@@ -108,6 +109,8 @@
             text-align: left;
             margin-bottom: 5px;
             font-weight: bold;
+            display: flex;
+            align-items: center;
         }
 
         .userInput input,
@@ -185,7 +188,7 @@
             <option value="Monthly">Jeden Monat</option>
             <option value="Multiple times a year">Mehrmals pro Jahr</option>
             <option value="After a few years">Nach mehreren Jahren</option>
-        </select>
+        </select><br><br>
     </div>
 
     <div class="frage2">
@@ -200,7 +203,7 @@
                 bestimmte
                 Länge haben, Zahlen und Sonderzeichen enthalten</option>
             <option value="Password must be randomly generated">Das Passwort muss zufällig generiert sein</option>
-        </select>
+        </select><br><br>
     </div>
 
     <div class="frage3">
@@ -217,14 +220,12 @@
             <option value="No Backups are made">Es werden keine Backups gemacht</option>
             <option value="No defined Backup strategy, sporadical backups">Keine Strategie, sporadische Backups
             </option>
-            <option value="Full Backup once per week, incremental or full Backup daily; Strategy is defined and documented, 
-        is implemented for the most important protected systems">Vollständiges Backup einmal pro Woche, inkrementelles
+            <option value="Full Backup Strategy for the most important protected systems">Vollständiges Backup einmal pro Woche, inkrementelles
                 oder vollständiges Backup täglich; Strategie ist definiert und dokumentiert, wird für die
                 wichtigsten
                 geschützten
                 Systeme umgesetzt</option>
-            <option value=" Full Backup once per week, incremental or full Backup daily; Strategy is defined and documented, 
-        is implemented for all protected systems">Vollständiges Backup einmal pro Woche, inkrementelles oder
+            <option value="Full Backup Strategy for all protected systems">Vollständiges Backup einmal pro Woche, inkrementelles oder
                 vollständiges
                 Backup täglich; Strategie ist definiert und dokumentiert, wird für alle geschützten Systeme
                 umgesetzt
@@ -378,7 +379,6 @@
     function displayData() {
         /*<![CDATA[*/
         var branche = /*[[${branche}]]*/ 'default';
-        var region = /*[[${region}]]*/ 'default';
         var pwChange = /*[[${pwChange}]]*/ 'default';
         var pwProperties = /*[[${pwProperties}]]*/ 'default';
         var trainings = /*[[${trainings}]]*/ 'default';
@@ -397,8 +397,6 @@
         var printer = /*[[${printer}]]*/ 'default';
         var OS = /*[[${OS}]]*/ 'default';
         /*]]>*/
-        document.getElementById('branche').value = branche;
-        document.getElementById('region').value = region;
         document.getElementById('pwChange').value = pwChange;
         document.getElementById('pwProperties').value = pwProperties;
         document.getElementById('trainings').value = trainings;
