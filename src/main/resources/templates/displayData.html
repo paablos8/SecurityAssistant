@@ -134,6 +134,25 @@
             background-color: rgb(100, 103, 100);
             color: #fff;
         }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: none;
+        }
+
+        .loading-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 
@@ -142,6 +161,10 @@
 
 </html>
 <p>Hier können Sie Ihre Eingaben editieren:</p>
+
+<div class="loading-overlay">
+    <div class="loading-message">Processing... </div>
+</div>
 
 <!-- Input Form zum bearbeiten der Sicherheitsinfrastruktur " -->
 <form id="form" action="/editSuccess" method="post">
@@ -372,7 +395,7 @@
         </select><br><br>
     </div>
 
-    <button type="submit">Bestätigen</button>
+    <button type="submit" onclick="onSubmitForm()">Bestätigen</button>
 </form>
 </body>
 <script th:inline="javascript">
@@ -416,6 +439,20 @@
         document.getElementById('OS').value = OS;
     }
     displayData();
+
+    function showLoadingOverlay() {
+            const overlay = document.querySelector('.loading-overlay');
+            overlay.style.display = 'block';
+        }
+
+        function hideLoadingOverlay() {
+            const overlay = document.querySelector('.loading-overlay');
+            overlay.style.display = 'none';
+        }
+
+        function onSubmitForm() {
+            showLoadingOverlay();
+        }
 </script>
 
 </html>
