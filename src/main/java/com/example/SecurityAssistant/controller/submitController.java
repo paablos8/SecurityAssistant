@@ -125,6 +125,7 @@ public class submitController {
             
             System.out.println("These are the current lowered Threats: " + reasoning.getLoweredThreats());
             int complianceScore = reasoning.createOverallComplianceScore();
+            model.addAttribute("complianceScore", complianceScore);
 
             // Generierung der recommendations
             ArrayList<Recommendation> recommendations = reasoning.generateRecommendations();
