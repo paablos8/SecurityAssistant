@@ -14,6 +14,7 @@ import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
 import com.example.SecurityAssistant.service.dataPrivacy;
 import com.example.SecurityAssistant.service.statisticalService;
+import com.example.SecurityAssistant.service.toPDF;
 import com.example.ontology.InitJena;
 import com.example.ontology.ReasoningJena;
 
@@ -127,6 +128,11 @@ public class submitController {
 
             // Generierung der recommendations
             ArrayList<Recommendation> recommendations = reasoning.generateRecommendations();
+
+            //Erstellung der PDF und schreiben in byte Array
+            toPDF pdfGenerator = new toPDF();
+            byte[] pdfBytes = pdfGenerator.generatePdf(recommendations);
+            infra.setPdfFile(pdfBytes);
 
             // Hinzufügen der erstellten recommendations zum Model um diese mit Thymeleaf im
             // Frontend darzustellen

@@ -43,6 +43,7 @@
             margin-bottom: 5px;
         }
 
+        #submitFeedback,
         .welcomeButton {
             display: block;
             width: 200px;
@@ -56,6 +57,7 @@
             font-weight: bold;
         }
 
+        #submitFeedback,
         .welcomeButton:hover {
             background-color: #0056b3;
             color: #fff;
@@ -63,6 +65,20 @@
             padding: 10px 15px;
             border-radius: 5px;
             text-decoration: none;
+            font-weight: bold;
+        }
+
+        .feedback-slider {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        #feedbackValue {
+            width: 100%;
+        }
+
+        #selectedValue {
+            font-size: 18px;
             font-weight: bold;
         }
     </style>
@@ -88,8 +104,39 @@
         </div>
 
         <a class="welcomeButton" th:href="@{/infrastructure}">Hier geht's zur Eingabe Ihrer Infrastruktur</a>
+
+        <br><br>
+
+        <div class="feedback-slider">
+            <input type="range" id="feedbackValue" min="1" max="10" value="5">
+            <span id="selectedValue">5</span>
+        </div>
+        <button id="submitFeedback">Submit Feedback</button>
     </div>
 
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const feedbackValueInput = document.getElementById('feedbackValue');
+        const selectedValueSpan = document.getElementById('selectedValue');
+        const submitButton = document.getElementById('submitFeedback');
+
+        // Update the displayed value when the slider value changes
+        feedbackValueInput.addEventListener('input', function () {
+            selectedValueSpan.textContent = feedbackValueInput.value;
+        });
+
+        // Handle submit button click
+        submitButton.addEventListener('click', function () {
+            // Get the selected feedback value
+            const feedbackValue = feedbackValueInput.value;
+
+            // Submit the feedback value (you can add your own code here to handle the submission)
+            console.log('Submitted feedback value:', feedbackValue);
+        });
+    });
+
+</script>
 
 </html>
