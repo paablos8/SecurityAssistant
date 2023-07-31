@@ -37,6 +37,7 @@ public class ReasoningJena {
 	String NSimported = InitJena.NSimported;
 	String businessIRI;
 	String nameOfBusiness;
+	
 	Resource businessResource;
 	Resource buildingResource;
 	Resource sectionResource;
@@ -62,6 +63,8 @@ public class ReasoningJena {
 	ArrayList<Resource> controlsThatMitigateVulnerabilities = new ArrayList<Resource>();
 	ArrayList<Resource> recommendationsAsClass = new ArrayList<Resource>();
 	ArrayList<Recommendation> recommendations = new ArrayList<Recommendation>();
+	
+	int overallComplianceScore;
 
 
 
@@ -262,22 +265,14 @@ public class ReasoningJena {
 	
 	
 	
-	public void listCompliantImplementations () {
-
-		System.out.println("listSomething method has started.");
-		Resource complianceResource = base.getResource(NS + "PrivateSoftwareAndHardwareControlCompliantOrganization");
-		String compliantName =  base.getOntResource(NS + "PrivateSoftwareAndHardwareControlCompliantOrganization").getLocalName();
-		
-		ExtendedIterator<Individual> iter = base.listIndividuals(complianceResource);
-		// Iterate over the statements and print the types (classes) of the instance
-        while (iter.hasNext()) {
-            Individual statement = iter.next();
-            Resource nameOfCompliantBusinessResource = base.getResource(statement.getURI());
-            String nameOfCompliantBusiness = base.getOntResource(nameOfCompliantBusinessResource).getLocalName();
-            System.out.println("The Business " + nameOfCompliantBusiness + " is compliant with the Control: " + compliantName);
-        }
-        System.out.println("listCompliantImplementations has finished!");
+	public int createOverallComplianceScore() {
+		double numberOfImplementedControls = implementedControlsString.size();
+		System.out.println("implementedControlsString.size() = " + implementedControlsString.size());
+		int complianceScore = (int) ((numberOfImplementedControls/11.0) * 100);
+		System.out.println("You are currently implementing " + complianceScore + "% of the proposed IT security measures in your company.");
+		return complianceScore;
 	}
+	
 	
 	
 	
@@ -369,6 +364,7 @@ public class ReasoningJena {
 										}
 										threatsIfNotImplemented = threatsIfNotImplemented + " which also can increase the threat of" + threatsThatAreRised;
 										recommendation.addRiskIfNotImplemented(threatsIfNotImplemented);
+										recommendation.addRiskIfNotImplementedResource(threatIfNotImplemented);
 									}
 									
 									recommendation.addMitigatesVulnerabilitiesString(currentVulnerability.getLocalName());
@@ -389,7 +385,7 @@ public class ReasoningJena {
 		System.out.println("These are your recommendations: ");
 			for (Recommendation item : recommendations) {
 	            System.out.println("- " + item.getTitle());
-	            System.out.println("More Info: " + item.getInformation());
+	            //System.out.println("More Info: " + item.getInformation());
 	            System.out.println(" ");
 	            System.out.println(" The recommendation was generated because your business has the vulnerability: " + item.getMitigatesVulnerabilitiesString());
 	            System.out.println(" ");

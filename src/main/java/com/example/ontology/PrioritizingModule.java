@@ -39,7 +39,7 @@ public class PrioritizingModule {
 		
 		
 		public ArrayList<Recommendation> prioritizeRecommendations (ArrayList<Recommendation> recommendations) {
-			
+		
 			for (int i = 0; i < recommendations.size(); i++) {
 				Recommendation currentRecommendation = recommendations.get(i);
 				int priorityScore = 0;
@@ -94,7 +94,7 @@ public class PrioritizingModule {
 					}
 						
 					System.out.println("The recommendation: " + currentRecommendation.getTitle() + " has the threat: " + currentThreatIndividual.getLocalName());
-					System.out.println("For this threat it gets the Priority Score: " + priorityScore);
+					System.out.println("It has the current Priority Score: " + priorityScore);
 					System.out.println(" ");
 				}
 				

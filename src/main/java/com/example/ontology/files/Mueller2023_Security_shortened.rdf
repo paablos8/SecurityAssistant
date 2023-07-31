@@ -10282,17 +10282,6 @@ Has it been considered to link network access rights to certain times of days or
     
 
 
-    <!-- http://securityontology.com/secontMueller.owl#NoTechnicalComplianceChecking -->
-
-    <owl:NamedIndividual rdf:about="http://securityontology.com/secontMueller.owl#NoTechnicalComplianceChecking">
-        <vulnerability_exploitedBy_Threat rdf:resource="http://securityontology.sba-research.org/securityontology.owl#LegalAction"/>
-        <vulnerability_exploitedBy_Threat rdf:resource="http://securityontology.sba-research.org/securityontology.owl#ServiceOrSystemMalfunction"/>
-        <vulnerability_mitigatedBy_Control rdf:resource="http://securityontology.com/secontMueller.owl#TechnicalComplianceCheckingControl"/>
-        <rdfs:label xml:lang="en">No Technical Compliance Checking</rdfs:label>
-    </owl:NamedIndividual>
-    
-
-
     <!-- http://securityontology.com/secontMueller.owl#PrivateSoftwareAndHardwareUsePolicy_TestBusiness -->
 
     <owl:NamedIndividual rdf:about="http://securityontology.com/secontMueller.owl#PrivateSoftwareAndHardwareUsePolicy_TestBusiness">
@@ -10751,7 +10740,6 @@ Is it ensured that users who have access to applications on systems where segreg
     <owl:NamedIndividual rdf:about="http://securityontology.com/secontMueller.owl#TechnicalComplianceCheckingControl">
         <rdf:type rdf:resource="http://securityontology.sba-research.org/securityontology.owl#Control"/>
         <control_correspondsTo_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#A_15_2_2"/>
-        <control_mitigates_Vulnerability rdf:resource="http://securityontology.com/secontMueller.owl#NoTechnicalComplianceChecking"/>
         <control_ofType_ControlType rdf:resource="http://securityontology.sba-research.org/securityontology.owl#Detective"/>
         <secontMueller:question xml:lang="en">15.2.2 a)
 Are technical compliance checks performed manually by an experienced system engineer and/or with the help of automated tools, which generate a report for subsequent analysis of an expert?</secontMueller:question>
