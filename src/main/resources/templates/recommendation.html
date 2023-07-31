@@ -422,7 +422,7 @@
             var progressbar = $('#progress_bar');
             max = progressbar.attr('max');
             time = (1000 / max) * 5;
-            value = 60;
+            value = complianceScore;
 
             var loading = function () {
                 addValue = progressbar.val(value);
