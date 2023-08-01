@@ -7,59 +7,56 @@ import java.util.ArrayList;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 public class toPDF {
-    
+
     public byte[] generatePdf(ArrayList<Recommendation> recommendations) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
-            // Create a new PDF document
+            // Create a new empty document
             PDDocument document = new PDDocument();
 
-            // Create a new page
-            PDPage page = new PDPage(PDRectangle.A4);
+            // Create a new blank page and add it to the document
+            PDPage page = new PDPage();
             document.addPage(page);
 
-            // Create a new content stream to write to the page
-            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            // Create a new font object selecting one of the PDF base fonts
+            PDFont font = PDType1Font.HELVETICA_BOLD;
 
-            // Set font and font size for the content
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            // Start a new content stream which will "hold" the to be created content
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
             // Add content to the PDF document from the recommendations list
             for (Recommendation recommendation : recommendations) {
                 String title = recommendation.getTitle();
-                String imformation = recommendation.getInformation();
+                String info = recommendation.getInformation();
+                int priority = recommendation.getPriorityScore();
+                String originDoc = recommendation.getOriginDocument();
+                ArrayList<String> risks = recommendation.getRiskIfNotImplemented();
 
-                // Remove newline and carriage return characters from the text
                 title = title.replace("\n", "").replace("\r", "");
-                imformation = imformation.replace("\n", "").replace("\r", "");
+                info = info.replace("\n", "").replace("\r", "");
 
-                // Add the recommendation details to the PDF as paragraphs
-                // Begin a new text block
-                contentStream.beginText();
-
-                // Set the starting position for the text
-                /* contentStream.newLineAtOffset(50, 700); */
-                contentStream.showText("Title: " + title);
-                contentStream.newLineAtOffset(0, -20);
-                contentStream.showText("Description: " + imformation);
-                contentStream.endText();
-               /*  contentStream.newLineAtOffset(0, -40); // Add space between recommendations */
+            // Define a text content stream using the selected font, moving the cursor and
+            // drawing the text "Hello World"
+            contentStream.beginText();
+            contentStream.setFont(font, 12);
+            contentStream.newLineAtOffset(100, 700);
+            contentStream.showText("Recommendation: " + title);
+            contentStream.newLineAtOffset(0, -20);
+            contentStream.showText("More Info: " + info);
+            contentStream.newLineAtOffset(0, -20);
+            contentStream.endText();
             }
-
-            // Close the content stream
+            // Make sure that the content stream is closed:
             contentStream.close();
 
-            // Save the PDF document to the ByteArrayOutputStream
+            // Save the results and ensure that the document is properly closed:
             document.save(baos);
-
-            // Close the document
             document.close();
-            System.out.println("PDF generated successfully in byte array.");
 
         } catch (IOException e) {
             e.printStackTrace();

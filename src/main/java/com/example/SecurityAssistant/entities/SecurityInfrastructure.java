@@ -203,15 +203,4 @@ public class SecurityInfrastructure {
     public void setPdfFile(byte[] pdfFile) {
         this.pdfFile = pdfFile;
     }
-    
-    @Override
-    public String toString() {
-        return "SecurityInfrastructure [id=" + id + ", userName=" + userName + ", companyName=" + companyName
-                + ", employeeNR=" + employeeNR + ", branche=" + branche + ", region=" + region + ", pwChange="
-                + pwChange + ", pwProperties=" + pwProperties + ", trainings=" + trainings + ", backup=" + backup
-                + ", incidentResponse=" + incidentResponse + ", policyDoc=" + policyDoc + ", storage=" + storage
-                + ", fireEx=" + fireEx + ", smokeDet=" + smokeDet + ", criticalInfra=" + criticalInfra + ", alarm="
-                + alarm + ", firewall=" + firewall + ", externalProvider=" + externalProvider + ", PCAnzahl=" + PCAnzahl
-                + ", printer=" + printer + ", OS=" + OS + "]";
-    }
 }

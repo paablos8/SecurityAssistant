@@ -159,7 +159,7 @@
             background-color: #f1f1f1;
         }
 
-        .dowload-button,
+        .download-button,
         .feedback-button {
             cursor: pointer;
             display: inline-block;
@@ -168,7 +168,7 @@
             transition: background-color 0.3s;
         }
 
-        .dowload-button,
+        .download-button,
         .feedback-button:hover {
             background-color: rgb(100, 103, 100);
             color: #fff;
@@ -366,7 +366,7 @@
             </div>
             <br>
         </div>
-        <button class="dowload-button" onclick="downloadPDF()">Download PDF</button>
+        <button class="download-button" onclick="downloadPDF()">Download PDF</button>
     </div>
 
     <script th:inline="javascript">
@@ -447,26 +447,29 @@
             }, time);
         });
 
+        /*<![CDATA[*/
+            var pdfBytes = /*[[${pdfBytes}]]*/ 'default';
+        /*]]>*/
+
 
         //Function that is triggered on the clicking of the download PDF button
-        function downloadPDF() {
-            fetch('/reommendation', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/pdf'
-                }
-            })
-                .then(response => response.blob())
-                .then(blob => {
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'recommendations.pdf'; // Set the desired file name
-                    document.body.appendChild(a);
-                    a.click();
-                    URL.revokeObjectURL(url);
-                });
-        }
+         function downloadPDF () {
+                // Convert the byte array to a Blob
+                console.log(pdfBytes);
+                const pdfBlob = new Blob([new Uint8Array(pdfBytes)], { type: "application/pdf" });
+
+                // Create a temporary URL to the Blob
+                const url = URL.createObjectURL(pdfBlob);
+
+                // Create a temporary anchor element to initiate the download
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "recommendations.pdf"; // Set the filename of the downloaded file
+                a.click();
+
+                // Clean up the temporary URL after the download is complete
+                URL.revokeObjectURL(url);
+            }
     </script>
 
 </body>

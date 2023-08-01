@@ -134,6 +134,7 @@ public class submitController {
             toPDF pdfGenerator = new toPDF();
             byte[] pdfBytes = pdfGenerator.generatePdf(recommendations);
             infra.setPdfFile(pdfBytes);
+            model.addAttribute("pdfBytes", pdfBytes);
 
             // Hinzufügen der erstellten recommendations zum Model um diese mit Thymeleaf im
             // Frontend darzustellen
