@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Spring MVC</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link th:href="@{styles/main.css}" rel="stylesheet" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,18 +68,32 @@
             font-weight: bold;
         }
 
-        .feedback-slider {
-            width: 80%;
-            margin: 20px auto;
+        .stars span,
+        .stars p {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            align-items: center;
         }
 
-        #feedbackValue {
-            width: 100%;
+        .stars input[type="radio"] {
+            display: none;
         }
 
-        #selectedValue {
-            font-size: 18px;
-            font-weight: bold;
+        .stars label {
+            color: #d2d2d2;
+            font-size: 40px;
+            padding: 0 5px;
+            cursor: pointer;
+        }
+
+        .stars label:hover,
+        .stars input[type="radio"]:checked~label {
+            color: #f8c601;
+        }
+
+        .stars label:hover~label {
+            color: #f8c601;
         }
     </style>
 </head>
@@ -105,38 +119,61 @@
 
         <a class="welcomeButton" th:href="@{/infrastructure}">Hier geht's zur Eingabe Ihrer Infrastruktur</a>
 
-        <br><br>
+        <br><br><br><br>
 
-        <div class="feedback-slider">
-            <input type="range" id="feedbackValue" min="1" max="10" value="5">
-            <span id="selectedValue">5</span>
+        <div class="review">
+            <div class="stars">
+                <p>Hier können Sie Ihre allgemeine Zufriedenheit mit dem Assistenten angeben!</p>
+                <span>
+                    <input id="review01" type="radio" name="review" value="5"><label for="review01">★</label>
+                    <input id="review02" type="radio" name="review" value="4"><label for="review02">★</label>
+                    <input id="review03" type="radio" name="review" value="3"><label for="review03">★</label>
+                    <input id="review04" type="radio" name="review" value="2"><label for="review04">★</label>
+                    <input id="review05" type="radio" name="review" value="1"><label for="review05">★</label>
+                </span>
+            </div>
         </div>
-        <button id="submitFeedback">Submit Feedback</button>
+
+        <button id="submitFeedback" onclick="submitFeedback()">Submit Feedback</button>
     </div>
 
 </body>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const feedbackValueInput = document.getElementById('feedbackValue');
-        const selectedValueSpan = document.getElementById('selectedValue');
-        const submitButton = document.getElementById('submitFeedback');
+    function submitFeedback() {
+        swal("Thank you!", "Your feedback is submitted", "success");
+        const radioButtons = document.querySelectorAll('input[name="review"]');
+        let selectedValue = null;
 
-        // Update the displayed value when the slider value changes
-        feedbackValueInput.addEventListener('input', function () {
-            selectedValueSpan.textContent = feedbackValueInput.value;
+        radioButtons.forEach((radio) => {
+            if (radio.checked) {
+                selectedValue = radio.value;
+            }
         });
 
-        // Handle submit button click
-        submitButton.addEventListener('click', function () {
-            // Get the selected feedback value
-            const feedbackValue = feedbackValueInput.value;
-
-            // Submit the feedback value (you can add your own code here to handle the submission)
-            console.log('Submitted feedback value:', feedbackValue);
-        });
-    });
-
+        console.log("Selected value:", selectedValue);
+        const url = '/feedback'; // Die URL zum Spring Boot-Controller-Endpunkt
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ value: selectedValue, relatedTo: "OverallFeedback" }) // Die Daten, die du an den Controller senden möchtest
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Erfolgreiche Antwort erhalten
+                    console.log('POST-Anfrage erfolgreich gesendet');
+                } else {
+                    // Fehlerhafte Antwort erhalten
+                    console.error('Fehler beim Senden der POST-Anfrage');
+                }
+            })
+            .catch(error => {
+                // Ein Fehler ist aufgetreten
+                console.error('Fehler aufgetreten:', error);
+            });
+    }
 </script>
 
 </html>

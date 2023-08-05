@@ -14,7 +14,7 @@ public class statisticalService {
     // Count Variables
     int count1, count2, count3, count4, count5;
 
-    public void showStatisticalInfo(Model model, InfrastructureRepository repo) {
+    public void showStatisticalInfo(Model model, InfrastructureRepository repo, String branche) {
         List<SecurityInfrastructure> userData = repo.findAll();
         double[] pwChangeCount = pwChangeCount(model, userData);
         double[] backupCount = backupCount(model, userData);
@@ -23,15 +23,16 @@ public class statisticalService {
         double[] pwPropertiesCount = pwPropertiesCount(model, userData);
         double[] OSCount = OSCount(model, userData);
         double[] incidentResponseCount = incidentResponseCount(model, userData);
-        double[] policyDocCount = policyDocCount(model, userData);
+        double[] policyDocCount = policyDocCount(model, userData, branche);
         double[] trainingsCount = TrainingsCount(model, userData);
         double[] printerCount = printerCount(model, userData);
-        double[] externalProviderCount = externalProviderCount(model, userData); 
-        double[] firewallPolicyCount = firewallPolicyCount(model, userData); 
+        double[] externalProviderCount = externalProviderCount(model, userData);
+        double[] firewallPolicyCount = firewallPolicyCount(model, userData);
         double[] alarmCount = alarmCount(model, userData);
         double[] criticalInfraCount = criticalInfraCount(model, userData);
         double[] smokeDetCount = smokeDetCount(model, userData);
         double[] fireExCount = fireExCount(model, userData);
+        model.addAttribute("branche", branche);
         model.addAttribute("pwChangeCount", pwChangeCount);
         model.addAttribute("backupCount", backupCount);
         model.addAttribute("storageCount", storageCount);
@@ -42,14 +43,13 @@ public class statisticalService {
         model.addAttribute("policyDocCount", policyDocCount);
         model.addAttribute("trainingsCount", trainingsCount);
         model.addAttribute("printerCount", printerCount);
-        model.addAttribute("externalProviderCount", externalProviderCount); 
-        model.addAttribute("firewallPolicyCount", firewallPolicyCount); 
+        model.addAttribute("externalProviderCount", externalProviderCount);
+        model.addAttribute("firewallPolicyCount", firewallPolicyCount);
         model.addAttribute("alarmCount", alarmCount);
         model.addAttribute("criticalInfraCount", criticalInfraCount);
         model.addAttribute("smokeDetCount", smokeDetCount);
         model.addAttribute("fireExCount", fireExCount);
     }
-
 
     // Liest die Anzahl an Firmen mit unterschiedlichen Passwort Change Policies aus
     public double[] pwChangeCount(Model model, List<SecurityInfrastructure> userDataList) {
@@ -61,7 +61,7 @@ public class statisticalService {
                 count2 = count2 + 1;
             } else if (item.getPwChange().equals("Multiple times a year")) {
                 count3 = count3 + 1;
-            } else if (item.getPwChange().equals("After a few years")){
+            } else if (item.getPwChange().equals("After a few years")) {
                 count4 = count4 + 1;
             }
         }
@@ -78,11 +78,11 @@ public class statisticalService {
                 count2 = count2 + 1;
             } else {
                 count3 = count3 + 1;
-            } 
+            }
         }
-        return calculatePercentage(new double[] { count1 , count2, count3 });
+        return calculatePercentage(new double[] { count1, count2, count3 });
     }
-    
+
     // Liest die verschiedenen Datensicherungskonzepte der Firmen aus
     public double[] storageCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = count3 = count4 = 0; // zurücksetzen der Zählervariablen
@@ -166,16 +166,20 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2, count3 });
     }
 
-    // Liest Anzahl an Firmen aus, die ein Security Policy Document pflegen
-    public double[] policyDocCount(Model model, List<SecurityInfrastructure> userDataList) {
+    // Liest Anzahl an Firmen aus der gleichen Branche, die ein Security Policy Document pflegen
+    public double[] policyDocCount(Model model, List<SecurityInfrastructure> userDataList, String branche) {
         count1 = count2 = 0; // zurücksetzen der Zählervariablen
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getPolicyDoc().equals("Yes")) {
-                count1 = count1 + 1;
-            } else if (item.getPolicyDoc().equals("No")) {
-                count2 = count2 + 1;
+            if (item.getBranche().equals(branche)) {
+                if (item.getPolicyDoc().equals("Yes")) {
+                    count1 = count1 + 1;
+                } else if (item.getPolicyDoc().equals("No")) {
+                    count2 = count2 + 1;
+                }
+            } else {
+                continue;
             }
-        }
+        } 
         return calculatePercentage(new double[] { count1, count2 });
     }
 
@@ -219,7 +223,7 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-   // Liest Anzahl an Firmen aus, die eine Firewall Policy umgesetzt haben
+    // Liest Anzahl an Firmen aus, die eine Firewall Policy umgesetzt haben
     public double[] firewallPolicyCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // zurücksetzen der Zählervariablen
         for (SecurityInfrastructure item : userDataList) {
@@ -230,8 +234,8 @@ public class statisticalService {
             }
         }
         return calculatePercentage(new double[] { count1, count2 });
-    } 
-    
+    }
+
     // Liest Anzahl an Firmen aus, die eine Alarmanlage haben
     public double[] alarmCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // zurücksetzen der Zählervariablen
@@ -244,8 +248,9 @@ public class statisticalService {
         }
         return calculatePercentage(new double[] { count1, count2 });
     }
-    
-    // Liest Anzahl an Firmen aus, die den Zugang zu kritischer Infrastruktur begrenzt haben
+
+    // Liest Anzahl an Firmen aus, die den Zugang zu kritischer Infrastruktur
+    // begrenzt haben
     public double[] criticalInfraCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // zurücksetzen der Zählervariablen
         for (SecurityInfrastructure item : userDataList) {
@@ -296,5 +301,5 @@ public class statisticalService {
         return data;
 
     }
-    
+
 }

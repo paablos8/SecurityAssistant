@@ -173,7 +173,7 @@ public class editDataController {
 
         // Load statistical Data from the StatisticalService class
         statisticalService statistics = new statisticalService();
-        statistics.showStatisticalInfo(model, repo);
+        statistics.showStatisticalInfo(model, repo, infra.getBranche());
        
         return "recommendation";
     }
