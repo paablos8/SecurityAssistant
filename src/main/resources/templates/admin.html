@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>AdminPage</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .recommendation-container,
@@ -51,6 +52,47 @@
         hr.solid {
             border-top: 3px solid #bbb;
         }
+
+        .stars span,
+        .stars p {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stars label {
+            color: #d2d2d2;
+            font-size: 40px;
+            padding: 0 5px;
+            cursor: pointer;
+        }
+
+        .stars label:hover,
+        .stars input[type="radio"]:checked~label {
+            color: #f8c601;
+        }
+
+        .stars label:hover~label {
+            color: #d2d2d2;
+        }
+
+        .stars input[type="radio"] {
+            display: none;
+        }
+
+        .stars .average-star::before {
+            content: "\2605";
+            color: #FFD700; 
+        }
+
+        .stars .half-star::before {
+            content: "\00BD";
+        }
+
+        .stars .empty-star::before {
+            content: "\2606";
+        }
     </style>
 </head>
 
@@ -73,6 +115,16 @@
         <div class="chart-container" th:each="title : ${titles}">
             <canvas th:id="${title}" style="max-height:200px;"></canvas>
         </div>
+    </div>
+
+    <hr class="solid"><br>
+
+    <div class="stars">
+        <p>Allgemeines Feedback zur Applikation</p>
+        <span>
+
+        </span>
+        <p th:text="${averageRating} + ' /5 Sternen'"></p>
     </div>
 
     <br><br>
@@ -98,6 +150,9 @@
         //Die Feedback Daten zur den Recommendations
         var recommendationData = /*[[${recommendationCounts}]]*/ 'default';
         var titles = /*[[${titles}]]*/ 'default';
+
+        //Allgemeines Feedback
+        const averageRating = /*[[${averageRating}]]*/ 'default';
         /*]]>*/
 
         /*Standard Festlegung der Diagramm Labels und Farben*/
@@ -152,6 +207,30 @@
             });
         }
 
+        function displayStars(averageRating) {
+            const starsContainer = document.querySelector('.stars span');
+            const maxRating = 5;
+            const roundedRating = Math.round(averageRating * 2) / 2; // Round averageRating to the nearest half value
+
+            for (let i = maxRating; i >= 1; i--) {
+                const star = document.createElement('label');
+                star.setAttribute('for', 'review0' + i);
+                star.classList.add('average-star');
+
+                if (i > roundedRating) {
+                    if (i - 0.5 === roundedRating) {
+                        star.classList.add('half-star');
+                    } else {
+                        star.classList.add('empty-star');
+                    }
+                }
+
+                starsContainer.appendChild(star);
+            }
+        }
+
+
+        displayStars(averageRating);
     </script>
 </body>
 

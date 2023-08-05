@@ -62,6 +62,9 @@ public class feedbackController {
         // Feedback zu den Recommendations
         calculateRecommendationFeedback(model);
         model.addAttribute("titles", titles);
+
+        // Overall Feedback
+        calculateOverallFeedback(model);
         return ("admin");
     }
 
@@ -92,6 +95,36 @@ public class feedbackController {
         return feedbackCount;
     }
 
+    // Here the answers concerning the feedback related towards a specific question
+    // or recommendation are
+    // counted and saved in three different variables
+    public int[] getStarsCount(Model model) {
+        List<Feedback> dataList = repo.findAll();
+        model.addAttribute("dataList", dataList);
+
+        int one = 0, two = 0, three = 0, four = 0, five = 0;// zurücksetzen der Zählervariablen
+
+        for (Feedback item : dataList) {
+
+            if (item.getRelatedTo().equals("OverallFeedback")) {
+                if (item.getValue().equals("1")) {
+                    one++;
+                } else if (item.getValue().equals("2")) {
+                    two++;
+                } else if (item.getValue().equals("3")) {
+                    three++;
+                } else if (item.getValue().equals("4")) {
+                    four++;
+                } else if (item.getValue().equals("5")) {
+                    five++;
+                }
+            }
+        }
+
+        int[] feedbackCount = { one, two, three, four, five };
+        return feedbackCount;
+    }
+
     // Calculates all Feedback concerning the Input Form Questions and save them in
     // a List to hand it over to the model
     public void calculateFormFeedback(Model model) {
@@ -114,5 +147,22 @@ public class feedbackController {
         }
         model.addAttribute("recommendationCounts", recommendationCounts);
     }
+
+    // Calculates overall Feedback concerning the assistant and save them in a
+    // the averageVariable to hand it over to the model
+    public void calculateOverallFeedback(Model model) {
+            int[] feedbackCount = getStarsCount(model);
+            model.addAttribute("ratingListe", feedbackCount);
+            int totalStars = 0;
+            int totalFeedbacks = 0;
+
+            for (int i = 0; i < feedbackCount.length; i++) {
+                totalStars += (i + 1) * feedbackCount[i];
+                totalFeedbacks += feedbackCount[i];
+            }
+            double rating = totalStars / (double) totalFeedbacks;
+            double roundedRating = Math.round(rating * 10.0) / 10.0;
+            model.addAttribute("averageRating", roundedRating);
+        }
 
 }
