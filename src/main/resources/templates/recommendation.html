@@ -186,7 +186,7 @@
 
         .progress-pie-chart.gt-50 {
             background-color: #81CE97;
-             clip: rect(0, 100px, 200px, 100px);
+            clip: rect(0, 100px, 200px, 100px);
         }
 
         .ppc-progress {
@@ -341,7 +341,7 @@
                 <div class="statistics" th:else
                     th:if="${recommendation.title == '5.8.2 Virus Avoidance and Recogniton by the User'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${policyDocCount[0]} + '% der Firmen nutzen ein Dokument mit festgelegten Richtlinien um mögliche Gefahren vorzubeugen.'">
+                        th:text="'Ein Anteil von ' + ${policyDocCount[0]} + '% der Firmen aus der ' + ${branche} + ' Branche nutzen ein Dokument mit festgelegten Richtlinien um mögliche Gefahren vorzubeugen.'">
                     </p>
                 </div>
                 <div class="statistics" th:else th:if="${recommendation.title == '5.1 Password Selection'}">
@@ -354,7 +354,19 @@
             <button class="collapsible">More Information</button>
 
             <div class="moreInfo">
-                <span th:text="${recommendation.information}"></span>
+                <span th:text="${recommendation.information}"></span><br>
+                <span
+                    th:text="'Diese Informationen stammen aus diesen Dokumenten: (' + ${recommendation.originDocument} + ')' "></span>
+
+                <!-- <div th:each="risks : ${recommendation.risksIfNotImplemented}">
+                    <span th:text="'Diese Risiken treten bei nicht-Implementierung auf: ' + ${risks}"></span>
+                </div> -->
+
+                <div th:each="mitigations : ${recommendation.mitigatesVulnerabilitiesString}">
+                    <span th:text="'Das sind die Schwachstellen die gemildert werden: ' + ${mitigations}"></span>
+                </div>
+
+
             </div><br>
             <div class="Feedback">
                 <span class="feedback-button" title="Good" th:data-id="${recommendation.title}"
@@ -432,7 +444,7 @@
                     deg = 360 * value / 100;
                 if (value > 50) {
                     $ppc.addClass('gt-50');
-                } 
+                }
 
                 $('.ppc-progress-fill').css('transform', 'rotate(' + deg + 'deg)');
                 $('.ppc-percents span').html(value + '%');
@@ -448,28 +460,28 @@
         });
 
         /*<![CDATA[*/
-            var pdfBytes = /*[[${pdfBytes}]]*/ 'default';
+        var pdfBytes = /*[[${pdfBytes}]]*/ 'default';
         /*]]>*/
 
 
         //Function that is triggered on the clicking of the download PDF button
-         function downloadPDF () {
-                // Convert the byte array to a Blob
-                console.log(pdfBytes);
-                const pdfBlob = new Blob([new Uint8Array(pdfBytes)], { type: "application/pdf" });
+        function downloadPDF() {
+            // Convert the byte array to a Blob
+            console.log(pdfBytes);
+            const pdfBlob = new Blob([new Uint8Array(pdfBytes)], { type: "application/pdf" });
 
-                // Create a temporary URL to the Blob
-                const url = URL.createObjectURL(pdfBlob);
+            // Create a temporary URL to the Blob
+            const url = URL.createObjectURL(pdfBlob);
 
-                // Create a temporary anchor element to initiate the download
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "recommendations.pdf"; // Set the filename of the downloaded file
-                a.click();
+            // Create a temporary anchor element to initiate the download
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "recommendations.pdf"; // Set the filename of the downloaded file
+            a.click();
 
-                // Clean up the temporary URL after the download is complete
-                URL.revokeObjectURL(url);
-            }
+            // Clean up the temporary URL after the download is complete
+            URL.revokeObjectURL(url);
+        }
     </script>
 
 </body>
