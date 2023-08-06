@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.example.SecurityAssistant.entities.Feedback;
 import com.example.SecurityAssistant.repository.FeedbackRepository;
 
-//Controller Klasse um das abgebene User feedback zu verarbeiten und an den Betreiber/Admin zurückzugeben
+//Controller class to process the submitted user feedback and return it to the operator /admin.
 @Controller
 public class feedbackController {
 
     @Autowired
     private FeedbackRepository repo;
 
+    //Array with the titles of all possible security recommendations
     static String[] titles = { "7.1.4 Datensicherung bei mobile IT-Systemen",
             "A.10.1.1 Documented operating procedures",
             "A.11.7.1 Mobile computing and communications", "A.10.5.1 Information back-up",
@@ -36,30 +37,30 @@ public class feedbackController {
 
     static String[] questions = { "pwChange", "pwProperties", "backup", "incidentResponse" };
 
-    // Diese Methode leer die Datenbank mit den User Feedbacks
+    // This method empties the database of user feedbacks.
     @PostMapping("/resetUserFeedback")
     public String resetUserFeedback() {
         repo.deleteAll();
         return "admin";
     }
 
-    // Diese Methode speichert das abgegebene Feedback aus der Input Form beim
-    // betätigen der Emojis in unserer Datenbank ab
+    // This method saves the feedback given in the input form when the emojis are
+    // clicked into our database.
     @PostMapping("/feedback")
     public String feedbackSubmition(@RequestBody Feedback feedback) {
         repo.save(feedback);
         return "admin";
     }
 
-    // Die Methode ruft die getFeedback Methoden zu den verschiedenen Feedback
-    // Mechanismen im Input field auf
+    // The method calls the getFeedback methods for the different feedback
+    // mechanisms in the input field.
     @GetMapping("/admin")
     public String getAdminPage(Model model) {
-        // Feedback zur Input Form
+        // Feedback regarding the Input Form
         calculateFormFeedback(model);
         model.addAttribute("questions", questions);
 
-        // Feedback zu den Recommendations
+        // Feedback regarding the displayed Recommendations
         calculateRecommendationFeedback(model);
         model.addAttribute("titles", titles);
 
@@ -77,7 +78,7 @@ public class feedbackController {
 
         int goodCount = 0;
         int badCount = 0;
-        int neutralCount = 0; // zurücksetzen der Zählervariablen
+        int neutralCount = 0; // reset of counter variables
 
         for (Feedback item : dataList) {
 
@@ -102,7 +103,7 @@ public class feedbackController {
         List<Feedback> dataList = repo.findAll();
         model.addAttribute("dataList", dataList);
 
-        int one = 0, two = 0, three = 0, four = 0, five = 0;// zurücksetzen der Zählervariablen
+        int one = 0, two = 0, three = 0, four = 0, five = 0;// reset of counter variables
 
         for (Feedback item : dataList) {
 
@@ -160,6 +161,7 @@ public class feedbackController {
                 totalStars += (i + 1) * feedbackCount[i];
                 totalFeedbacks += feedbackCount[i];
             }
+            //rounding the rating
             double rating = totalStars / (double) totalFeedbacks;
             double roundedRating = Math.round(rating * 10.0) / 10.0;
             model.addAttribute("averageRating", roundedRating);

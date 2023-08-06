@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
     <style>
+        /*CSS sytling elements*/
         .help-tip {
             text-align: center;
             position: relative;
@@ -166,7 +167,8 @@
     <div class="loading-message">Processing... </div>
 </div>
 
-<!-- Input Form zum bearbeiten der Sicherheitsinfrastruktur " -->
+<!-- Input Form for the editing of the security infrastructure
+The input form also displays the current entries by reading this information from the database -->
 <form id="form" action="/editSuccess" method="post">
     <div class="personalData">
         <p th:text="'Your Username: ' + ${userName}">Your Username: </p>
@@ -399,6 +401,7 @@
 </form>
 </body>
 <script th:inline="javascript">
+    /*The displayData function sets the values of the input form and dropdown menus to the current value stored in the database*/
     function displayData() {
         /*<![CDATA[*/
         var branche = /*[[${branche}]]*/ 'default';
@@ -440,6 +443,7 @@
     }
     displayData();
 
+    //Screen Freeze for the loading time
     function showLoadingOverlay() {
             const overlay = document.querySelector('.loading-overlay');
             overlay.style.display = 'block';

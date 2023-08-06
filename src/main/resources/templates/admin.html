@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        /* CSS styling elements */
         .recommendation-container,
         .form-container {
             display: grid;
@@ -20,7 +21,6 @@
             width: 100%;
         }
 
-        /* Bei Bedarf roter Hintergrund */
         .chart-container.red-background {
             background-color: #FFCCCC;
         }
@@ -99,7 +99,7 @@
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
 
-    <!--Die Pie Charts werden hier im HTML Code eingebettet-->
+    <!--The Pie charts are embedded into the html file-->
 
     <h1 align="center">User Feedback zu der Verständlichkeit der Input Form:</h1>
     <div class="form-container">
@@ -130,37 +130,37 @@
     <br><br>
 
     <div>
-        <!-- Button um das User Feedback zurückzusetzen -->
+        <!-- Button to reset the User Feedback -->
         <form id="reset" action="/resetUserFeedback" method="post">
             <button class="resetButton" type="submit">Userfeedback zurücksetzen</button>
         </form>
     </div>
 
-    <!--Mit Hilfe dieser Data Annotation können innerhalb des JavaScript Codes mit Unterstützung 
-        von Thymeleaf die dem model überreichten und verarbeiteten Feedback Daten aufgerufen und 
-        abgespeichert werden-->
+    <!--This data annotation can be used within the JavaScript code with the support of Thymeleaf. 
+        Thymeleaf, the feedback data given to the model and processed can be retrieved and 
+        stored-->
     <script th:inline="javascript">
         /*<![CDATA[*/
 
-        //Die Feedback Daten zur Input Form
+        // Feedback Data concerning the Input Form
 
         var formData = /*[[${formCounts}]]*/ 'default';
         var questions = /*[[${questions}]]*/ 'default';
 
-        //Die Feedback Daten zur den Recommendations
+        // Feedback Data concerning the Recommendations
         var recommendationData = /*[[${recommendationCounts}]]*/ 'default';
         var titles = /*[[${titles}]]*/ 'default';
 
-        //Allgemeines Feedback
+        //General Feedback
         const averageRating = /*[[${averageRating}]]*/ 'default';
         /*]]>*/
 
-        /*Standard Festlegung der Diagramm Labels und Farben*/
+        /*Definition of chart colours and labels*/
         var labels = ["Good", "Neutral", "Bad"];
         var colors = ["#82FA58", "#F4FA58", "#FE2E2E"]
 
-        /*Generierung von mehreren JS Pie Charts mit Hilfe von chart.js. Hier erfolgt auch die jeweilige Übergabe 
-        der Datensätze mit den Feedback Informationen zur Input Form unter Datasets*/
+        /*Generation of multiple JS Pie Charts with the help of chart.js. Here is also the respective transfer
+        the datasets with the feedback information to the input form under Datasets*/
         for (var i = 0; i < formData.length; i++) {
             var chartID = questions[i];
             new Chart(chartID, {
@@ -183,8 +183,8 @@
             });
         }
 
-        /*Generierung von mehreren JS Pie Charts mit Hilfe von chart.js. Hier erfolgt auch die jeweilige Übergabe der 
-        Datensätze mit den Feedback Informationen zu den REcommendations unter Datasets*/
+        /*Generation of multiple JS Pie charts with the help of chart.js. Here also the respective transfer of the
+        datasets with the feedback information to the Recommendations under Datasets*/
         for (var i = 0; i < recommendationData.length; i++) {
             var chartID = titles[i];
             new Chart(chartID, {
@@ -207,6 +207,7 @@
             });
         }
 
+        //Function displays the general feedback (0 to 5 stars) given on the home page by the users
         function displayStars(averageRating) {
             const starsContainer = document.querySelector('.stars span');
             const maxRating = 5;

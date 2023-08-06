@@ -2,10 +2,7 @@ package com.example.SecurityAssistant.service;
 
 public class EditStringService {
 	
-	
-	
 	public static String replaceUmlaut(String input) {
-		 
 	     // replace all lower Umlauts
 	     String output = input.replace("ü", "ue")
 	                          .replace("ö", "oe")

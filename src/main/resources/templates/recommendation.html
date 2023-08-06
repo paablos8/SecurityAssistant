@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
+        /*CSS styling elements*/
         .container {
             border: 1px solid #ccc;
             padding: 10px;
@@ -260,6 +261,7 @@
 
     <div class="container">
 
+        <!--Chart displays the overall compliance score in %-->
         <h1>Compliance Score:</h1>
         <div class="bar_container">
             <div id="main_container">
@@ -282,6 +284,8 @@
 
         <h1>Es wurden die folgenden Empfehlungen auf Ihre Eingaben zugeschnitten:</h1>
 
+        <!--Loops through the ArrayList "recommendations" generated in the submitController. Step by 
+            step it displays the recommendations with more information, origin document and mitigations-->
         <div th:each="recommendation : ${recommendations}">
 
             <div class="title"><strong
@@ -346,7 +350,7 @@
                 </div>
                 <div class="statistics" th:else th:if="${recommendation.title == '5.1 Password Selection'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${pwChangeCount[1]} + '% der Firmen haben eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
+                        th:text="'Firmen mit ebenfalls einer Größe von ' +${companySize} +' haben zu ' + ${pwChangeCount[1]} +  ' % eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
                     </p>
                 </div>
             </div>
@@ -368,6 +372,7 @@
 
 
             </div><br>
+            <!--Feedback buttons to evaluate the understandability of the recommendations-->
             <div class="Feedback">
                 <span class="feedback-button" title="Good" th:data-id="${recommendation.title}"
                     onclick="submitFeedback('good', this.getAttribute('data-id'))">&#128522;</span>
@@ -402,34 +407,36 @@
         //Function that handles the Feedback submitted through the Feedback Buttons
         function submitFeedback(value, relatedTo) {
             swal("Thank you!", "Your feedback is submitted", "success");
-            const url = '/feedback'; // Die URL zum Spring Boot-Controller-Endpunkt
+            const url = '/feedback'; // URL to the Spring-Boot-Controller-Endpoint
             fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ value: value, relatedTo: relatedTo }) // Die Daten, die du an den Controller senden möchtest
+                body: JSON.stringify({ value: value, relatedTo: relatedTo }) // Data sent to the controller
             })
                 .then(response => {
                     if (response.ok) {
-                        // Erfolgreiche Antwort erhalten
+                        // Success
                         console.log('POST-Anfrage erfolgreich gesendet');
                     } else {
-                        // Fehlerhafte Antwort erhalten
+                        // Failed answer
                         console.error('Fehler beim Senden der POST-Anfrage');
                     }
                 })
                 .catch(error => {
-                    // Ein Fehler ist aufgetreten
+                    // Error message
                     console.error('Fehler aufgetreten:', error);
                 });
 
         }
 
+        //Compliance Score is fetched from the submit controller
         /*<![CDATA[*/
         var complianceScore = /*[[${complianceScore}]]*/ 'default';
         /*]]>*/
 
+        //Generation of the compliance score progress bar diagram
         $(document).ready(function () {
             var progressbar = $('#progress_bar');
             max = progressbar.attr('max');
@@ -459,6 +466,9 @@
             }, time);
         });
 
+        //byte array "pdfBytes" is fetched from the submitController and it contains the recommendations 
+        //saved in a pdf file and converted to a byteArray
+        
         /*<![CDATA[*/
         var pdfBytes = /*[[${pdfBytes}]]*/ 'default';
         /*]]>*/

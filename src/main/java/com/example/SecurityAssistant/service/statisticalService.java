@@ -1,22 +1,25 @@
 package com.example.SecurityAssistant.service;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
 
+//Makes all the statistical calculations for the enrichment of the recommendations
 @Service
 public class statisticalService {
 
     // Count Variables
     int count1, count2, count3, count4, count5;
 
-    public void showStatisticalInfo(Model model, InfrastructureRepository repo, String branche) {
+    // Method is called with the generation of the recommendations to trigger the
+    // calculation
+    public void showStatisticalInfo(Model model, InfrastructureRepository repo, String branche, int employeeNR) {
+        // Save all database entries of the user data in a list
         List<SecurityInfrastructure> userData = repo.findAll();
-        double[] pwChangeCount = pwChangeCount(model, userData);
+
+        double[] pwChangeCount = pwChangeCount(model, userData, employeeNR);
         double[] backupCount = backupCount(model, userData);
         double[] storageCount = storageCount(model, userData);
         double[] firewallCount = firewallCount(model, userData);
@@ -33,6 +36,7 @@ public class statisticalService {
         double[] smokeDetCount = smokeDetCount(model, userData);
         double[] fireExCount = fireExCount(model, userData);
         model.addAttribute("branche", branche);
+        model.addAttribute("companySize", categorizeCompanySize(employeeNR));
         model.addAttribute("pwChangeCount", pwChangeCount);
         model.addAttribute("backupCount", backupCount);
         model.addAttribute("storageCount", storageCount);
@@ -51,26 +55,33 @@ public class statisticalService {
         model.addAttribute("fireExCount", fireExCount);
     }
 
-    // Liest die Anzahl an Firmen mit unterschiedlichen Passwort Change Policies aus
-    public double[] pwChangeCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = count3 = count4 = 0; // zurücksetzen der Zählervariablen
+    // Calculates the number of companies with different password change policies
+    // saved in the database
+    public double[] pwChangeCount(Model model, List<SecurityInfrastructure> userDataList, int employeeNR) {
+        String companySizeCategory = categorizeCompanySize(employeeNR);
+        System.out.println("Kategorie der Eingabe ist: " + companySizeCategory);
+        count1 = count2 = count3 = count4 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getPwChange().equals("Never")) {
-                count1 = count1 + 1;
-            } else if (item.getPwChange().equals("Monthly")) {
-                count2 = count2 + 1;
-            } else if (item.getPwChange().equals("Multiple times a year")) {
-                count3 = count3 + 1;
-            } else if (item.getPwChange().equals("After a few years")) {
-                count4 = count4 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory)) {
+                if (item.getPwChange().equals("Never")) {
+                    count1 = count1 + 1;
+                } else if (item.getPwChange().equals("Monthly")) {
+                    count2 = count2 + 1;
+                } else if (item.getPwChange().equals("Multiple times a year")) {
+                    count3 = count3 + 1;
+                } else if (item.getPwChange().equals("After a few years")) {
+                    count4 = count4 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, (count2 + count3), count4 });
     }
 
-    // Liest die Anzahl an Firmen mit Backup Policy aus
+    // Calculates the number of companies with a Backup Policy saved in the database
     public double[] backupCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = count3 = count4 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = count3 = count4 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getBackup().equals("No Backups are made")) {
                 count1 = count1 + 1;
@@ -83,9 +94,10 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2, count3 });
     }
 
-    // Liest die verschiedenen Datensicherungskonzepte der Firmen aus
+    // Calculates how many companies use different data storing technologies saved
+    // in the database
     public double[] storageCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = count3 = count4 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = count3 = count4 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getStorage().equals("Locally on our own Server")) {
                 count1 = count1 + 1;
@@ -100,9 +112,10 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2, count3, count4 });
     }
 
-    // Liest die verschiedenen Firewall Implementierungen der Firmen aus
+    // Calculates the number of companies with different firewalls saved in the
+    // database
     public double[] firewallCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = count3 = count4 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = count3 = count4 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getFirewall().equals("complex Firewall")) {
                 count1 = count1 + 1;
@@ -117,9 +130,10 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2, count3, count4 });
     }
 
-    // Liest die verschiedenen Anforderungen an die PW Properties der Firmen aus
+    // Calculates the number of companies with different password requirements saved
+    // in the database
     public double[] pwPropertiesCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = count3 = count4 = count5 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = count3 = count4 = count5 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getPwProperties().equals("No")) {
                 count1 = count1 + 1;
@@ -136,9 +150,10 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2, count3, count4, count5 });
     }
 
-    // Liest Anzahl der Firmen mit den jeweiligen Betreibssystemen aus
+    // Calculates the number of companies with different operating systems saved
+    // in the database
     public double[] OSCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = count3 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = count3 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getOS().equals("MacOS")) {
                 count1 = count1 + 1;
@@ -151,9 +166,11 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2, count3 });
     }
 
-    // Liest Anzahl an Firmen aus, die einen Incident Response Plan definiert haben
+    // Calculates the number of companies with an implemented incident response plan
+    // that are saved
+    // in the database
     public double[] incidentResponseCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = count3 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = count3 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getIncidentResponse().equals("Well specified")) {
                 count1 = count1 + 1;
@@ -166,9 +183,10 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2, count3 });
     }
 
-    // Liest Anzahl an Firmen aus der gleichen Branche, die ein Security Policy Document pflegen
+    // Calculates the number of companies with a security policy document
+    // that are saved in the database
     public double[] policyDocCount(Model model, List<SecurityInfrastructure> userDataList, String branche) {
-        count1 = count2 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getBranche().equals(branche)) {
                 if (item.getPolicyDoc().equals("Yes")) {
@@ -179,14 +197,14 @@ public class statisticalService {
             } else {
                 continue;
             }
-        } 
+        }
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Liest Anzahl an Firmen aus, die Trainings als Maßnahme im Unternehmen
-    // anbieten
+    // Calculates the number of companies that offer training as a measure in
+    // the company
     public double[] TrainingsCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getTrainings().equals("Yes")) {
                 count1 = count1 + 1;
@@ -197,9 +215,9 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Liest Anzahl an Firmen aus, die einen Printer haben
+    // Calculates the number of companies that have a printer
     public double[] printerCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getPrinter().equals("Yes")) {
                 count1 = count1 + 1;
@@ -210,9 +228,10 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Liest Anzahl an Firmen aus, die mit einem externen Dienstleister arbeiten
+    // Calculates the number of companies that are working together with an external
+    // provider for IT security
     public double[] externalProviderCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getExternalProvider().equals("Yes")) {
                 count1 = count1 + 1;
@@ -223,9 +242,9 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Liest Anzahl an Firmen aus, die eine Firewall Policy umgesetzt haben
+    // Calculates the number of companies that have implemented a firewall policy
     public double[] firewallPolicyCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getFirewallPolicy().equals("Yes")) {
                 count1 = count1 + 1;
@@ -236,9 +255,9 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Liest Anzahl an Firmen aus, die eine Alarmanlage haben
+    // Calculates the number of companies that have installed an alarm system for their buildings
     public double[] alarmCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getAlarm().equals("Yes")) {
                 count1 = count1 + 1;
@@ -249,10 +268,9 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Liest Anzahl an Firmen aus, die den Zugang zu kritischer Infrastruktur
-    // begrenzt haben
+    // Calculates the number of companies that have limited access to critical infrastructure
     public double[] criticalInfraCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getCriticalInfra().equals("Yes")) {
                 count1 = count1 + 1;
@@ -263,9 +281,9 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Liest Anzahl an Firmen aus, die Rauchdetektorem installiert haben
+    // Calculates the number of companies that have smoke detection installed in their buildings
     public double[] smokeDetCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getSmokeDet().equals("Yes")) {
                 count1 = count1 + 1;
@@ -276,9 +294,9 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Liest Anzahl an Firmen aus, die Feuerlöscher parat haben
+    // Calculates the number of companies that have a fire extinguisher to protect critical infrastructure
     public double[] fireExCount(Model model, List<SecurityInfrastructure> userDataList) {
-        count1 = count2 = 0; // zurücksetzen der Zählervariablen
+        count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getFireEx().equals("Yes")) {
                 count1 = count1 + 1;
@@ -289,17 +307,29 @@ public class statisticalService {
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Funktion zum Berechnen des Prozentsatzes der Daten mit zwei Nachkommestellen
+    // function to calculate the percentage of the data
     public double[] calculatePercentage(double[] data) {
         double total = 0;
         for (int i = 0; i < data.length; i++) {
             total = total + data[i];
         }
+        // rounding to two digits
         for (int i = 0; i < data.length; i++) {
             data[i] = Math.round((data[i] / total) * 100 * 100.0) / 100.0;
         }
         return data;
 
+    }
+
+    // Method categorizes the size of the company using the employee number
+    public String categorizeCompanySize(int employeeNR) {
+        if (employeeNR < 10) {
+            return "unter 10 Mitarbeiter";
+        } else if (employeeNR > 50) {
+            return "über 50 Mitarbeiter";
+        } else {
+            return "zwischen 10 und 50 Mitarbeiter";
+        }
     }
 
 }

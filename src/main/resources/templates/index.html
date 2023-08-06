@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
+        /*CSS styling elements*/
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
@@ -101,6 +102,7 @@
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
 
+    <!--Welcome Page with general information-->
     <div class="container">
         <h1>Herzlich Willkommen in Ihrem IT Sicherheits Assistenten.</h1>
 
@@ -125,6 +127,7 @@
             <div class="stars">
                 <p>Hier können Sie Ihre allgemeine Zufriedenheit mit dem Assistenten angeben!</p>
                 <span>
+                    <!--Display of the stars (radio buttons) that can be clicked to submit a general feedback-->
                     <input id="review01" type="radio" name="review" value="5"><label for="review01">★</label>
                     <input id="review02" type="radio" name="review" value="4"><label for="review02">★</label>
                     <input id="review03" type="radio" name="review" value="3"><label for="review03">★</label>
@@ -140,6 +143,7 @@
 </body>
 
 <script>
+    //Function that sends the submitted feedback to the controller where the feedback is stored in the database
     function submitFeedback() {
         swal("Thank you!", "Your feedback is submitted", "success");
         const radioButtons = document.querySelectorAll('input[name="review"]');
@@ -152,25 +156,25 @@
         });
 
         console.log("Selected value:", selectedValue);
-        const url = '/feedback'; // Die URL zum Spring Boot-Controller-Endpunkt
+        const url = '/feedback'; // the URL to the Spring Boot-Controller-Endpoint
         fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ value: selectedValue, relatedTo: "OverallFeedback" }) // Die Daten, die du an den Controller senden möchtest
+            body: JSON.stringify({ value: selectedValue, relatedTo: "OverallFeedback" }) // Data that is sent to the controller
         })
             .then(response => {
                 if (response.ok) {
-                    // Erfolgreiche Antwort erhalten
+                    // Successful answer
                     console.log('POST-Anfrage erfolgreich gesendet');
                 } else {
-                    // Fehlerhafte Antwort erhalten
+                    // Failed answer
                     console.error('Fehler beim Senden der POST-Anfrage');
                 }
             })
             .catch(error => {
-                // Ein Fehler ist aufgetreten
+                // Error occurred
                 console.error('Fehler aufgetreten:', error);
             });
     }

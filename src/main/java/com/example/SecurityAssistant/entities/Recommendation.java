@@ -1,12 +1,10 @@
 package com.example.SecurityAssistant.entities;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.jena.rdf.model.Resource;
 
 public class Recommendation {
 	
+	//All the recommendation values that are generated through the Inference Engine
 	private String title;
 	private String information;
 	private String originDocument;
@@ -14,7 +12,6 @@ public class Recommendation {
 	private ArrayList<Resource> risksIfNotImplementedResource;
 	private ArrayList<String> mitigatesVulnerabilitiesString;
 	private ArrayList<Resource> mitigatesVulnerabilitiesResource;
-
 	private int priorityScore;
 	
 	

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./feedbackButton.css" type="text/css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
+        /*CSS styling elements*/
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -194,6 +195,7 @@
         <div class="loading-message">Processing... Merken Sie sich Ihren Usernamen für das Bearbeiten Ihrer Daten!</div>
     </div>
 
+    <!--Input form for the company related security infrastructure-->
     <form id="feedbackform" action="/recommendation" method="post">
         <div class="personalData">
             <label for="userName">Username (bitte Username merken):</label>
@@ -244,6 +246,8 @@
                 <option value="Multiple times a year">Mehrmals pro Jahr</option>
                 <option value="After a few years">Nach mehreren Jahren</option>
             </select>
+
+            <!--Feedback buttons-->
             <div class="feedback1">
                 <span class="feedback-button" title="Verständlichkeit: Gut"
                     onclick="submitFeedback('good', 'pwChange')">&#128522;</span>
@@ -461,10 +465,13 @@
             </select><br><br>
         </div>
 
+        <!--Button that triggers the submitController-->
         <button class="submitButton" type="submit" onclick="onSubmitForm()">Bestätigen</button>
     </form>
 </body>
 <script>
+
+    //Freeze Screen while generating recommendations
     function showLoadingOverlay() {
         const overlay = document.querySelector('.loading-overlay');
         overlay.style.display = 'block';
@@ -479,27 +486,28 @@
         showLoadingOverlay();
     }
 
+    //Function thet handles the feedback submitions
     function submitFeedback(value, relatedTo) {
         swal("Thank you!", "Your feedback is submitted", "success");
-        const url = '/feedback'; // Die URL zum Spring Boot-Controller-Endpunkt
+        const url = '/feedback'; // URL to Spring Boot-Controller-Endpoint
         fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ value: value, relatedTo: relatedTo }) // Die Daten, die du an den Controller senden möchtest
+            body: JSON.stringify({ value: value, relatedTo: relatedTo }) // Data which is sent to the controller
         })
             .then(response => {
                 if (response.ok) {
-                    // Erfolgreiche Antwort erhalten
+                    // Successful answer received
                     console.log('POST-Anfrage erfolgreich gesendet');
                 } else {
-                    // Fehlerhafte Antwort erhalten
+                    // Error answer
                     console.error('Fehler beim Senden der POST-Anfrage');
                 }
             })
             .catch(error => {
-                // Ein Fehler ist aufgetreten
+                // Error message
                 console.error('Fehler aufgetreten:', error);
             });
 

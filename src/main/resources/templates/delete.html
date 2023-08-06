@@ -6,6 +6,7 @@
     <title>DeletePage</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
+        /* CSS styling elements */
         .userInput {
             text-align: center;
         }
@@ -61,6 +62,7 @@
 <body class="userInput">
     <div th:replace="~{fragments/header :: header}"></div>
 
+    <!--Input field for the user to specify their username and trigger the deletion of all their stored data-->
     <p>Hier können Sie Ihre gespeicherten Daten löschen:</p>
     <form id="deleteForm" action="/deleteSuccess" method="post">
         <label for="userName">Username:</label>

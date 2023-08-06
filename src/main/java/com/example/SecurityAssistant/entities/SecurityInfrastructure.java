@@ -1,5 +1,4 @@
 package com.example.SecurityAssistant.entities;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+//Entity Security Infrastructure which is inputed through the user input form
 @Entity
 @Table(name = "Companies")
 public class SecurityInfrastructure {
@@ -48,6 +48,7 @@ public class SecurityInfrastructure {
     private String printer;
     private String OS;
 
+    //Column where the Recommendations are supposed to be saved in a pdf file with BLOB
     @Lob
     @Column(name = "pdf_file", columnDefinition = "LONGBLOB")
     private byte[] pdfFile;

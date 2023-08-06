@@ -12,6 +12,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 public class toPDF {
 
+    //Method gets called to write the recommendation output into a PDF file
     public byte[] generatePdf(ArrayList<Recommendation> recommendations) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
