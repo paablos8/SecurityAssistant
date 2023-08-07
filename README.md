@@ -1,6 +1,8 @@
 # Security Assistant Application
 
-![App Screenshot](screenshot.png)
+![App Screenshot1](src\screenshots\ScreenshotUserForm.png)
+![App Screenshot2](src\screenshots\ScreenshotFeedback.png)
+![App Screenshot3](src\screenshots\ScreenshotRecommendations.png)
 
 ## Description
 
@@ -25,12 +27,12 @@ The Security Assistant Application is a web-based tool that helps manage securit
 ## Installation and Setup
 
 1. Clone the repository:
-git clone https://github.com/your-username/security-assistant.git
+git clone https://gitlab.com/SchimSlady/SecurityAssistant
 
 
 2. Build the project using Maven:
-'cd security-assistant'
-'mvn package'
+`cd security-assistant`
+`mvn package`
 
 
 3. Set up the database:
@@ -38,7 +40,7 @@ git clone https://github.com/your-username/security-assistant.git
 - Update the `application.properties` file with your database details.
 
 4. Run the application:
-mvn spring-boot:run
+`mvn spring-boot:run`
 
 
 5. Open your web browser and navigate to `http://localhost:8080` to access the application.
