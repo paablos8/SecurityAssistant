@@ -13,6 +13,7 @@ import com.example.SecurityAssistant.entities.Recommendation;
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
 import com.example.SecurityAssistant.service.dataPrivacy;
+import com.example.SecurityAssistant.service.fileGenerator;
 import com.example.SecurityAssistant.service.statisticalService;
 import com.example.ontology.InitJena;
 import com.example.ontology.ReasoningJena;
@@ -158,8 +159,18 @@ public class editDataController {
         // reasoning.listCurrentTopLevelThreats();
         // reasoning.listCurrentLowLevelThreats();
 
+        int complianceScore = reasoning.createOverallComplianceScore();
+        model.addAttribute("complianceScore", complianceScore);
+
         // Generation of recommendations
         ArrayList<Recommendation> recommendations = reasoning.generateRecommendations();
+
+        // Generation of text file and saving in a byteArray
+        fileGenerator fileGenerator = new fileGenerator();
+        byte[] fileBytes = fileGenerator.generateFile(recommendations, complianceScore);
+        infra.setFile(fileBytes);
+        model.addAttribute("fileBytes", fileBytes);
+        System.out.println(fileBytes);
 
         // Adding the created recommendations to the model to display them with
         // Thymeleaf in the frontend.

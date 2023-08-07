@@ -50,8 +50,8 @@ public class SecurityInfrastructure {
 
     //Column where the Recommendations are supposed to be saved in a pdf file with BLOB
     @Lob
-    @Column(name = "pdf_file", columnDefinition = "LONGBLOB")
-    private byte[] pdfFile;
+    @Column(name = "file", columnDefinition = "LONGBLOB")
+    private byte[] file;
 
     public String getUserName() {
         return userName;
@@ -197,11 +197,11 @@ public class SecurityInfrastructure {
         this.OS = oS;
     }
 
-    public byte[] getPdfFile() {
-        return pdfFile;
+    public byte[] getFile() {
+        return file;
     }
 
-    public void setPdfFile(byte[] pdfFile) {
-        this.pdfFile = pdfFile;
+    public void setFile(byte[] file) {
+        this.file = file;
     }
 }

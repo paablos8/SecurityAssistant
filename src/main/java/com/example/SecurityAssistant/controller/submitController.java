@@ -13,8 +13,8 @@ import com.example.SecurityAssistant.entities.Recommendation;
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
 import com.example.SecurityAssistant.service.dataPrivacy;
+import com.example.SecurityAssistant.service.fileGenerator;
 import com.example.SecurityAssistant.service.statisticalService;
-import com.example.SecurityAssistant.service.toPDF;
 import com.example.ontology.InitJena;
 import com.example.ontology.ReasoningJena;
 
@@ -131,11 +131,11 @@ public class submitController {
             // Generation of the recommendations
             ArrayList<Recommendation> recommendations = reasoning.generateRecommendations();
 
-            //Erstellung der PDF und schreiben in byte Array
-            toPDF pdfGenerator = new toPDF();
-            byte[] pdfBytes = pdfGenerator.generatePdf(recommendations);
-            infra.setPdfFile(pdfBytes);
-            model.addAttribute("pdfBytes", pdfBytes);
+            //Generation of text file and saving in a byteArray
+            fileGenerator fileGenerator = new fileGenerator();
+            byte[] fileBytes = fileGenerator.generateFile(recommendations, complianceScore);
+            infra.setFile(fileBytes);
+            model.addAttribute("fileBytes", fileBytes);
 
             // Adding the created recommendations to the model to display them with
             // Thymeleaf in the frontend

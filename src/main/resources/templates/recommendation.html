@@ -383,7 +383,7 @@
             </div>
             <br>
         </div>
-        <button class="download-button" onclick="downloadPDF()">Download PDF</button>
+        <button class="download-button" onclick="downloadFile()">Download PDF</button>
     </div>
 
     <script th:inline="javascript">
@@ -466,32 +466,31 @@
             }, time);
         });
 
-        //byte array "pdfBytes" is fetched from the submitController and it contains the recommendations 
-        //saved in a pdf file and converted to a byteArray
+        //byte array "fileBytes" is fetched from the submitController and it contains the recommendations 
+        //saved in a text file and converted to a byteArray
         
         /*<![CDATA[*/
-        var pdfBytes = /*[[${pdfBytes}]]*/ 'default';
+        var fileBytes = /*[[${fileBytes}]]*/ 'default';
         /*]]>*/
 
 
-        //Function that is triggered on the clicking of the download PDF button
-        function downloadPDF() {
-            // Convert the byte array to a Blob
-            console.log(pdfBytes);
-            const pdfBlob = new Blob([new Uint8Array(pdfBytes)], { type: "application/pdf" });
+        function downloadFile() {
+                // Convert the byte array to a Blob
+                console.log(fileBytes);
+                const textBlob = new Blob([new Uint8Array(fileBytes)], { type: "text/plain" });
 
-            // Create a temporary URL to the Blob
-            const url = URL.createObjectURL(pdfBlob);
+                // Create a temporary URL to the Blob
+                const url = URL.createObjectURL(textBlob);
 
-            // Create a temporary anchor element to initiate the download
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "recommendations.pdf"; // Set the filename of the downloaded file
-            a.click();
+                // Create a temporary anchor element to initiate the download
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "recommendations.txt"; // Set the filename of the downloaded file
+                a.click();
 
-            // Clean up the temporary URL after the download is complete
-            URL.revokeObjectURL(url);
-        }
+                // Clean up the temporary URL after the download is complete
+                URL.revokeObjectURL(url);
+            }
     </script>
 
 </body>
