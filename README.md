@@ -29,8 +29,8 @@ git clone https://github.com/your-username/security-assistant.git
 
 
 2. Build the project using Maven:
-cd security-assistant
-mvn package
+'cd security-assistant'
+'mvn package'
 
 
 3. Set up the database:
