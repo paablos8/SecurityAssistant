@@ -13,6 +13,7 @@ import com.example.SecurityAssistant.entities.Recommendation;
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
 import com.example.SecurityAssistant.service.dataPrivacy;
+import com.example.SecurityAssistant.service.fileGenerator;
 import com.example.SecurityAssistant.service.statisticalService;
 import com.example.ontology.InitJena;
 import com.example.ontology.ReasoningJena;
@@ -61,6 +62,8 @@ public class editDataController {
         }
     }
 
+    // When the user has edited his data and presses the submit button, teh user
+    // data is replaced in the database and a new recommendation is generated
     @PostMapping("/editSuccess")
     public String editData(@ModelAttribute SecurityInfrastructure infra, Model model) {
         infra.setId(userID);
@@ -156,15 +159,25 @@ public class editDataController {
         // reasoning.listCurrentTopLevelThreats();
         // reasoning.listCurrentLowLevelThreats();
 
-        // Generierung der recommendations
+        int complianceScore = reasoning.createOverallComplianceScore();
+        model.addAttribute("complianceScore", complianceScore);
+
+        // Generation of recommendations
         ArrayList<Recommendation> recommendations = reasoning.generateRecommendations();
 
-        // Hinzufügen der erstellten recommendations zum Model um diese mit Thymeleaf im
-        // Frontend darzustellen
+        // Generation of text file and saving in a byteArray
+        fileGenerator fileGenerator = new fileGenerator();
+        byte[] fileBytes = fileGenerator.generateFile(recommendations, complianceScore);
+        infra.setFile(fileBytes);
+        model.addAttribute("fileBytes", fileBytes);
+        System.out.println(fileBytes);
+
+        // Adding the created recommendations to the model to display them with
+        // Thymeleaf in the frontend.
         model.addAttribute("recommendations", recommendations);
 
-        // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
-        // abgespeichert wird
+        // Pseudonymisation of the company name string before it is then stored in the
+        // database
         infra.setUserName(dataPrivacy.pseudonymizeString(username));
         infra.setCompanyName(dataPrivacy.pseudonymizeString(infra.getCompanyName()));
         infra.setRegion(dataPrivacy.pseudonymizeString(infra.getRegion()));
@@ -173,8 +186,8 @@ public class editDataController {
 
         // Load statistical Data from the StatisticalService class
         statisticalService statistics = new statisticalService();
-        statistics.showStatisticalInfo(model, repo);
-       
+        statistics.showStatisticalInfo(model, repo, infra.getBranche(), infra.getEmployeeNR());
+
         return "recommendation";
     }
 
@@ -198,14 +211,14 @@ public class editDataController {
         return userID;
     }
 
-    // Methode soll die Datenbank abgleichen, ob der Username bereits vergeben ist
+    // Method should check the database to see if the username is already in use.
     public boolean checkUsername(Model model, String username) {
         List<SecurityInfrastructure> dataList = repo.findAll();
 
         // Username out of the Input field is compared to the userNames stored in the
         // database
         for (SecurityInfrastructure item : dataList) {
-            if (dataPrivacy.checkUsername(username ,item.getUserName()) ) {
+            if (dataPrivacy.checkUsername(username, item.getUserName())) {
                 System.out.println("Der Username ist bereits vorhanden");
                 return true;
             }

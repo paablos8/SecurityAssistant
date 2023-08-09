@@ -55,7 +55,7 @@ public class deleteDataController {
         return userID;
     }
 
-    // Methode soll die Datenbank abgleichen, ob der Username bereits vergeben ist
+    // Method should check the database to see if the username is already in use.
     public boolean checkUsername(Model model, String username) {
         List<SecurityInfrastructure> dataList = repo.findAll();
 

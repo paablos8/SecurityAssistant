@@ -14,12 +14,12 @@ import com.example.SecurityAssistant.entities.Recommendation;
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
 import com.example.SecurityAssistant.service.dataPrivacy;
+import com.example.SecurityAssistant.service.fileGenerator;
 import com.example.SecurityAssistant.service.statisticalService;
-import com.example.SecurityAssistant.service.toPDF;
-import com.example.SecurityAssistant.service.saveToPDF;
 import com.example.ontology.InitJena;
 import com.example.ontology.ReasoningJena;
 
+//The Controller handles the request when the user input form is submitted
 @Controller
 public class submitController {
 
@@ -126,43 +126,32 @@ public class submitController {
             
        
             int complianceScore = reasoning.createOverallComplianceScore();
+            model.addAttribute("complianceScore", complianceScore);
 
-            // Generierung der recommendations
+            // Generation of the recommendations
             ArrayList<Recommendation> recommendations = reasoning.generateRecommendations();
 
-            
-            
-            
-            //Erstellung der PDF und schreiben in byte Array
-            //toPDF pdfGenerator = new toPDF(recommendations);
-            //byte[] pdfBytes = pdfGenerator.generatePdf(recommendations);
-            //infra.setPdfFile(pdfBytes);
-         // Define the desired file path where you want to save the PDF
-            String filePath = "C:/Users/Wiwi-Admin/Desktop/recommendations.pdf";
+            //Generation of text file and saving in a byteArray
+            fileGenerator fileGenerator = new fileGenerator();
+            byte[] fileBytes = fileGenerator.generateFile(recommendations, complianceScore);
+            infra.setFile(fileBytes);
+            model.addAttribute("fileBytes", fileBytes);
 
-            // Create the File object representing the PDF file
-            File file = new File(filePath);
-
-            // Generate and save the PDF using iText            
-            saveToPDF savePDF = new saveToPDF ();
-            savePDF.generateAndSavePDF(recommendations, file.getAbsolutePath());
-       
-
-            // Hinzufügen der erstellten recommendations zum Model um diese mit Thymeleaf im
-            // Frontend darzustellen
+            // Adding the created recommendations to the model to display them with
+            // Thymeleaf in the frontend
             model.addAttribute("recommendations", recommendations);
 
-            // Pseudonymisierung des Firmennamen Strings bevor dieser dann in der Datenbank
-            // abgespeichert wird
+            // Pseudonymisation of the company name, username and region string before it is stored in the
+            // database 
             infra.setUserName(dataPrivacy.pseudonymizeString(infra.getUserName()));
             infra.setCompanyName(dataPrivacy.pseudonymizeString(infra.getCompanyName()));
             infra.setRegion(dataPrivacy.pseudonymizeString(infra.getRegion()));
-            // Speicherung des Form Inputs in der MySQL Datenbank
+            // Saving of the input data, SecurityInfrastructure Object in the database
             repo.save(infra);
 
             // Load statistical Data from the StatisticalService class
             statisticalService statistics = new statisticalService();
-            statistics.showStatisticalInfo(model, repo);
+            statistics.showStatisticalInfo(model, repo, infra.getBranche(), infra.getEmployeeNR());
 
             return "recommendation";
         } else {
@@ -171,7 +160,7 @@ public class submitController {
         }
     }
 
-    // Methode soll die Datenbank abgleichen, ob der Username bereits vergeben ist
+    // Method checks whether username is already used by another user
     public boolean checkUsername(Model model, String username) {
         List<SecurityInfrastructure> dataList = repo.findAll();
 
