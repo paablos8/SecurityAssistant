@@ -10,6 +10,8 @@ import com.example.SecurityAssistant.repository.InfrastructureRepository;
 @Service
 public class statisticalService {
 
+    String branche;
+    String companySizeCategory;
     // Count Variables
     int count1, count2, count3, count4, count5;
 
@@ -18,15 +20,18 @@ public class statisticalService {
     public void showStatisticalInfo(Model model, InfrastructureRepository repo, String branche, int employeeNR) {
         // Save all database entries of the user data in a list
         List<SecurityInfrastructure> userData = repo.findAll();
+        //Catergorize the company
+        this.branche = branche;
+        this.companySizeCategory = categorizeCompanySize(employeeNR);
 
-        double[] pwChangeCount = pwChangeCount(model, userData, employeeNR);
+        double[] pwChangeCount = pwChangeCount(model, userData);
         double[] backupCount = backupCount(model, userData);
         double[] storageCount = storageCount(model, userData);
         double[] firewallCount = firewallCount(model, userData);
         double[] pwPropertiesCount = pwPropertiesCount(model, userData);
         double[] OSCount = OSCount(model, userData);
         double[] incidentResponseCount = incidentResponseCount(model, userData);
-        double[] policyDocCount = policyDocCount(model, userData, branche);
+        double[] policyDocCount = policyDocCount(model, userData);
         double[] trainingsCount = TrainingsCount(model, userData);
         double[] printerCount = printerCount(model, userData);
         double[] externalProviderCount = externalProviderCount(model, userData);
@@ -35,8 +40,10 @@ public class statisticalService {
         double[] criticalInfraCount = criticalInfraCount(model, userData);
         double[] smokeDetCount = smokeDetCount(model, userData);
         double[] fireExCount = fireExCount(model, userData);
+
+        //Add to the model to display in thymelaf
         model.addAttribute("branche", branche);
-        model.addAttribute("companySize", categorizeCompanySize(employeeNR));
+        model.addAttribute("companySize", companySizeCategory);
         model.addAttribute("pwChangeCount", pwChangeCount);
         model.addAttribute("backupCount", backupCount);
         model.addAttribute("storageCount", storageCount);
@@ -57,12 +64,11 @@ public class statisticalService {
 
     // Calculates the number of companies with different password change policies
     // saved in the database
-    public double[] pwChangeCount(Model model, List<SecurityInfrastructure> userDataList, int employeeNR) {
-        String companySizeCategory = categorizeCompanySize(employeeNR);
-        System.out.println("Kategorie der Eingabe ist: " + companySizeCategory);
+    public double[] pwChangeCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = count3 = count4 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory)) {
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
                 if (item.getPwChange().equals("Never")) {
                     count1 = count1 + 1;
                 } else if (item.getPwChange().equals("Monthly")) {
@@ -185,7 +191,7 @@ public class statisticalService {
 
     // Calculates the number of companies with a security policy document
     // that are saved in the database
-    public double[] policyDocCount(Model model, List<SecurityInfrastructure> userDataList, String branche) {
+    public double[] policyDocCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
             if (item.getBranche().equals(branche)) {

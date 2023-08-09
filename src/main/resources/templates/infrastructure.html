@@ -196,7 +196,7 @@
     </div>
 
     <!--Input form for the company related security infrastructure-->
-    <form id="feedbackform" action="/recommendation" method="post">
+    <form id="feedbackform" action="/recommendation" method="post" onsubmit="return validateForm()">
         <div class="personalData">
             <label for="userName">Username (bitte Username merken):</label>
             <input type="text" id="userName" name="userName" placeholder="Username" required><br><br>
@@ -295,12 +295,14 @@
                 <option value="No Backups are made">Es werden keine Backups gemacht</option>
                 <option value="No defined Backup strategy, sporadical backups">Keine Strategie, sporadische Backups
                 </option>
-                <option value="Full Backup Strategy for the most important protected systems">Vollständiges Backup einmal pro Woche, inkrementelles
+                <option value="Full Backup Strategy for the most important protected systems">Vollständiges Backup
+                    einmal pro Woche, inkrementelles
                     oder vollständiges Backup täglich; Strategie ist definiert und dokumentiert, wird für die
                     wichtigsten
                     geschützten
                     Systeme umgesetzt</option>
-                <option value="Full Backup Strategy for all protected systems">Vollständiges Backup einmal pro Woche, inkrementelles oder
+                <option value="Full Backup Strategy for all protected systems">Vollständiges Backup einmal pro Woche,
+                    inkrementelles oder
                     vollständiges
                     Backup täglich; Strategie ist definiert und dokumentiert, wird für alle geschützten Systeme
                     umgesetzt
@@ -465,8 +467,15 @@
             </select><br><br>
         </div>
 
+        <div>
+            <label class="checkbox-label">
+                <input type="checkbox" id="checkbox">
+                I accept that my data is used anonymously and saved in the database.
+            </label>
+        </div>
+
         <!--Button that triggers the submitController-->
-        <button class="submitButton" type="submit" onclick="onSubmitForm()">Bestätigen</button>
+        <button class="submitButton" type="submit">Bestätigen</button>
     </form>
 </body>
 <script>
@@ -477,13 +486,17 @@
         overlay.style.display = 'block';
     }
 
-    function hideLoadingOverlay() {
-        const overlay = document.querySelector('.loading-overlay');
-        overlay.style.display = 'none';
-    }
+    function validateForm() {
+        // Evaluate whether terms and conditions are accepted
+        var checkbox = document.getElementById('checkbox');
+        if (!checkbox.checked) {
+            swal("Error", "Please Accept the terms and conditions!", "error");
 
-    function onSubmitForm() {
-        showLoadingOverlay();
+            return false; // Stop the submition of the form
+        } else {
+            showLoadingOverlay();
+            return true;
+        }
     }
 
     //Function thet handles the feedback submitions

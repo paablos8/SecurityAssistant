@@ -350,7 +350,7 @@
                 </div>
                 <div class="statistics" th:else th:if="${recommendation.title == '5.1 Password Selection'}">
                     <p class="tooltip-content"
-                        th:text="'Firmen mit ebenfalls einer Größe von ' +${companySize} +' haben zu ' + ${pwChangeCount[1]} +  ' % eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, haben zu ' + ${pwChangeCount[1]} +  ' % eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
                     </p>
                 </div>
             </div>

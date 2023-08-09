@@ -153,6 +153,32 @@
             font-size: 20px;
             font-weight: bold;
         }
+        .submitButton {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .submitButton:hover {
+            background-color: #0056b3;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .checkbox {
+            display: block;
+            text-align: left;
+        }
 
     </style>
 </head>
@@ -169,7 +195,7 @@
 
 <!-- Input Form for the editing of the security infrastructure
 The input form also displays the current entries by reading this information from the database -->
-<form id="form" action="/editSuccess" method="post">
+<form id="form" action="/editSuccess" method="post" onsubmit="return validateForm()">
     <div class="personalData">
         <p th:text="'Your Username: ' + ${userName}">Your Username: </p>
         <label for="companyName">Firmenname:</label>
@@ -397,7 +423,15 @@ The input form also displays the current entries by reading this information fro
         </select><br><br>
     </div>
 
-    <button type="submit" onclick="onSubmitForm()">Bestätigen</button>
+    <div>
+        <label class="checkbox">
+            <input type="checkbox" id="checkbox">
+            I accept that my data is used anonymously. If you dont agree you can initiate the deletion of your data
+            in the delete tab.
+        </label>
+    </div>
+
+    <button class="submitButton" type="submit" onclick="onSubmitForm()">Bestätigen</button>
 </form>
 </body>
 <script th:inline="javascript">
@@ -449,13 +483,16 @@ The input form also displays the current entries by reading this information fro
             overlay.style.display = 'block';
         }
 
-        function hideLoadingOverlay() {
-            const overlay = document.querySelector('.loading-overlay');
-            overlay.style.display = 'none';
-        }
-
-        function onSubmitForm() {
-            showLoadingOverlay();
+       function validateForm() {
+            // Evaluate whether terms and conditions are accepted
+            var checkbox = document.getElementById('checkbox');
+            if (!checkbox.checked) {
+                swal("Error", "Please Accept the terms and conditions!", "error");
+                return false; // Stop the submition of the form
+            } else {
+                showLoadingOverlay();
+                return true;
+            }
         }
 </script>
 
