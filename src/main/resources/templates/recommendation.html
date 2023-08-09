@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
+        /*CSS styling elements*/
         .container {
             border: 1px solid #ccc;
             padding: 10px;
@@ -158,7 +159,8 @@
             transition: max-height 0.2s ease-out;
             background-color: #f1f1f1;
         }
-        .dowload-button,
+
+        .download-button,
         .feedback-button {
             cursor: pointer;
             display: inline-block;
@@ -166,10 +168,89 @@
             background-color: #ccc;
             transition: background-color 0.3s;
         }
-        .dowload-button,
+
+        .download-button,
         .feedback-button:hover {
             background-color: rgb(100, 103, 100);
             color: #fff;
+        }
+
+        /* Pie Chart */
+        .progress-pie-chart {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #E5E5E5;
+            position: relative;
+            clip: rect(0, 100px, 200px, 0);
+        }
+
+        .progress-pie-chart.gt-50 {
+            background-color: #81CE97;
+            clip: rect(0, 100px, 200px, 100px);
+        }
+
+        .ppc-progress {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            left: calc(50% - 100px);
+            top: calc(50% - 100px);
+            width: 200px;
+            height: 200px;
+            clip: rect(0, 200px, 200px, 100px);
+        }
+
+        .ppc-progress .ppc-progress-fill {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            left: calc(50% - 100px);
+            top: calc(50% - 100px);
+            width: 200px;
+            height: 200px;
+            clip: rect(0, 100px, 200px, 0);
+            background: #81CE97;
+            transform: rotate(60deg);
+        }
+
+        .gt-50 .ppc-progress {
+            clip: rect(0, 100px, 200px, 0);
+        }
+
+        .gt-50 .ppc-progress .ppc-progress-fill {
+            clip: rect(0, 200px, 200px, 100px);
+            background: #E5E5E5;
+        }
+
+
+        .ppc-percents {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            left: calc(50% - 173.91304px/2);
+            top: calc(50% - 173.91304px/2);
+            width: 173.91304px;
+            height: 173.91304px;
+            background: #fff;
+            text-align: center;
+            display: table;
+        }
+
+        .ppc-percents span {
+            display: block;
+            font-size: 2.6em;
+            font-weight: bold;
+            color: #81CE97;
+        }
+
+        .pcc-percents-wrapper {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .progress-pie-chart {
+            margin: 50px auto 0;
         }
     </style>
 </head>
@@ -179,11 +260,36 @@
     <div th:replace="~{fragments/header :: header}"></div>
 
     <div class="container">
+
+        <!--Chart displays the overall compliance score in %-->
+        <h1>Compliance Score:</h1>
+        <div class="bar_container">
+            <div id="main_container">
+                <div id="pbar" class="progress-pie-chart" data-percent="0">
+                    <div class="ppc-progress">
+                        <div class="ppc-progress-fill"></div>
+                    </div>
+                    <div class="ppc-percents">
+                        <div class="pcc-percents-wrapper">
+                            <span>%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <progress style="display: none" id="progress_bar" value="0" max="100"></progress>
+            </div>
+        </div>
+
+        <br>
+
         <h1>Es wurden die folgenden Empfehlungen auf Ihre Eingaben zugeschnitten:</h1>
 
+        <!--Loops through the ArrayList "recommendations" generated in the submitController. Step by 
+            step it displays the recommendations with more information, origin document and mitigations-->
         <div th:each="recommendation : ${recommendations}">
 
-            <div class="title"><strong th:text="'Titel: ' +${recommendation.title} + ' (Priority Score:' + ${recommendation.priorityScore} + ')'"></strong>
+            <div class="title"><strong
+                    th:text="'Titel: ' +${recommendation.title} + ' (Priority Score:' + ${recommendation.priorityScore} + ')'"></strong>
 
                 <div class="statistics"
                     th:if="${recommendation.title == '4.4 Sicherheitssensibilisierung und -schulung'}">
@@ -239,12 +345,12 @@
                 <div class="statistics" th:else
                     th:if="${recommendation.title == '5.8.2 Virus Avoidance and Recogniton by the User'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${policyDocCount[0]} + '% der Firmen nutzen ein Dokument mit festgelegten Richtlinien um mögliche Gefahren vorzubeugen.'">
+                        th:text="'Ein Anteil von ' + ${policyDocCount[0]} + '% der Firmen aus der ' + ${branche} + ' Branche nutzen ein Dokument mit festgelegten Richtlinien um mögliche Gefahren vorzubeugen.'">
                     </p>
                 </div>
                 <div class="statistics" th:else th:if="${recommendation.title == '5.1 Password Selection'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${pwChangeCount[1]} + '% der Firmen haben eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, haben zu ' + ${pwChangeCount[1]} +  ' % eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
                     </p>
                 </div>
             </div>
@@ -252,8 +358,21 @@
             <button class="collapsible">More Information</button>
 
             <div class="moreInfo">
-                <span th:text="${recommendation.information}"></span>
+                <span th:text="${recommendation.information}"></span><br>
+                <span
+                    th:text="'Diese Informationen stammen aus diesen Dokumenten: (' + ${recommendation.originDocument} + ')' "></span>
+
+                <!-- <div th:each="risks : ${recommendation.risksIfNotImplemented}">
+                    <span th:text="'Diese Risiken treten bei nicht-Implementierung auf: ' + ${risks}"></span>
+                </div> -->
+
+                <div th:each="mitigations : ${recommendation.mitigatesVulnerabilitiesString}">
+                    <span th:text="'Das sind die Schwachstellen die gemildert werden: ' + ${mitigations}"></span>
+                </div>
+
+
             </div><br>
+            <!--Feedback buttons to evaluate the understandability of the recommendations-->
             <div class="Feedback">
                 <span class="feedback-button" title="Good" th:data-id="${recommendation.title}"
                     onclick="submitFeedback('good', this.getAttribute('data-id'))">&#128522;</span>
@@ -264,7 +383,7 @@
             </div>
             <br>
         </div>
-        <button class="dowload-button" onclick="downloadPDF()">Download PDF</button>
+        <button class="download-button" onclick="downloadFile()">Download PDF</button>
     </div>
 
     <script th:inline="javascript">
@@ -288,75 +407,89 @@
         //Function that handles the Feedback submitted through the Feedback Buttons
         function submitFeedback(value, relatedTo) {
             swal("Thank you!", "Your feedback is submitted", "success");
-            const url = '/feedback'; // Die URL zum Spring Boot-Controller-Endpunkt
+            const url = '/feedback'; // URL to the Spring-Boot-Controller-Endpoint
             fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ value: value, relatedTo: relatedTo }) // Die Daten, die du an den Controller senden möchtest
+                body: JSON.stringify({ value: value, relatedTo: relatedTo }) // Data sent to the controller
             })
                 .then(response => {
                     if (response.ok) {
-                        // Erfolgreiche Antwort erhalten
+                        // Success
                         console.log('POST-Anfrage erfolgreich gesendet');
                     } else {
-                        // Fehlerhafte Antwort erhalten
+                        // Failed answer
                         console.error('Fehler beim Senden der POST-Anfrage');
                     }
                 })
                 .catch(error => {
-                    // Ein Fehler ist aufgetreten
+                    // Error message
                     console.error('Fehler aufgetreten:', error);
                 });
 
         }
 
+        //Compliance Score is fetched from the submit controller
         /*<![CDATA[*/
-        var dataPolicyDoc = /*[[${policyDocCount}]]*/ 'default';
-        var dataTrainings = /*[[${trainingsCount}]]*/ 'default';
+        var complianceScore = /*[[${complianceScore}]]*/ 'default';
         /*]]>*/
 
-        var labelsYesNo = ["Yes", "No"];
-        var colorsYesNo = ["#82FA58", "#FE2E2E"]
+        //Generation of the compliance score progress bar diagram
+        $(document).ready(function () {
+            var progressbar = $('#progress_bar');
+            max = progressbar.attr('max');
+            time = (1000 / max) * 5;
+            value = complianceScore;
 
-        new Chart("chartPolicyDoc", {
-            type: 'pie',
-            data: {
-                labels: labelsYesNo,
-                datasets: [{
-                    backgroundColor: colorsYesNo,
-                    data: dataPolicyDoc
-                }]
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: "Policy Document:"
-                    }
+            var loading = function () {
+                addValue = progressbar.val(value);
+
+                $('.progress-value').html(value + '%');
+                var $ppc = $('.progress-pie-chart'),
+                    deg = 360 * value / 100;
+                if (value > 50) {
+                    $ppc.addClass('gt-50');
                 }
-            }
+
+                $('.ppc-progress-fill').css('transform', 'rotate(' + deg + 'deg)');
+                $('.ppc-percents span').html(value + '%');
+
+                if (value == max) {
+                    clearInterval(animate);
+                }
+            };
+
+            var animate = setInterval(function () {
+                loading();
+            }, time);
         });
 
-        //Function that is triggered on the clicking of the download PDF button
-         function downloadPDF() {
-                fetch('/reommendation', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/pdf'
-                    }
-                })
-                    .then(response => response.blob())
-                    .then(blob => {
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'recommendations.pdf'; // Set the desired file name
-                        document.body.appendChild(a);
-                        a.click();
-                        URL.revokeObjectURL(url);
-                    });
+        //byte array "fileBytes" is fetched from the submitController and it contains the recommendations 
+        //saved in a text file and converted to a byteArray
+        
+        /*<![CDATA[*/
+        var fileBytes = /*[[${fileBytes}]]*/ 'default';
+        /*]]>*/
+
+
+        function downloadFile() {
+                // Convert the byte array to a Blob
+                console.log(fileBytes);
+                const textBlob = new Blob([new Uint8Array(fileBytes)], { type: "text/plain" });
+
+                // Create a temporary URL to the Blob
+                const url = URL.createObjectURL(textBlob);
+
+                // Create a temporary anchor element to initiate the download
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "recommendations.txt"; // Set the filename of the downloaded file
+                a.click();
+
+                // Clean up the temporary URL after the download is complete
+                URL.revokeObjectURL(url);
             }
     </script>
 

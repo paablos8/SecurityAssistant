@@ -1,5 +1,4 @@
 package com.example.SecurityAssistant.entities;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+//Entity Security Infrastructure which is inputed through the user input form
 @Entity
 @Table(name = "Companies")
 public class SecurityInfrastructure {
@@ -48,9 +48,10 @@ public class SecurityInfrastructure {
     private String printer;
     private String OS;
 
+    //Column where the Recommendations are supposed to be saved in a pdf file with BLOB
     @Lob
-    @Column(name = "pdf_file", columnDefinition = "LONGBLOB")
-    private byte[] pdfFile;
+    @Column(name = "file", columnDefinition = "LONGBLOB")
+    private byte[] file;
 
     public String getUserName() {
         return userName;
@@ -196,22 +197,11 @@ public class SecurityInfrastructure {
         this.OS = oS;
     }
 
-    public byte[] getPdfFile() {
-        return pdfFile;
+    public byte[] getFile() {
+        return file;
     }
 
-    public void setPdfFile(byte[] pdfFile) {
-        this.pdfFile = pdfFile;
-    }
-    
-    @Override
-    public String toString() {
-        return "SecurityInfrastructure [id=" + id + ", userName=" + userName + ", companyName=" + companyName
-                + ", employeeNR=" + employeeNR + ", branche=" + branche + ", region=" + region + ", pwChange="
-                + pwChange + ", pwProperties=" + pwProperties + ", trainings=" + trainings + ", backup=" + backup
-                + ", incidentResponse=" + incidentResponse + ", policyDoc=" + policyDoc + ", storage=" + storage
-                + ", fireEx=" + fireEx + ", smokeDet=" + smokeDet + ", criticalInfra=" + criticalInfra + ", alarm="
-                + alarm + ", firewall=" + firewall + ", externalProvider=" + externalProvider + ", PCAnzahl=" + PCAnzahl
-                + ", printer=" + printer + ", OS=" + OS + "]";
+    public void setFile(byte[] file) {
+        this.file = file;
     }
 }
