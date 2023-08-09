@@ -167,48 +167,7 @@ public class InitJena {
 		sectionIndividual.addProperty(sectionBelongsToBuilding, buildingIndividual);
 		buildingIndividual.addProperty(buildingHousesOrganization, organizationIndividual);
 		}
-	}
-
-
-
-	// Adds a computer to the ontology.
-	public void addComputer (String computer, String os, String antiVirusSoftware) {
-
-		// Create the individual computer
-			String workstationURI = NS + "Workstation";
-			Individual computerIndividual = base.createIndividual(NS + computer, base.createClass(workstationURI));
-			System.out.println("Individual successfully created: " + computer);
-
-		// Create the individual OS
-			String osURI = NS + "OS";
-			Individual osIndividual = base.createIndividual(NS + os, base.createClass(osURI));
-			System.out.println("Individual successfully created: " + os);
-
-		// Create the individual Anti Virus Software
-			String antiVirusSoftwareURI = NS + "TransactionSecurityAndVirusProtectionSoftware";
-			Individual antiVirusSoftwareIndividual = base.createIndividual(NS + antiVirusSoftware, base.createClass(antiVirusSoftwareURI));
-			System.out.println("Individual successfully created: " + antiVirusSoftware);
-
-
-		// Object Properties:
-		// Create and add ObjectProperty system_hasInstalled_Software and connect the individual AntiVirusSoftware to the added OS
-			ObjectProperty hasInstalledSoftware = base.getObjectProperty(NS + "system_hasInstalled_Software");
-			osIndividual.addProperty(hasInstalledSoftware, antiVirusSoftwareIndividual);
-		 	System.out.println("Object Properties successfully created: system_hasInstalled_Software" );
-
-
-		// Create and add ObjectProperty ITComponent_connectedTo_System and connect the individual OS to the added Workstation
-		 	//ObjectProperty connectedToSystem = base.getObjectProperty(NS + "ITComponent_connectedTo_System");
-		 	//computerIndividual.addProperty(connectedToSystem, osIndividual);
-		 	//System.out.println("Object Properties successfully created: ITComponent_connectedTo_System" );
-
-		// Create and add ObjectProperty organization_owns_Asset and connect the individual workstation to the added nameOfTheSME
-			ObjectProperty organizationOwnsAsset = base.getObjectProperty(NS + "organization_owns_Asset");
-			organizationIndividual.addProperty(organizationOwnsAsset, computerIndividual);
-			System.out.println("Object Properties successfully created: organization_owns_Asset" );
-	}
-
-	
+	}	
 	
 	
 	

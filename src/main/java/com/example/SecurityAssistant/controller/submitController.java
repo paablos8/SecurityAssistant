@@ -2,6 +2,7 @@ package com.example.SecurityAssistant.controller;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.io.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import com.example.SecurityAssistant.repository.InfrastructureRepository;
 import com.example.SecurityAssistant.service.dataPrivacy;
 import com.example.SecurityAssistant.service.statisticalService;
 import com.example.SecurityAssistant.service.toPDF;
+import com.example.SecurityAssistant.service.saveToPDF;
 import com.example.ontology.InitJena;
 import com.example.ontology.ReasoningJena;
 
@@ -49,8 +51,7 @@ public class submitController {
                     removeWhitespaces(infra.getBranche()), removeWhitespaces(infra.getRegion()));
             initJena.addPasswordPolicy(removeWhitespaces(infra.getPwChange()),
                     removeWhitespaces(infra.getPwProperties()));
-            // initJena.addComputer("ComputerTim_1",
-            // "Windows10_Tim","Tims_Antivirus_Software");
+            
             if (infra.getTrainings().equals("Yes"))
                 initJena.addPolicy("SecurityTrainingPolicy", "SecurityTrainingPolicyOf" + companyName);
 
@@ -114,25 +115,38 @@ public class submitController {
             System.out.println(
                     "The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
 
+            
+            
             // Reasoning
             ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
 
             reasoning.listImplementedControls();
-            // reasoning.listNotImplementedControls();
-            System.out.println(
-                    "These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
+            System.out.println("These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
             reasoning.listCurrentVulnerabilities();
             
-            System.out.println("These are the current lowered Threats: " + reasoning.getLoweredThreats());
+       
             int complianceScore = reasoning.createOverallComplianceScore();
 
             // Generierung der recommendations
             ArrayList<Recommendation> recommendations = reasoning.generateRecommendations();
 
+            
+            
+            
             //Erstellung der PDF und schreiben in byte Array
-            toPDF pdfGenerator = new toPDF();
-            byte[] pdfBytes = pdfGenerator.generatePdf(recommendations);
-            infra.setPdfFile(pdfBytes);
+            //toPDF pdfGenerator = new toPDF(recommendations);
+            //byte[] pdfBytes = pdfGenerator.generatePdf(recommendations);
+            //infra.setPdfFile(pdfBytes);
+         // Define the desired file path where you want to save the PDF
+            String filePath = "C:/Users/Wiwi-Admin/Desktop/recommendations.pdf";
+
+            // Create the File object representing the PDF file
+            File file = new File(filePath);
+
+            // Generate and save the PDF using iText            
+            saveToPDF savePDF = new saveToPDF ();
+            savePDF.generateAndSavePDF(recommendations, file.getAbsolutePath());
+       
 
             // Hinzufügen der erstellten recommendations zum Model um diese mit Thymeleaf im
             // Frontend darzustellen
