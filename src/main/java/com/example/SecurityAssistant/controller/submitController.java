@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.SecurityAssistant.entities.Recommendation;
 import com.example.SecurityAssistant.entities.SecurityInfrastructure;
 import com.example.SecurityAssistant.repository.InfrastructureRepository;
+import com.example.SecurityAssistant.service.EditStringService;
 import com.example.SecurityAssistant.service.dataPrivacy;
 import com.example.SecurityAssistant.service.fileGenerator;
 import com.example.SecurityAssistant.service.statisticalService;
@@ -24,6 +25,7 @@ import com.example.ontology.ReasoningJena;
 public class submitController {
 
     int eintragNR;
+    EditStringService editString;
 
     @Autowired
     private InfrastructureRepository repo;
@@ -36,21 +38,22 @@ public class submitController {
     @PostMapping("/recommendation")
     public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model) {
         if (!checkUsername(model, infra.getUserName())) {
+        	editString = new EditStringService();
             String userName = infra.getUserName();
-            String companyName = removeWhitespaces(infra.getCompanyName());
-            String backup = removeWhitespaces(infra.getBackup());
-            String incidentResponse = removeWhitespaces(infra.getIncidentResponse());
-            String firewall = removeWhitespaces(infra.getFirewall());
-            String os = removeWhitespaces(infra.getOS());
+            String companyName = editString.removeWhitespaces(infra.getCompanyName());
+            String backup = editString.removeWhitespaces(infra.getBackup());
+            String incidentResponse = editString.removeWhitespaces(infra.getIncidentResponse());
+            String firewall = editString.removeWhitespaces(infra.getFirewall());
+            String os = editString.removeWhitespaces(infra.getOS());
 
             // Mapping and adding the SME into the base ontology
             InitJena initJena = new InitJena();
             initJena.loadOntology();
 
-            initJena.addOrganization(userName, removeWhitespaces(companyName), infra.getEmployeeNR(),
-                    removeWhitespaces(infra.getBranche()), removeWhitespaces(infra.getRegion()));
-            initJena.addPasswordPolicy(removeWhitespaces(infra.getPwChange()),
-                    removeWhitespaces(infra.getPwProperties()));
+            initJena.addOrganization(userName, companyName, infra.getEmployeeNR(),
+            		editString.removeWhitespaces(infra.getBranche()), editString.removeWhitespaces(infra.getRegion()));
+            initJena.addPasswordPolicy(editString.removeWhitespaces(infra.getPwChange()),
+            		editString.removeWhitespaces(infra.getPwProperties()));
             
             if (infra.getTrainings().equals("Yes"))
                 initJena.addPolicy("SecurityTrainingPolicy", "SecurityTrainingPolicyOf" + companyName);
@@ -175,13 +178,4 @@ public class submitController {
         System.out.println("Der Username ist nicht vorhanden");
         return false;
     }
-
-    // Get rid of all the whitespaces in the Strings of the inputs
-    public String removeWhitespaces(String input) {
-        String sanitizedInput = input.replaceAll("\\s+", "");
-        String sanitizedInput2 = sanitizedInput.replaceAll(";", "");
-        String fullySanitizedInput = sanitizedInput2.replaceAll(",", "");
-        return fullySanitizedInput;
-    }
-
 }
