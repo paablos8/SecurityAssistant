@@ -140,15 +140,15 @@ public class ReasoningJena {
         				// The mitigated vulnerabilities also lower threats
         				if (mitigatedVulnerability.hasProperty(vulnerabilityExploitedByThreat)) {
         					StmtIterator listExploitedByThreatIter = base.listStatements(mitigatedVulnerability, vulnerabilityExploitedByThreat, (RDFNode) null);
-        					System.out.print("thereby the exposed risk to ");
+        					System.out.print(" thereby the exposed risk to ");
         					while (listExploitedByThreatIter.hasNext()) {
         						Statement stmt_2 = listExploitedByThreatIter.next();
         						Resource threat = stmt_2.getObject().asResource();
         						loweredThreats.add(threat);
         						loweredThreatsString.add(threat.getLocalName());
         						Individual threatIndividual = base.getIndividual(threat.getURI());
-        						OntClass typeThreat = threatIndividual.getOntClass(true);
-        						System.out.print(threat.getLocalName() +" (" + typeThreat.getLocalName() + ") ");
+        						//OntClass typeThreat = threatIndividual.getOntClass(true);
+        						//System.out.print(threat.getLocalName() +" (" + typeThreat.getLocalName() + ") ");
         					}
         					System.out.print("is lowered.");
         				}
