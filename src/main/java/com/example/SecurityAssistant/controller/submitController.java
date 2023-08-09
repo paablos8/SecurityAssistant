@@ -2,6 +2,7 @@ package com.example.SecurityAssistant.controller;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.io.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,8 +51,7 @@ public class submitController {
                     removeWhitespaces(infra.getBranche()), removeWhitespaces(infra.getRegion()));
             initJena.addPasswordPolicy(removeWhitespaces(infra.getPwChange()),
                     removeWhitespaces(infra.getPwProperties()));
-            // initJena.addComputer("ComputerTim_1",
-            // "Windows10_Tim","Tims_Antivirus_Software");
+            
             if (infra.getTrainings().equals("Yes"))
                 initJena.addPolicy("SecurityTrainingPolicy", "SecurityTrainingPolicyOf" + companyName);
 
@@ -115,16 +115,16 @@ public class submitController {
             System.out.println(
                     "The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
 
+            
+            
             // Reasoning
             ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
 
             reasoning.listImplementedControls();
-            // reasoning.listNotImplementedControls();
-            System.out.println(
-                    "These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
+            System.out.println("These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
             reasoning.listCurrentVulnerabilities();
             
-            System.out.println("These are the current lowered Threats: " + reasoning.getLoweredThreats());
+       
             int complianceScore = reasoning.createOverallComplianceScore();
             model.addAttribute("complianceScore", complianceScore);
 
