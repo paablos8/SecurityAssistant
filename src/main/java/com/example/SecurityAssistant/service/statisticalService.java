@@ -20,7 +20,7 @@ public class statisticalService {
     public void showStatisticalInfo(Model model, InfrastructureRepository repo, String branche, int employeeNR) {
         // Save all database entries of the user data in a list
         List<SecurityInfrastructure> userData = repo.findAll();
-        //Catergorize the company
+        // Catergorize the company
         this.branche = branche;
         this.companySizeCategory = categorizeCompanySize(employeeNR);
 
@@ -41,7 +41,7 @@ public class statisticalService {
         double[] smokeDetCount = smokeDetCount(model, userData);
         double[] fireExCount = fireExCount(model, userData);
 
-        //Add to the model to display in thymelaf
+        // Add to the model to display in thymelaf
         model.addAttribute("branche", branche);
         model.addAttribute("companySize", companySizeCategory);
         model.addAttribute("pwChangeCount", pwChangeCount);
@@ -89,12 +89,17 @@ public class statisticalService {
     public double[] backupCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = count3 = count4 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getBackup().equals("No Backups are made")) {
-                count1 = count1 + 1;
-            } else if (item.getBackup().equals("No defined Backup strategy, sporadical backups")) {
-                count2 = count2 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getBackup().equals("No Backups are made")) {
+                    count1 = count1 + 1;
+                } else if (item.getBackup().equals("No defined Backup strategy, sporadical backups")) {
+                    count2 = count2 + 1;
+                } else {
+                    count3 = count3 + 1;
+                }
             } else {
-                count3 = count3 + 1;
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2, count3 });
@@ -105,14 +110,19 @@ public class statisticalService {
     public double[] storageCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = count3 = count4 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getStorage().equals("Locally on our own Server")) {
-                count1 = count1 + 1;
-            } else if (item.getStorage().equals("In a hybrid cloud")) {
-                count2 = count2 + 1;
-            } else if (item.getStorage().equals("In the Cloud")) {
-                count3 = count3 + 1;
-            } else if (item.getStorage().equals("In paper form")) {
-                count4 = count4 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getStorage().equals("Locally on our own Server")) {
+                    count1 = count1 + 1;
+                } else if (item.getStorage().equals("In a hybrid cloud")) {
+                    count2 = count2 + 1;
+                } else if (item.getStorage().equals("In the Cloud")) {
+                    count3 = count3 + 1;
+                } else if (item.getStorage().equals("In paper form")) {
+                    count4 = count4 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2, count3, count4 });
@@ -123,14 +133,19 @@ public class statisticalService {
     public double[] firewallCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = count3 = count4 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getFirewall().equals("complex Firewall")) {
-                count1 = count1 + 1;
-            } else if (item.getFirewall().equals("multifunctional Firewall")) {
-                count2 = count2 + 1;
-            } else if (item.getFirewall().equals("local Firewall")) {
-                count3 = count3 + 1;
-            } else if (item.getFirewall().equals("no Firewall")) {
-                count4 = count4 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getFirewall().equals("complex Firewall")) {
+                    count1 = count1 + 1;
+                } else if (item.getFirewall().equals("multifunctional Firewall")) {
+                    count2 = count2 + 1;
+                } else if (item.getFirewall().equals("local Firewall")) {
+                    count3 = count3 + 1;
+                } else if (item.getFirewall().equals("no Firewall")) {
+                    count4 = count4 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2, count3, count4 });
@@ -141,16 +156,22 @@ public class statisticalService {
     public double[] pwPropertiesCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = count3 = count4 = count5 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getPwProperties().equals("No")) {
-                count1 = count1 + 1;
-            } else if (item.getPwProperties().equals("Password length")) {
-                count2 = count2 + 1;
-            } else if (item.getPwProperties().equals("Password length and must include numbers")) {
-                count3 = count3 + 1;
-            } else if (item.getPwProperties().equals("Password length must include numbers and special characters")) {
-                count4 = count4 + 1;
-            } else if (item.getPwProperties().equals("Password must be randomly generated")) {
-                count5 = count5 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getPwProperties().equals("No")) {
+                    count1 = count1 + 1;
+                } else if (item.getPwProperties().equals("Password length")) {
+                    count2 = count2 + 1;
+                } else if (item.getPwProperties().equals("Password length and must include numbers")) {
+                    count3 = count3 + 1;
+                } else if (item.getPwProperties()
+                        .equals("Password length must include numbers and special characters")) {
+                    count4 = count4 + 1;
+                } else if (item.getPwProperties().equals("Password must be randomly generated")) {
+                    count5 = count5 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2, count3, count4, count5 });
@@ -161,12 +182,17 @@ public class statisticalService {
     public double[] OSCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = count3 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getOS().equals("MacOS")) {
-                count1 = count1 + 1;
-            } else if (item.getOS().equals("Windows")) {
-                count2 = count2 + 1;
-            } else if (item.getOS().equals("Linux")) {
-                count3 = count3 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getOS().equals("MacOS")) {
+                    count1 = count1 + 1;
+                } else if (item.getOS().equals("Windows")) {
+                    count2 = count2 + 1;
+                } else if (item.getOS().equals("Linux")) {
+                    count3 = count3 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2, count3 });
@@ -178,12 +204,17 @@ public class statisticalService {
     public double[] incidentResponseCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = count3 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getIncidentResponse().equals("Well specified")) {
-                count1 = count1 + 1;
-            } else if (item.getIncidentResponse().equals("There is a rough plan")) {
-                count2 = count2 + 1;
-            } else if (item.getIncidentResponse().equals("There is no plan")) {
-                count3 = count3 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getIncidentResponse().equals("Well specified")) {
+                    count1 = count1 + 1;
+                } else if (item.getIncidentResponse().equals("There is a rough plan")) {
+                    count2 = count2 + 1;
+                } else if (item.getIncidentResponse().equals("There is no plan")) {
+                    count3 = count3 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2, count3 });
@@ -194,11 +225,16 @@ public class statisticalService {
     public double[] policyDocCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getBranche().equals(branche)) {
-                if (item.getPolicyDoc().equals("Yes")) {
-                    count1 = count1 + 1;
-                } else if (item.getPolicyDoc().equals("No")) {
-                    count2 = count2 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getBranche().equals(branche)) {
+                    if (item.getPolicyDoc().equals("Yes")) {
+                        count1 = count1 + 1;
+                    } else if (item.getPolicyDoc().equals("No")) {
+                        count2 = count2 + 1;
+                    }
+                } else {
+                    continue;
                 }
             } else {
                 continue;
@@ -212,10 +248,15 @@ public class statisticalService {
     public double[] TrainingsCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getTrainings().equals("Yes")) {
-                count1 = count1 + 1;
-            } else if (item.getTrainings().equals("No")) {
-                count2 = count2 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getTrainings().equals("Yes")) {
+                    count1 = count1 + 1;
+                } else if (item.getTrainings().equals("No")) {
+                    count2 = count2 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2 });
@@ -225,10 +266,15 @@ public class statisticalService {
     public double[] printerCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getPrinter().equals("Yes")) {
-                count1 = count1 + 1;
-            } else if (item.getPrinter().equals("No")) {
-                count2 = count2 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getPrinter().equals("Yes")) {
+                    count1 = count1 + 1;
+                } else if (item.getPrinter().equals("No")) {
+                    count2 = count2 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2 });
@@ -239,10 +285,15 @@ public class statisticalService {
     public double[] externalProviderCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getExternalProvider().equals("Yes")) {
-                count1 = count1 + 1;
-            } else if (item.getExternalProvider().equals("No")) {
-                count2 = count2 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getExternalProvider().equals("Yes")) {
+                    count1 = count1 + 1;
+                } else if (item.getExternalProvider().equals("No")) {
+                    count2 = count2 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2 });
@@ -252,62 +303,91 @@ public class statisticalService {
     public double[] firewallPolicyCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getFirewallPolicy().equals("Yes")) {
-                count1 = count1 + 1;
-            } else if (item.getFirewallPolicy().equals("No")) {
-                count2 = count2 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getFirewallPolicy().equals("Yes")) {
+                    count1 = count1 + 1;
+                } else if (item.getFirewallPolicy().equals("No")) {
+                    count2 = count2 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Calculates the number of companies that have installed an alarm system for their buildings
+    // Calculates the number of companies that have installed an alarm system for
+    // their buildings
     public double[] alarmCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getAlarm().equals("Yes")) {
-                count1 = count1 + 1;
-            } else if (item.getAlarm().equals("No")) {
-                count2 = count2 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getAlarm().equals("Yes")) {
+                    count1 = count1 + 1;
+                } else if (item.getAlarm().equals("No")) {
+                    count2 = count2 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Calculates the number of companies that have limited access to critical infrastructure
+    // Calculates the number of companies that have limited access to critical
+    // infrastructure
     public double[] criticalInfraCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getCriticalInfra().equals("Yes")) {
-                count1 = count1 + 1;
-            } else if (item.getCriticalInfra().equals("No")) {
-                count2 = count2 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getCriticalInfra().equals("Yes")) {
+                    count1 = count1 + 1;
+                } else if (item.getCriticalInfra().equals("No")) {
+                    count2 = count2 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Calculates the number of companies that have smoke detection installed in their buildings
+    // Calculates the number of companies that have smoke detection installed in
+    // their buildings
     public double[] smokeDetCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getSmokeDet().equals("Yes")) {
-                count1 = count1 + 1;
-            } else if (item.getSmokeDet().equals("No")) {
-                count2 = count2 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getSmokeDet().equals("Yes")) {
+                    count1 = count1 + 1;
+                } else if (item.getSmokeDet().equals("No")) {
+                    count2 = count2 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2 });
     }
 
-    // Calculates the number of companies that have a fire extinguisher to protect critical infrastructure
+    // Calculates the number of companies that have a fire extinguisher to protect
+    // critical infrastructure
     public double[] fireExCount(Model model, List<SecurityInfrastructure> userDataList) {
         count1 = count2 = 0; // reset the counting variables
         for (SecurityInfrastructure item : userDataList) {
-            if (item.getFireEx().equals("Yes")) {
-                count1 = count1 + 1;
-            } else if (item.getFireEx().equals("No")) {
-                count2 = count2 + 1;
+            if (categorizeCompanySize(item.getEmployeeNR()).equals(companySizeCategory) && item.getBranche()
+                    .equals(branche)) {
+                if (item.getFireEx().equals("Yes")) {
+                    count1 = count1 + 1;
+                } else if (item.getFireEx().equals("No")) {
+                    count2 = count2 + 1;
+                }
+            } else {
+                continue;
             }
         }
         return calculatePercentage(new double[] { count1, count2 });
