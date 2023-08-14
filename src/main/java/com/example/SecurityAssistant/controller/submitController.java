@@ -113,18 +113,17 @@ public class submitController {
                 initJena.addPolicy("FirewallPolicy", "FirewallPolicyOf" + companyName);
 
             initJena.addAsset("OS", os);
-
-            String pathToSavedOntology = initJena.saveOntology(userName);
-            System.out.println(
-                    "The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
-
-            
+           
             
             // Reasoning
             ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
-
+            
+            // Get the current implemented controls
+            System.out.println("Your business implements the following controls: ");
             reasoning.listImplementedControls();
+            // List the current mitigated vulnerabilities
             System.out.println("These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
+            // List the current vulnerabilities
             reasoning.listCurrentVulnerabilities();
             
        

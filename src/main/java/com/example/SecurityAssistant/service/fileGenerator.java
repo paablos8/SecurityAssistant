@@ -15,7 +15,7 @@ public class fileGenerator {
             String info = recommendation.getInformation();
             int priority = recommendation.getPriorityScore();
             String originDoc = recommendation.getOriginDocument();
-            ArrayList<String> risks = recommendation.getRiskIfNotImplemented();
+            ArrayList<String> risks = recommendation.getRisksIfNotImplemented();
 
             title = title.replace("\n", "").replace("\r", "");
             info = info.replace("\n", "").replace("\r", "");
