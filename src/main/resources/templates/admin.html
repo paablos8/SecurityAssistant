@@ -83,12 +83,17 @@
 
         .stars .average-star::before {
             content: "\2605";
-            color: #FFD700; 
+            color: #FFD700;
         }
 
         .stars .half-star::before {
-            content: "\00BD";
+            content: "\2605";
+            color: #FFD700;
+            position: relative;
+            display: inline-block;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0% 100%);
         }
+
 
         .stars .empty-star::before {
             content: "\2606";
