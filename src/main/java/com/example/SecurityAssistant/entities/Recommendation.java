@@ -37,7 +37,7 @@ public class Recommendation {
 		return originDocument;
 	}
 	
-	public ArrayList<String> getRiskIfNotImplemented() {
+	public ArrayList<String> getRisksIfNotImplemented() {
 		return risksIfNotImplemented;
 	}
 	

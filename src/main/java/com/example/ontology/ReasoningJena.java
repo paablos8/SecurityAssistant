@@ -372,7 +372,7 @@ public class ReasoningJena {
 									System.out.println("A recommendation has been generated: " + recommendationTitle + ", it is based on the source " + originDocument);
 									System.out.println("This recommendation mitigates the vulnerability: " + currentVulnerability.getLocalName());
 									System.out.println("If the recommendation won't be implemented it gives rise to the treat: ");
-										for (String item : recommendation.getRiskIfNotImplemented()) {
+										for (String item : recommendation.getRisksIfNotImplemented()) {
 										            System.out.println("- " + item);
 										}
 								}
