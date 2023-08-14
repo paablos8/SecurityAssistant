@@ -83,7 +83,6 @@ public class InitJena {
 			Property organizationHasNumberOfEmployees = base.getProperty(NS + "organization_has_NumberOfEmployees");
 			System.out.println("Property has employees was retrieved.");
 			organizationIndividual.addLiteral(organizationHasNumberOfEmployees, numberOfEmployees);
-			System.out.println("Literal was added");
 			Property organization_isLocatedIn_Industry = base.getProperty(NSimported + "organization_isLocatedIn_Industry");
 			organizationIndividual.addProperty(organization_isLocatedIn_Industry, industryIndividual);
 		// Add the bundesland to the ontology and connect it to the organization
