@@ -294,58 +294,58 @@
                 <div class="statistics"
                     th:if="${recommendation.title == '4.4 Sicherheitssensibilisierung und -schulung'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${trainingsCount[0]} + '% veranstalten regelmäßige Mitarbeiterschulungen'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, veranstalten zu ' + ${trainingsCount[0]} +  ' % regelmäßige Mitarbeiterschulungen.'">
                     </p>
                 </div>
 
                 <div class="statistics" th:else th:if="${recommendation.title == 'A.10.5.1 Information back-up'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${backupCount[2]} + '% aller Firmen haben eine Backup-Strategie mit regelmäßigen Backups umgesetzt.'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, haben zu ' + ${backupCount[2]} +  ' % eine Backup-Strategie mit regelmäßigen Backups umgesetzt.'">
                     </p>
                 </div>
 
                 <div class="statistics" th:else
                     th:if="${recommendation.title == 'A.9.1.1 Physical security perimeter'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${criticalInfraCount[0]} + '% der Firmen haben den physischen Zugang zu kritischer Infrastruktur begrenzt'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, haben zu ' + ${criticalInfraCount[0]} +  ' % den physischen Zugang zu kritischer Infrastruktur begrenzt.'">
                     </p>
                 </div>
                 <div class="statistics" th:else th:if="${recommendation.title == '8.2 Fire Protection'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${smokeDetCount[0]} + '% der Firmen haben einen Rauchmelder zum Brandschutz installiert'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, haben zu ' + ${smokeDetCount[0]} +  ' % einen Rauchmelder zum Brandschutz installiert.'">
                     </p>
                 </div>
                 <div class="statistics" th:else th:if="${recommendation.title == '8.2.1 Handfeuerlöscher'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${fireExCount[0]} + '% der Firmen haben einen Feuerlöscher in der Reichweite kritischer Infrastruktur.'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, haben zu ' + ${fireExCount[0]} +  ' % einen Feuerlöscher in der Reichweite kritischer Infrastruktur.'">
                     </p>
                 </div>
                 <div class="statistics" th:else
                     th:if="${recommendation.title == 'A.11.5.3 Password management system'}">
                     <p class="tooltip-content"
-                        th:text="'Nur ein Anteil von ' + ${pwPropertiesCount[0]} + '% der Firmen haben gar keine Anforderungen an die Passworterstellung.'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, haben zu nur ' + ${pwPropertiesCount[0]} +  ' % gar keine Anforderungen an die Passworterstellung.'">
                     </p>
                 </div>
                 <div class="statistics" th:else th:if="${recommendation.title == '6.5 Internet Access Risks'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${trainingsCount[0]} + '% der Firmen schulen Ihre Mitarbeiter regelmäßig zum Thema IT Sicherheit.'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, haben zu ' + ${pwChangeCount[1]} +  ' % eine Policy die besagt, dass das Passwort mehrfach im Jahr gewechselt werden muss.'">
                     </p>
                 </div>
                 <div class="statistics" th:else
                     th:if="${recommendation.title == 'A.15.2.2 Technical compliance checking'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${externalProviderCount[0]} + '% der Firmen arbeiten mit externen Dienstleister zum Thema zusammen.'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, haben zu ' + ${externalProviderCount[0]} +  ' % einen externen Dienstleister mit dem Sie zum Thema zusammen arbeiten.'">
                     </p>
                 </div>
                 <div class="statistics" th:else th:if="${recommendation.title == '6.1 Firewalls'}">
                     <p class="tooltip-content"
-                        th:text="'Nur ein Anteil von ' + ${firewallCount[3]} + '% der Firmen haben keine Firewall aktiviert.'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, haben zu nur ' + ${firewallCount[3]} +  ' %  keine Firewall aktiviert.'">
                     </p>
                 </div>
                 <div class="statistics" th:else
                     th:if="${recommendation.title == '5.8.2 Virus Avoidance and Recogniton by the User'}">
                     <p class="tooltip-content"
-                        th:text="'Ein Anteil von ' + ${policyDocCount[0]} + '% der Firmen aus der ' + ${branche} + ' Branche nutzen ein Dokument mit festgelegten Richtlinien um mögliche Gefahren vorzubeugen.'">
+                        th:text="'Firmen die aus der '+ ${branche} + ' Branche stammen und auch eine Größe von ' +${companySize} +' haben, haben zu ' + ${policyDocCount[0]} +  ' % in Dokument mit festgelegten Richtlinien erstellt um mögliche Gefahren vorzubeugen.'">
                     </p>
                 </div>
                 <div class="statistics" th:else th:if="${recommendation.title == '5.1 Password Selection'}">
@@ -358,7 +358,7 @@
             <button class="collapsible">More Information</button>
 
             <div class="moreInfo">
-                <span th:text="${recommendation.information}"></span><br>
+                <span th:text="${recommendation.information}"></span><br><br>
                 <span
                     th:text="'Diese Informationen stammen aus diesen Dokumenten: (' + ${recommendation.originDocument} + ')' "></span>
 
@@ -383,7 +383,7 @@
             </div>
             <br>
         </div>
-        <button class="download-button" onclick="downloadFile()">Download PDF</button>
+        <button class="download-button" onclick="downloadFile()">Download File</button>
     </div>
 
     <script th:inline="javascript">
@@ -468,29 +468,29 @@
 
         //byte array "fileBytes" is fetched from the submitController and it contains the recommendations 
         //saved in a text file and converted to a byteArray
-        
+
         /*<![CDATA[*/
         var fileBytes = /*[[${fileBytes}]]*/ 'default';
         /*]]>*/
 
 
         function downloadFile() {
-                // Convert the byte array to a Blob
-                console.log(fileBytes);
-                const textBlob = new Blob([new Uint8Array(fileBytes)], { type: "text/plain" });
+            // Convert the byte array to a Blob
+            console.log(fileBytes);
+            const textBlob = new Blob([new Uint8Array(fileBytes)], { type: "text/plain" });
 
-                // Create a temporary URL to the Blob
-                const url = URL.createObjectURL(textBlob);
+            // Create a temporary URL to the Blob
+            const url = URL.createObjectURL(textBlob);
 
-                // Create a temporary anchor element to initiate the download
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "recommendations.txt"; // Set the filename of the downloaded file
-                a.click();
+            // Create a temporary anchor element to initiate the download
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "recommendations.txt"; // Set the filename of the downloaded file
+            a.click();
 
-                // Clean up the temporary URL after the download is complete
-                URL.revokeObjectURL(url);
-            }
+            // Clean up the temporary URL after the download is complete
+            URL.revokeObjectURL(url);
+        }
     </script>
 
 </body>

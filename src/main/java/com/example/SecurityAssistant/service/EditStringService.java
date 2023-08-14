@@ -15,4 +15,12 @@ public class EditStringService {
 	     
 	     return output;
 	}
+	
+	// Get rid of all the whitespaces in the Strings of the inputs
+    public String removeWhitespaces(String input) {
+        String sanitizedInput = input.replaceAll("\\s+", "");
+        String sanitizedInput2 = sanitizedInput.replaceAll(";", "");
+        String fullySanitizedInput = sanitizedInput2.replaceAll(",", "");
+        return fullySanitizedInput;
+    }
 }

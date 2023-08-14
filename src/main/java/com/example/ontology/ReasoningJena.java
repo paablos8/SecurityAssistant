@@ -93,7 +93,7 @@ public class ReasoningJena {
 	
 	
 	
-	public void listImplementedControls () {
+	public ArrayList<String> listImplementedControls () {
 
 		System.out.println("listImplementedControls () has started.");
 		Individual businessIndividual = base.getIndividual(businessIRI);
@@ -124,8 +124,9 @@ public class ReasoningJena {
         	
         	if (controlCompliantOrganization || controlCompliantBuilding || controlCompliantSection) {
         		implementedControls.add(controlInstance);
-        		implementedControlsString.add(controlInstance.getLocalName());
+        		String implementedControlOverview = "The business implements the control ";
         		System.out.print("The business implements the control " + controlInstance.getLocalName());
+        		implementedControlOverview = implementedControlOverview + " this mititgates the vulnerability ";
         		System.out.print(" this mitigates the vulnerability ");
         	// The implemented controls mitigate vulnerabilities
         		if (controlInstance.hasProperty(controlMitigatesVulnerability)) {
@@ -135,22 +136,27 @@ public class ReasoningJena {
         				Resource mitigatedVulnerability = (Resource) stmt.getObject();
         				mitigatedVulnerabilites.add(mitigatedVulnerability);
         				mitigatedVulnerabilitesString.add(mitigatedVulnerability.getLocalName());
+        				implementedControlOverview = implementedControlOverview + "'" + mitigatedVulnerability.getLocalName() + "'";
         				System.out.print("'" + mitigatedVulnerability.getLocalName() + "'");
         				
         				// The mitigated vulnerabilities also lower threats
         				if (mitigatedVulnerability.hasProperty(vulnerabilityExploitedByThreat)) {
         					StmtIterator listExploitedByThreatIter = base.listStatements(mitigatedVulnerability, vulnerabilityExploitedByThreat, (RDFNode) null);
+        					implementedControlOverview = implementedControlOverview + " thereby the exposed risk to ";
         					System.out.print(" thereby the exposed risk to ");
         					while (listExploitedByThreatIter.hasNext()) {
         						Statement stmt_2 = listExploitedByThreatIter.next();
         						Resource threat = stmt_2.getObject().asResource();
         						loweredThreats.add(threat);
         						loweredThreatsString.add(threat.getLocalName());
+        						implementedControlOverview = implementedControlOverview + threat.getLocalName();
         						Individual threatIndividual = base.getIndividual(threat.getURI());
         						//OntClass typeThreat = threatIndividual.getOntClass(true);
         						//System.out.print(threat.getLocalName() +" (" + typeThreat.getLocalName() + ") ");
         					}
+        					implementedControlOverview = implementedControlOverview + " is lowered.";
         					System.out.print("is lowered.");
+        					implementedControlsString.add(implementedControlOverview);
         				}
         			}
         		}	
@@ -159,33 +165,10 @@ public class ReasoningJena {
         }   
         System.out.println("These are the controls that are implemented by the business: ");
         System.out.println(implementedControlsString);
+        return implementedControlsString;
 	}
 	
-	/**
-	public ArrayList<String> listNotImplementedControls () {
-		OntClass control = base.getOntClass(NS + "Control");
-		ExtendedIterator<? extends OntResource> listInstancesIter = control.listInstances(false);
-		boolean controlImplemented = false;
-		
-		while (listInstancesIter.hasNext()) {
-			Resource controlInstance = listInstancesIter.next();
-			
-			for (int i = 0; i < implementedControls.size(); i++ ) {
-				if (implementedControls.get(i).getURI().equals(controlInstance.getURI()) == true) {
-					controlImplemented = true;
-				}
-			}
-			if (controlImplemented == false) {
-				notImplementedControls.add(controlInstance);
-				notImplementedControlsString.add(controlInstance.getLocalName());
-			}
-			controlImplemented = false;
-		}
-		System.out.println("These are the controls that are not implemented by the business: ");
-		System.out.println(notImplementedControlsString);
-		return notImplementedControlsString;
-	}
-	**/
+
 	
 	// Does not make sense with only the small excerpt of input values we use
 	public ArrayList<String> listCurrentLowLevelThreats () {
@@ -238,7 +221,7 @@ public class ReasoningJena {
 	
 	
 	
-	// Funktioniert noch nicht so wirklich, weil der Organization automatisch keine 
+	
 	public ArrayList<String> listCurrentVulnerabilities () {
 		OntClass vulnerability = base.getOntClass(NS + "Vulnerability");
 		ExtendedIterator<? extends OntResource> listInstancesIter = vulnerability.listInstances(true);
@@ -268,7 +251,7 @@ public class ReasoningJena {
 	public int createOverallComplianceScore() {
 		double numberOfImplementedControls = implementedControlsString.size();
 		System.out.println("implementedControlsString.size() = " + implementedControlsString.size());
-		int complianceScore = (int) ((numberOfImplementedControls/11.0) * 100);
+		int complianceScore = (int) ((numberOfImplementedControls/11.0) * 100); // By answering the questions, a company could have implemented a maximum of 11 controls.
 		System.out.println("You are currently implementing " + complianceScore + "% of the proposed IT security measures in your company.");
 		return complianceScore;
 	}
@@ -341,10 +324,18 @@ public class ReasoningJena {
 									
 									String otherInformation = annotationControlString + "\n" + annotationInfoString;
 									
-									
-									String originDocument = standardControlIndividual.getOntClass().getLocalName();
-									
-									
+									ExtendedIterator<OntClass> iter = standardControlIndividual.listOntClasses(true);
+									String originDocument = "";									
+							        while (iter.hasNext()) {
+							            OntClass isSubtypeOfClass = iter.next();
+							           if (isSubtypeOfClass.getLocalName().equals("ISO27001")); {
+							           	originDocument = "ISO 27001";
+							           }
+							           if (isSubtypeOfClass.getLocalName().equals("WKOITSicherheitshandbuch")); {
+							           	originDocument = "WKO IT Sicherheitshandbuch";
+							           }
+							        }
+							
 									Recommendation recommendation = new Recommendation (recommendationTitle, otherInformation, originDocument);
 									
 									String threatsIfNotImplemented = "";

@@ -143,9 +143,6 @@ public class editDataController {
 
         initJena.addAsset("OS", os);
 
-        String pathToSavedOntology = initJena.saveOntology(userName);
-        System.out.println(
-                "The ontology for " + companyName + " was successfully and stored under: " + pathToSavedOntology);
 
         // Reasoning
         ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
