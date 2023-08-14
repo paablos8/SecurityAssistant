@@ -143,12 +143,10 @@ public class InitJena {
 		ObjectProperty organizationOwnsAsset = base.getObjectProperty(NS + "organization_owns_Asset");
 		organizationIndividual.addProperty(organizationOwnsAsset, addedAssetIndividual);
 		System.out.println("Individual successfully created: " + addedAsset);
-		
 	}
 	
 	
 	public void addAssetToBuilding (String building, String implementedAsset, String typeOfAsset) {
-		
 		
 		Individual buildingIndividual = base.createIndividual(NS + building, base.createClass(NS + "Building"));
 		ObjectProperty buildingHousesOrganization = base.getObjectProperty(NSimported + "building_houses_organization");
@@ -168,39 +166,5 @@ public class InitJena {
 		buildingIndividual.addProperty(buildingHousesOrganization, organizationIndividual);
 		}
 	}	
-	
-	
-	
 
-	public String saveOntology (String userName) {
-
-				String outputFilePath = "C:\\Users\\Wiwi-Admin\\Desktop\\" + userName + ".owl.xml";
-
-				 try {
-			           // Create a new File object with the specified file path
-			            File file = new File(outputFilePath);
-
-			            // Create the file if it doesn't exist
-			            if (!file.exists()) {
-			                file.createNewFile();
-			                System.out.println("New file created successfully!");
-			            } else {
-			                System.out.println("File already exists. It will now be overwritten.");
-			            }
-			           } catch (IOException e) {
-			                e.printStackTrace();
-			            }
-
-		// Save the modified ontology to the output file
-				try (OutputStream out = new FileOutputStream(outputFilePath)) {
-					base.write(out, "RDF/XML"); // Write will only write the statements from the base model to the ontology!
-				    System.out.println("Ontology successfully saved to " + outputFilePath);
-				} catch (IOException e) {
-				    e.printStackTrace();
-				}
-			return outputFilePath;
-	}
-
-
-	
 }
