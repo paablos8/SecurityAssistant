@@ -40,6 +40,9 @@ git clone https://gitlab.com/SchimSlady/SecurityAssistant
 - Update the `application.properties` file with your database details.
 
 4. Run the application:
+Before your run the application for the first time, the 'file path' variable of your locally stored security ontology must be changed manually. In the class /SecurityAssistant/src/main/java/com/example/ontology/InitJena.java change the filePath in line 58 to your locally stored security ontology. 
+
+Run the application:
 `mvn spring-boot:run`
 
 
@@ -50,6 +53,15 @@ git clone https://gitlab.com/SchimSlady/SecurityAssistant
 - Log in to the application using your credentials or create a new account.
 - Once logged in, you can manage security infrastructure, password change policies, and view overall feedback.
 - Use the navigation menu to access different sections of the application.
+
+## Important things to know
+- The following questions in the User Input Form are currently not provided with any functionality in the back-end:
+    - "Wo werden die Daten bei Ihnen abgelegt?"
+    - "Arbeiten Sie mit einem externen Sicherheitsdienstleister zusammen?"
+    - "Bitte spezifizieren Sie die Anzahl PCs:"
+    - "Haben Sie einen Drucker im Einsatz der mit dem Internet verbunden ist?"
+    
+
 
 ## Contributing
 
