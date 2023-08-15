@@ -127,7 +127,7 @@ public class ReasoningJena {
         		String implementedControlOverview = controlInstance.getLocalName();
         		System.out.print("The business implements the control " + controlInstance.getLocalName());
         		implementedControlOverview = implementedControlOverview + " this mititgates the vulnerability ";
-        		System.out.print(" this mitigates the vulnerability ");
+        		System.out.print(": this mitigates the vulnerability ");
         	// The implemented controls mitigate vulnerabilities
         		if (controlInstance.hasProperty(controlMitigatesVulnerability)) {
         			StmtIterator listMitgatedVulnerabilitesIter = base.listStatements(controlInstance, controlMitigatesVulnerability, (RDFNode) null);
@@ -142,7 +142,7 @@ public class ReasoningJena {
         				// The mitigated vulnerabilities also lower threats
         				if (mitigatedVulnerability.hasProperty(vulnerabilityExploitedByThreat)) {
         					StmtIterator listExploitedByThreatIter = base.listStatements(mitigatedVulnerability, vulnerabilityExploitedByThreat, (RDFNode) null);
-        					implementedControlOverview = implementedControlOverview + " thereby the exposed risk to ";
+        					implementedControlOverview = implementedControlOverview + " - thereby the exposed risk to ";
         					System.out.print(" thereby the exposed risk to ");
         					while (listExploitedByThreatIter.hasNext()) {
         						Statement stmt_2 = listExploitedByThreatIter.next();
@@ -154,7 +154,7 @@ public class ReasoningJena {
         						//OntClass typeThreat = threatIndividual.getOntClass(true);
         						//System.out.print(threat.getLocalName() +" (" + typeThreat.getLocalName() + ") ");
         					}
-        					implementedControlOverview = implementedControlOverview + " is lowered.";
+        					implementedControlOverview = implementedControlOverview + " is lowered.\n";
         					System.out.print("is lowered.");
         					implementedControlsString.add(implementedControlOverview);
         				}

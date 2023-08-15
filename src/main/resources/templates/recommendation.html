@@ -281,7 +281,7 @@
                 <br>
 
                 <ul>
-                    <h1>Das sind Ihre bereits umgestzten IT Sicherheitsmaßnahmen: </h1>
+                    <h1>These are your IT security measures you currently already have implemented: </h1>
                     <div th:each="statusQuo : ${listStatusQuo}">
                         <li th:text=" ${statusQuo}"></li>
                     </div>
@@ -294,14 +294,14 @@
         <br>
         <hr>
 
-        <h1>Es wurden die folgenden Empfehlungen auf Ihre Eingaben zugeschnitten:</h1>
+        <h1>Based on your input, the following recommendations were generated to improve your IT security:</h1>
 
         <!--Loops through the ArrayList "recommendations" generated in the submitController. Step by 
             step it displays the recommendations with more information, origin document and mitigations-->
         <div th:each="recommendation : ${recommendations}">
 
             <div class="title"><strong
-                    th:text="'Titel: ' +${recommendation.title} + ' (Priority Score:' + ${recommendation.priorityScore} + ')'"></strong>
+                    th:text="'Titel: ' +${recommendation.title} + ' (Priority Score: ' + ${recommendation.priorityScore} + ')'"></strong>
 
                 <div class="statistics"
                     th:if="${recommendation.title == '4.4 Sicherheitssensibilisierung und -schulung'}">
@@ -372,14 +372,14 @@
             <div class="moreInfo">
                 <span th:text="${recommendation.information}"></span><br><br>
                 <span
-                    th:text="'Diese Informationen stammen aus diesen Dokumenten: (' + ${recommendation.originDocument} + ')' "></span>
+                    th:text="'The information comes from the following sources: (' + ${recommendation.originDocument} + ')' "></span><br><br>
 
                 <div th:each="risks : ${recommendation.risksIfNotImplemented}">
-                    <span th:text="'Diese Risiken treten bei nicht-Implementierung auf: ' + ${risks}"></span>
-                </div>
+                    <span th:text="'If your business does not implement the recommended action, the following risks exist: ' + ${risks}"></span>
+                </div><br>
 
                 <div th:each="mitigations : ${recommendation.mitigatesVulnerabilitiesString}">
-                    <span th:text="'Das sind die Schwachstellen die gemildert werden: ' + ${mitigations}"></span>
+                    <span th:text="'The implementation of the action can mitigate the following vulnerabilities: ' + ${mitigations}"></span>
                 </div>
 
 
