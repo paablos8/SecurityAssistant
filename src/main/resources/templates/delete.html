@@ -36,25 +36,34 @@
             border-radius: 3px;
             border: 1px solid #ccc;
         }
-
-        .feedback-button {
-            cursor: pointer;
-            display: inline-block;
-            padding: 10px;
-            background-color: #ccc;
-            transition: background-color 0.3s;
-        }
-
-        .feedback-button:hover {
-            background-color: rgb(100, 103, 100);
-            color: #fff;
-        }
         .error-message {
             background-color: #f44336;
             color: #fff;
             padding: 10px;
             border-radius: 4px;
             margin-top: 10px;
+        }
+        .delete-button {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .delete-button:hover {
+            background-color: #0056b3;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -67,7 +76,7 @@
     <form id="deleteForm" action="/deleteSuccess" method="post">
         <label for="userName">Username:</label>
         <input type="text" id="userName" name="userName" placeholder="username" required>
-        <button type="submit">Meine Daten löschen</button>
+        <button class="delete-button" type="submit">Meine Daten löschen</button>
     </form>
     <div th:if="${errorMessage}" class="error-message">
         <p th:text="${errorMessage}"></p>

@@ -39,6 +39,7 @@ public class submitController {
         if (!checkUsername(model, infra.getUserName())) {
         	editString = new EditStringService();
             String userName = infra.getUserName();
+            model.addAttribute("userName", userName);
             String companyName = editString.removeWhitespaces(infra.getCompanyName());
             String backup = editString.removeWhitespaces(infra.getBackup());
             String incidentResponse = editString.removeWhitespaces(infra.getIncidentResponse());
