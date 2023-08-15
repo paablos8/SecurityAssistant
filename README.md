@@ -36,20 +36,20 @@ The Security Assistant Application is a web-based tool that helps manage securit
 -Then create a new User Variable on top with the Variable Name: `MAVEN_HOME` and Variable Value: `C:\Program Files\apache-maven-3.9.4` (Change to the right version or better just copy the path from your explorer) --> Then confirm by clicking "Ok" three times.
 
 3. Download Git from https://git-scm.com/downloads and download the appropriate Git version for your OS. <br>
-- execute the Git Installer and accept every pre-defined setting while clicking through the Installer.
+Execute the Git Installer and accept every pre-defined setting while clicking through the Installer.
 
 4. Go to the IDE of your choice and clone the repository in the command line
 `git clone https://gitlab.com/SchimSlady/SecurityAssistant`
 
-5. Go the directory folder just cloned by using `cd <application_name>` and open the SecurityAssistant folder in your IDE.
+5. Go the directory folder just cloned by using `cd SecurityAssistant` and open the SecurityAssistant folder in your IDE.
 
 
 6. The security ontology used for this application is stored in the folder `/SecurityAssistant/src/main/java/com/example/ontology/files`. <br>
 Before your run the application for the first time, the `file path` variable of the locally stored security ontology must be changed manually. In the class `/SecurityAssistant/src/main/java/com/example/ontology/InitJena.java` change the filePath in line 58 to the absolute path to your locally stored security ontology. <br>
-This should look like this: `filePath = "file:/C:/Users/Wiwi-Admin/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security_shortened.rdf"; <br>
+This should look like this: `filePath = "file:/C:/Users/Wiwi-Admin/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security_shortened.rdf";`. <br><br>
 It's important that forward slashes "/" are used!
 
-7. Then build the application: `mvn clean package`
+7. Then build the application: `mvn clean package`.
 
 8. Run the main method in `SecurityAssistant/src/main/java/com/example/SecurityAssistant`.
 
