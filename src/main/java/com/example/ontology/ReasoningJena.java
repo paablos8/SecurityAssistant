@@ -340,6 +340,7 @@ public class ReasoningJena {
 									
 									String threatsIfNotImplemented = "";
 									StmtIterator iter_5 = currentVulnerability.listProperties(vulnerabilityExploitedByThreat);
+									boolean hasThreatThatCanBeConsequences = false;
 	
 									while (iter_5.hasNext()) {
 										Statement stmt_5 = iter_5.next();
@@ -351,9 +352,13 @@ public class ReasoningJena {
 										while (iter_6.hasNext()) {
 											Statement stmt_6 = iter_6.next();
 											Resource threatCanBeConsequence = stmt_6.getObject().asResource();
-											threatsThatAreRised = threatsThatAreRised + " " + threatCanBeConsequence.getLocalName();
+											threatsThatAreRised = threatsThatAreRised + "-" + threatCanBeConsequence.getLocalName() + "\n";
+											if (threatCanBeConsequence != null) 
+												hasThreatThatCanBeConsequences = true;
 										}
-										threatsIfNotImplemented = threatsIfNotImplemented + " which also can increase the threat of" + threatsThatAreRised;
+										if (hasThreatThatCanBeConsequences == true) { 
+										threatsIfNotImplemented = threatsIfNotImplemented + " which also can increase the threat of: \n" + threatsThatAreRised;
+										}
 										recommendation.addRiskIfNotImplemented(threatsIfNotImplemented);
 										recommendation.addRiskIfNotImplementedResource(threatIfNotImplemented);
 									}
