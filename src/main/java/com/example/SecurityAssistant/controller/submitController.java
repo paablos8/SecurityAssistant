@@ -118,7 +118,9 @@ public class submitController {
             ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
             
             // Get the current implemented controls
-            reasoning.listImplementedControls();
+            System.out.println("Your business implements the following controls: ");
+            ArrayList<String> listStatusQuo = reasoning.listImplementedControls();
+            model.addAttribute("listStatusQuo", listStatusQuo);
             // List the current mitigated vulnerabilities
             System.out.println("These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
             // List the current vulnerabilities

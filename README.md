@@ -26,27 +26,34 @@ The Security Assistant Application is a web-based tool that helps manage securit
 
 ## Installation and Setup
 
-1. Clone the repository:
-git clone https://gitlab.com/SchimSlady/SecurityAssistant
+1. Go to https://maven.apache.org/download.cgi and download the Maven Zip file. Afterwards unzip it to your "C: driver" into the 
+`C:\Program Files`
+
+2. Set up Path Variables <br>
+-Click on the search bar on the bottom left of your screen and search for "edit the system variables" <br>
+-Click "Environment Variables..." on the bottom right <br>
+-At "System variables" double click "PATH", then click "new" and add the path to the bin directory of your Apache Maven download. For example:  `C:\Program Files\apache-maven-3.9.4\bin` (Change version accordingly) and press "OK". <br>
+-Then create a new User Variable on top with the Variable Name: `MAVEN_HOME` and Variable Value: `C:\Program Files\apache-maven-3.9.4` (Change to the right version or better just copy the path from your explorer) --> Then confirm by clicking "Ok" three times.
+
+3. Download Git from https://git-scm.com/downloads and download the appropriate Git version for your OS. <br>
+Execute the Git Installer and accept every pre-defined setting while clicking through the Installer.
+
+4. Go to the IDE of your choice and clone the repository in the command line
+`git clone https://gitlab.com/SchimSlady/SecurityAssistant`
+
+5. Go the directory folder just cloned by using `cd SecurityAssistant` and open the SecurityAssistant folder in your IDE.
 
 
-2. Build the project using Maven:
-`cd security-assistant`
-`mvn package`
+6. The security ontology used for this application is stored in the folder `/SecurityAssistant/src/main/java/com/example/ontology/files`. <br>
+- Before your run the application for the first time, the `file path` variable of the locally stored security ontology must be changed manually. In the class `/SecurityAssistant/src/main/java/com/example/ontology/InitJena.java` change the filePath in line 58 to the absolute path to your locally stored security ontology. <br>
+- This should look like this: `filePath = "file:/C:/Users/Wiwi-Admin/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security_shortened.rdf";`. <br>
+- It's important that forward slashes "/" are used!
 
+7. Then build the application: `mvn clean package`.
 
-3. Set up the database:
-- Create a MySQL database with the appropriate name and credentials.
-- Update the `application.properties` file with your database details.
+8. Run the main method in `SecurityAssistant/src/main/java/com/example/SecurityAssistant`.
 
-4. Run the application:
-Before your run the application for the first time, the 'file path' variable of your locally stored security ontology must be changed manually. In the class /SecurityAssistant/src/main/java/com/example/ontology/InitJena.java change the filePath in line 58 to your locally stored security ontology. 
-
-Run the application:
-`mvn spring-boot:run`
-
-
-5. Open your web browser and navigate to `http://localhost:8080` to access the application.
+9. Open your web browser and navigate to `http://localhost:8080` to access the application.
 
 ## Usage
 
