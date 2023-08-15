@@ -281,12 +281,12 @@
                 <br>
 
                 <ul>
-                	<h3> Status Quo Analysis </h3> <br>
-                    <h1>These are your IT security measures you currently already have implemented: </h1>
+                	<h1> Status Quo Analysis </h1> <br>
+                    <h3>These are your IT security measures you currently already have implemented: </h3>
                     <div th:each="statusQuo : ${listStatusQuo}">
                         <li th:text=" ${statusQuo}"></li>
                     </div><br>
-                    <h1>These are your current vulnerabilities: </h1>
+                    <h3>These are your current vulnerabilities: </h3>
                     <div th:each="currentVulnerabilities : ${listCurrentVulnerabilities}">
                         <li th:text=" ${currentVulnerabilities}"></li>
                     </div>

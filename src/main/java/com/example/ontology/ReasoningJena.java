@@ -124,7 +124,7 @@ public class ReasoningJena {
         	
         	if (controlCompliantOrganization || controlCompliantBuilding || controlCompliantSection) {
         		implementedControls.add(controlInstance);
-        		String implementedControlOverview = controlInstance.getLocalName();
+        		String implementedControlOverview = controlInstance.getLocalName() + "\n";
         		System.out.print("The business implements the control " + controlInstance.getLocalName());
         		implementedControlOverview = implementedControlOverview + " this mititgates the vulnerability ";
         		System.out.print(": this mitigates the vulnerability ");
