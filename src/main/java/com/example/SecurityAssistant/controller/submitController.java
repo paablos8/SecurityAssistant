@@ -121,10 +121,11 @@ public class submitController {
             System.out.println("Your business implements the following controls: ");
             ArrayList<String> listStatusQuo = reasoning.listImplementedControls();
             model.addAttribute("listStatusQuo", listStatusQuo);
-            // List the current mitigated vulnerabilities
-            System.out.println("These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
+
             // List the current vulnerabilities
-            reasoning.listCurrentVulnerabilities();
+            ArrayList<String> listCurrentVulnerabilities = reasoning.listCurrentVulnerabilities();
+            model.addAttribute("listCurrentVulnerabilities", listCurrentVulnerabilities);
+            
             
        
             int complianceScore = reasoning.createOverallComplianceScore();

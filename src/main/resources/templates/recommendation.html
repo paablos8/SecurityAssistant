@@ -281,9 +281,14 @@
                 <br>
 
                 <ul>
+                	<h3> Status Quo Analysis </h3> <br>
                     <h1>These are your IT security measures you currently already have implemented: </h1>
                     <div th:each="statusQuo : ${listStatusQuo}">
                         <li th:text=" ${statusQuo}"></li>
+                    </div><br>
+                    <h1>These are your current vulnerabilities: </h1>
+                    <div th:each="currentVulnerabilities : ${listCurrentVulnerabilities}">
+                        <li th:text=" ${currentVulnerabilities}"></li>
                     </div>
                 </ul>
 
@@ -294,7 +299,7 @@
         <br>
         <hr>
 
-        <h1>Based on your input, the following recommendations were generated to improve your IT security:</h1>
+        <h1>Based on your input, the following recommendations were generated to improve your IT security:</h1><br>
 
         <!--Loops through the ArrayList "recommendations" generated in the submitController. Step by 
             step it displays the recommendations with more information, origin document and mitigations-->
