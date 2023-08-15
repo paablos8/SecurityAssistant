@@ -37,19 +37,28 @@ The Security Assistant Application is a web-based tool that helps esepecially sm
 2. Set up Path Variables <br>
 -Click on the search bar on the bottom left of your screen and search for "edit the system variables" <br>
 -Click "Environment Variables..." on the bottom right <br>
--At "System variables" double click "PATH", then click "new" and add the path to the bin directory of your Apache Maven download. For example:  `C:\Program Files\apache-maven-3.9.4\bin` (Change version accordingly) <br>
+-At "System variables" double click "PATH", then click "new" and add the path to the bin directory of your Apache Maven download. For example:  `C:\Program Files\apache-maven-3.9.4\bin` (Change version accordingly) and press "OK". <br>
 -Then create a new User Variable on top with the Variable Name: `MAVEN_HOME` and Variable Value: `C:\Program Files\apache-maven-3.9.4` (Change to the right version or better just copy the path from your explorer) --> Then confirm by clicking "Ok" three times.
 
-3. Go to the IDE of your choice and clone the repository in the command line
+3. Download Git from https://git-scm.com/downloads and download the appropriate Git version for your OS. <br>
+Execute the Git Installer and accept every pre-defined setting while clicking through the Installer.
+
+4. Go to the IDE of your choice and clone the repository in the command line
 `git clone https://gitlab.com/SchimSlady/SecurityAssistant`
 
-4. Go the directory folder just cloned by using `cd <application_name>` 
+5. Go the directory folder just cloned by using `cd SecurityAssistant` and open the SecurityAssistant folder in your IDE.
 
-5. Before your run the application for the first time, the 'file path' variable of your locally stored security ontology must be changed manually. In the class "/SecurityAssistant/src/main/java/com/example/ontology/InitJena.java" change the filePath in line 58 to your locally stored security ontology. 
 
-6. Then build the application: `mvn clean package`
+6. The security ontology used for this application is stored in the folder `/SecurityAssistant/src/main/java/com/example/ontology/files`. <br>
+- Before your run the application for the first time, the `file path` variable of the locally stored security ontology must be changed manually. In the class `/SecurityAssistant/src/main/java/com/example/ontology/InitJena.java` change the filePath in line 58 to the absolute path to your locally stored security ontology. <br>
+- This should look like this: `filePath = "file:/C:/Users/Wiwi-Admin/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security_shortened.rdf";`. <br>
+- It's important that forward slashes "/" are used!
 
-7. Open your web browser and navigate to `http://localhost:8080` to access the application.
+7. Then build the application: `mvn clean package`.
+
+8. Run the main method in `SecurityAssistant/src/main/java/com/example/SecurityAssistant`.
+
+9. Open your web browser and navigate to `http://localhost:8080` to access the application.
 
 ## Usage
 
@@ -60,11 +69,17 @@ The Security Assistant Application is a web-based tool that helps esepecially sm
 - Provide the provider with feedback by giving feedback about the clarity of the input form or the recommendations through the emojis
 
 ## Important things to know
+
+Since this software application was developed to evaluate the system design of two bachelor theses, the application is not 100% bug free in the final detail. Nevertheless, the application fulfills all functional requirements. However, some minor details are not yet fully implemented. These should be taken into account when releasing the application! <br>
+
+The following points must be taken into account:
 - The following questions in the User Input Form are currently not provided with any functionality in the back-end:
     - "Wo werden die Daten bei Ihnen abgelegt?"
     - "Arbeiten Sie mit einem externen Sicherheitsdienstleister zusammen?"
     - "Bitte spezifizieren Sie die Anzahl PCs:"
-    - "Haben Sie einen Drucker im Einsatz der mit dem Internet verbunden ist?"
+    - "Haben Sie einen Drucker im Einsatz der mit dem Internet verbunden ist?" <br>
+- The download of the text file that contains the generated recommendations does not work properly: the file gets downloaded, but there is no content in the file.
+ 
     
 
 
