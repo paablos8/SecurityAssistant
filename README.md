@@ -45,9 +45,9 @@ Execute the Git Installer and accept every pre-defined setting while clicking th
 
 
 6. The security ontology used for this application is stored in the folder `/SecurityAssistant/src/main/java/com/example/ontology/files`. <br>
-Before your run the application for the first time, the `file path` variable of the locally stored security ontology must be changed manually. In the class `/SecurityAssistant/src/main/java/com/example/ontology/InitJena.java` change the filePath in line 58 to the absolute path to your locally stored security ontology. <br>
-This should look like this: `filePath = "file:/C:/Users/Wiwi-Admin/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security_shortened.rdf";`. <br><br>
-It's important that forward slashes "/" are used!
+- Before your run the application for the first time, the `file path` variable of the locally stored security ontology must be changed manually. In the class `/SecurityAssistant/src/main/java/com/example/ontology/InitJena.java` change the filePath in line 58 to the absolute path to your locally stored security ontology. <br>
+- This should look like this: `filePath = "file:/C:/Users/Wiwi-Admin/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security_shortened.rdf";`. <br>
+- It's important that forward slashes "/" are used!
 
 7. Then build the application: `mvn clean package`.
 
