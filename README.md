@@ -1,19 +1,24 @@
 # Security Assistant Application
 
-![App Screenshot1](src\screenshots\ScreenshotUserForm.png)
-![App Screenshot2](src\screenshots\ScreenshotFeedback.png)
-![App Screenshot3](src\screenshots\ScreenshotRecommendations.png)
-
 ## Description
 
-The Security Assistant Application is a web-based tool that helps manage security-related tasks and recommendations for different companies. It allows users to track security infrastructure, password change policies, and risk mitigation strategies.
+The Security Assistant Application is a web-based tool that helps esepecially small and medium sized enterprises with the selection of IT-security measures. As smaller companies usually do not have the resources and knowledge to make good security decisions, this assistant should start right there and provide tailor-made recommendations to improve IT security. To be able to provide these individual recommendations, the assistant tries to capture the current individual situation of the companies.
 
 ## Features
 
-- Manage Security Infrastructure: Add, edit, and delete security infrastructure details for various companies.
-- Track Password Change Policies: Monitor password change policies for each company and their frequency.
-- Risk Mitigation Strategies: Review risk mitigation strategies for non-implemented security measures.
-- Overall Feedback: Collect and view overall feedback from users regarding the application.
+- Capturing of the current individual IT infrastructure through a input form
+![App Screenshot1](src/screenshots/ScreenshotUserForm.png)
+- Generation of personalized IT-security recommendations and display on the web
+![App Screenshot3](src/screenshots/ScreenshotRecommendations.png)
+- Prioritization of the recommendations and description of origin
+- Description of the benefits of already implemented security measures
+- Calculation of current compliance score
+- (Download of the recommendations in a .txt file)
+- Confidential treatment of personal user data and secure storing of user information
+- Edition and deletion of all company data if required
+- Admin console for the providers with detailed user feedback about the application and about the clarity of recommendations
+![App Screenshot2](src/screenshots/ScreenshotFeedback.png)
+- The recommendations are also enriched with statistical information about the implementation of security measures in similar-sized companies in related industries
 
 ## Technologies Used
 
@@ -57,9 +62,11 @@ Execute the Git Installer and accept every pre-defined setting while clicking th
 
 ## Usage
 
-- Log in to the application using your credentials or create a new account.
-- Once logged in, you can manage security infrastructure, password change policies, and view overall feedback.
-- Use the navigation menu to access different sections of the application.
+- To generate a recommendation you have to provide a detailed overview over your current infrastsructure and accept the processing of your user data
+- You can see the displayed recommendations after a loading time. Press more information to get further insights on the recommendation titles
+- Hover the red exlamation marks to see more statistical information about the implementation of certain security measures of similar companies
+- Insert your username in the delete/edit input field to delete/edit your input data
+- Provide the provider with feedback by giving feedback about the clarity of the input form or the recommendations through the emojis
 
 ## Important things to know
 - The following questions in the User Input Form are currently not provided with any functionality in the back-end:
