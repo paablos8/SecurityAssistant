@@ -69,11 +69,17 @@ Execute the Git Installer and accept every pre-defined setting while clicking th
 - Provide the provider with feedback by giving feedback about the clarity of the input form or the recommendations through the emojis
 
 ## Important things to know
+
+Since this software application was developed to evaluate the system design of two bachelor theses, the application is not 100% bug free in the final detail. Nevertheless, the application fulfills all functional requirements. However, some minor details are not yet fully implemented. These should be taken into account when releasing the application! <br>
+
+The following points must be taken into account:
 - The following questions in the User Input Form are currently not provided with any functionality in the back-end:
     - "Wo werden die Daten bei Ihnen abgelegt?"
     - "Arbeiten Sie mit einem externen Sicherheitsdienstleister zusammen?"
     - "Bitte spezifizieren Sie die Anzahl PCs:"
-    - "Haben Sie einen Drucker im Einsatz der mit dem Internet verbunden ist?"
+    - "Haben Sie einen Drucker im Einsatz der mit dem Internet verbunden ist?" <br>
+- The download of the text file that contains the generated recommendations does not work properly: the file gets downloaded, but there is no content in the file.
+ 
     
 
 
