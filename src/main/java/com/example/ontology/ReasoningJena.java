@@ -124,7 +124,7 @@ public class ReasoningJena {
         	
         	if (controlCompliantOrganization || controlCompliantBuilding || controlCompliantSection) {
         		implementedControls.add(controlInstance);
-        		String implementedControlOverview = "The business implements the control ";
+        		String implementedControlOverview = controlInstance.getLocalName();
         		System.out.print("The business implements the control " + controlInstance.getLocalName());
         		implementedControlOverview = implementedControlOverview + " this mititgates the vulnerability ";
         		System.out.print(" this mitigates the vulnerability ");
@@ -149,7 +149,7 @@ public class ReasoningJena {
         						Resource threat = stmt_2.getObject().asResource();
         						loweredThreats.add(threat);
         						loweredThreatsString.add(threat.getLocalName());
-        						implementedControlOverview = implementedControlOverview + threat.getLocalName();
+        						implementedControlOverview = implementedControlOverview + " [" + threat.getLocalName()+ "] ";
         						Individual threatIndividual = base.getIndividual(threat.getURI());
         						//OntClass typeThreat = threatIndividual.getOntClass(true);
         						//System.out.print(threat.getLocalName() +" (" + typeThreat.getLocalName() + ") ");
@@ -340,7 +340,6 @@ public class ReasoningJena {
 									
 									String threatsIfNotImplemented = "";
 									StmtIterator iter_5 = currentVulnerability.listProperties(vulnerabilityExploitedByThreat);
-									boolean hasThreatThatCanBeConsequences = false;
 	
 									while (iter_5.hasNext()) {
 										Statement stmt_5 = iter_5.next();
@@ -349,16 +348,16 @@ public class ReasoningJena {
 	
 										String threatsThatAreRised = "";
 										StmtIterator iter_6 = threatIfNotImplemented.listProperties(threatGivesRiseToThreat);
+										if(iter_6.hasNext()) {
+											threatsThatAreRised = " which also can increase the threat of " + "\n";
+										}
 										while (iter_6.hasNext()) {
 											Statement stmt_6 = iter_6.next();
 											Resource threatCanBeConsequence = stmt_6.getObject().asResource();
-											threatsThatAreRised = threatsThatAreRised + "-" + threatCanBeConsequence.getLocalName() + "\n";
-											if (threatCanBeConsequence != null) 
-												hasThreatThatCanBeConsequences = true;
+											threatsThatAreRised = threatsThatAreRised + " [" + threatCanBeConsequence.getLocalName() + "]";
+							
 										}
-										if (hasThreatThatCanBeConsequences == true) { 
-										threatsIfNotImplemented = threatsIfNotImplemented + " which also can increase the threat of: \n" + threatsThatAreRised;
-										}
+										threatsIfNotImplemented = threatsIfNotImplemented + threatsThatAreRised + ".";
 										recommendation.addRiskIfNotImplemented(threatsIfNotImplemented);
 										recommendation.addRiskIfNotImplementedResource(threatIfNotImplemented);
 									}
