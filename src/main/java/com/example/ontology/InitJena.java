@@ -53,12 +53,12 @@ public class InitJena {
 	// Loads the base ontology by Fenz (2016)
 	public  void loadOntology () {
 
-			//the Fenz (2016) ontology is replicated locally on the disk which gets loaded when the normal URL gets called
+			//the Mueller2023_Security_shortened ontology is replicated locally on the disk which gets loaded when the normal URL gets called
 				//filePath = "file:///C:/Users/tscha/Development/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security_shortened.rdf";
-				filePath = "file:///C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security_shortened.rdf";
+				filePath = "file:/C:/Users/Wiwi-Admin/eclipse-workspace/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security_shortened.rdf";
 		
 		
-			//Create the base model - creates an OWL-FUll, in-memory Ontology Model
+			//Create the base model - creates an OWL-FUll, in-memory Ontology Model with an optimised rule-based reasoner with OWL rules.
 				base = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
 
 			//DocumentManager created:
