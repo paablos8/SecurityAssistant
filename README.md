@@ -1,6 +1,6 @@
 # Security Assistant Application
 
-![App Screenshot1](src\screenshots\ScreenshotUserForm.png)
+![App Screenshot1](src/screenshots/ScreenshotUserForm.png)
 ![App Screenshot2](src\screenshots\ScreenshotFeedback.png)
 ![App Screenshot3](src\screenshots\ScreenshotRecommendations.png)
 
