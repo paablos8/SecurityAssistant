@@ -160,7 +160,6 @@
             background-color: #f1f1f1;
         }
 
-        .download-button,
         .feedback-button {
             cursor: pointer;
             display: inline-block;
@@ -169,7 +168,6 @@
             transition: background-color 0.3s;
         }
 
-        .download-button,
         .feedback-button:hover {
             background-color: rgb(100, 103, 100);
             color: #fff;
@@ -252,6 +250,58 @@
         .progress-pie-chart {
             margin: 50px auto 0;
         }
+
+        .download-button {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .download-button:hover {
+            background-color: #0056b3;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            text-align: center;
+        }
+
+        .container p {
+            font-size: 18px;
+        }
+
+        .container form {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        .container label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .container input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 
@@ -262,8 +312,8 @@
     <div class="container">
 
         <!--Chart displays the overall compliance score in %-->
-        <h1>Compliance Score:</h1>
-        <div class="bar_container">
+        <div class="bar_container" th:if="${listStatusQuo != null}">
+            <h1>Compliance Score:</h1>
             <div id="main_container">
                 <div id="pbar" class="progress-pie-chart" data-percent="0">
                     <div class="ppc-progress">
@@ -287,18 +337,16 @@
                     </div>
                 </ul>
 
-
+                <br>
+                <hr>
             </div>
         </div>
 
-        <br>
-        <hr>
-
-        <h1>Es wurden die folgenden Empfehlungen auf Ihre Eingaben zugeschnitten:</h1>
-
         <!--Loops through the ArrayList "recommendations" generated in the submitController. Step by 
             step it displays the recommendations with more information, origin document and mitigations-->
-        <div th:each="recommendation : ${recommendations}">
+        <div th:each="recommendation : ${recommendations}" th:if="${recommendations != null}">
+
+            <h1>Es wurden die folgenden Empfehlungen auf Ihre Eingaben zugeschnitten:</h1>
 
             <div class="title"><strong
                     th:text="'Titel: ' +${recommendation.title} + ' (Priority Score:' + ${recommendation.priorityScore} + ')'"></strong>
@@ -386,6 +434,7 @@
             </div><br>
             <!--Feedback buttons to evaluate the understandability of the recommendations-->
             <div class="Feedback">
+                <label>Geben Sie gerne Feedback zur Verständlichkeit der Recommendations:</label>
                 <span class="feedback-button" title="Good" th:data-id="${recommendation.title}"
                     onclick="submitFeedback('good', this.getAttribute('data-id'))">&#128522;</span>
                 <span class="feedback-button" title="Neutral" th:data-id="${recommendation.title}"
@@ -395,7 +444,23 @@
             </div>
             <br>
         </div>
-        <button class="download-button" onclick="downloadFile()">Download File</button>
+        
+            <form id="download-button" action="/downloadController" method="get">
+                <!-- Display input field and button if username is null -->
+                <div th:if="${userName == null}">
+                    <p>Geben Sie hier bitte Ihren Usernamen ein um die bereits erstellten Recommendations zu downloaden!</p>
+                    <label for="userName">Username: </label>
+                    <input type="text" id="userName" name="userName" th:placeholder="Username">
+                    <button class="download-button" type="submit">Download File</button>
+                </div>
+            
+                <!-- Display only the button if username is not null -->
+                <div th:if="${userName != null}">
+                    <input type="hidden" id="userName" name="userName" th:value="${userName}">
+                    <button class="download-button" type="submit">Download File</button>
+                </div>
+            </form>
+        
     </div>
 
     <script th:inline="javascript">
@@ -478,31 +543,6 @@
             }, time);
         });
 
-        //byte array "fileBytes" is fetched from the submitController and it contains the recommendations 
-        //saved in a text file and converted to a byteArray
-
-        /*<![CDATA[*/
-        var fileBytes = /*[[${fileBytes}]]*/ 'default';
-        /*]]>*/
-
-
-        function downloadFile() {
-            // Convert the byte array to a Blob
-            console.log(fileBytes);
-            const textBlob = new Blob([new Uint8Array(fileBytes)], { type: "text/plain" });
-
-            // Create a temporary URL to the Blob
-            const url = URL.createObjectURL(textBlob);
-
-            // Create a temporary anchor element to initiate the download
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "recommendations.txt"; // Set the filename of the downloaded file
-            a.click();
-
-            // Clean up the temporary URL after the download is complete
-            URL.revokeObjectURL(url);
-        }
     </script>
 
 </body>
