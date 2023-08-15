@@ -277,10 +277,22 @@
                 </div>
 
                 <progress style="display: none" id="progress_bar" value="0" max="100"></progress>
+
+                <br>
+
+                <ul>
+                    <h1>Das sind Ihre bereits umgestzten IT Sicherheitsmaßnahmen: </h1>
+                    <div th:each="statusQuo : ${listStatusQuo}">
+                        <li th:text=" ${statusQuo}"></li>
+                    </div>
+                </ul>
+
+
             </div>
         </div>
 
-        <br><hr>
+        <br>
+        <hr>
 
         <h1>Es wurden die folgenden Empfehlungen auf Ihre Eingaben zugeschnitten:</h1>
 
@@ -364,7 +376,7 @@
 
                 <div th:each="risks : ${recommendation.risksIfNotImplemented}">
                     <span th:text="'Diese Risiken treten bei nicht-Implementierung auf: ' + ${risks}"></span>
-                </div> 
+                </div>
 
                 <div th:each="mitigations : ${recommendation.mitigatesVulnerabilitiesString}">
                     <span th:text="'Das sind die Schwachstellen die gemildert werden: ' + ${mitigations}"></span>

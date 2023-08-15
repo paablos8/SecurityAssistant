@@ -119,7 +119,8 @@ public class submitController {
             
             // Get the current implemented controls
             System.out.println("Your business implements the following controls: ");
-            reasoning.listImplementedControls();
+            ArrayList<String> listStatusQuo = reasoning.listImplementedControls();
+            model.addAttribute("listStatusQuo", listStatusQuo);
             // List the current mitigated vulnerabilities
             System.out.println("These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
             // List the current vulnerabilities
