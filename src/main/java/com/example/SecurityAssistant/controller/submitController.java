@@ -119,7 +119,6 @@ public class submitController {
             ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
             
             // Get the current implemented controls
-            System.out.println("Your business implements the following controls: ");
             ArrayList<String> listStatusQuo = reasoning.listImplementedControls();
             model.addAttribute("listStatusQuo", listStatusQuo);
 
@@ -137,7 +136,7 @@ public class submitController {
 
             //Generation of text file and saving in a byteArray
             fileGenerator fileGenerator = new fileGenerator();
-            byte[] fileBytes = fileGenerator.generateFile(recommendations, complianceScore);
+            byte[] fileBytes = fileGenerator.generateFile(recommendations, complianceScore, listStatusQuo, listCurrentVulnerabilities);
             infra.setFile(fileBytes);
             model.addAttribute("fileBytes", fileBytes);
 

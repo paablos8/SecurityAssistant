@@ -95,7 +95,7 @@ public class ReasoningJena {
 	
 	public ArrayList<String> listImplementedControls () {
 
-		System.out.println("listImplementedControls () has started.");
+		System.out.println("Reasoner has started");
 		Individual businessIndividual = base.getIndividual(businessIRI);
 		
 		ExtendedIterator<OntClass> iter = businessIndividual.listOntClasses(true);
@@ -344,20 +344,19 @@ public class ReasoningJena {
 									while (iter_5.hasNext()) {
 										Statement stmt_5 = iter_5.next();
 										Resource threatIfNotImplemented = stmt_5.getObject().asResource();
-										threatsIfNotImplemented = threatIfNotImplemented.getLocalName();
+										threatsIfNotImplemented = "- " + threatIfNotImplemented.getLocalName();
 	
 										String threatsThatAreRised = "";
 										StmtIterator iter_6 = threatIfNotImplemented.listProperties(threatGivesRiseToThreat);
 										if(iter_6.hasNext()) {
-											threatsThatAreRised = " which also can increase the threat of " + "\n";
+											threatsThatAreRised = " which also can increase the threat of ";
 										}
 										while (iter_6.hasNext()) {
 											Statement stmt_6 = iter_6.next();
 											Resource threatCanBeConsequence = stmt_6.getObject().asResource();
 											threatsThatAreRised = threatsThatAreRised + " [" + threatCanBeConsequence.getLocalName() + "]";
-							
 										}
-										threatsIfNotImplemented = threatsIfNotImplemented + threatsThatAreRised + ".";
+										threatsIfNotImplemented = threatsIfNotImplemented + threatsThatAreRised + "." + "\n";
 										recommendation.addRiskIfNotImplemented(threatsIfNotImplemented);
 										recommendation.addRiskIfNotImplementedResource(threatIfNotImplemented);
 									}

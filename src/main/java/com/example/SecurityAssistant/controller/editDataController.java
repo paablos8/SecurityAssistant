@@ -147,11 +147,11 @@ public class editDataController {
         // Reasoning
         ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
 
-        reasoning.listImplementedControls();
+        ArrayList<String> listStatusQuo = reasoning.listImplementedControls();
         // reasoning.listNotImplementedControls();
         System.out.println(
                 "These are the current mitigated Vulnerabilities: " + reasoning.getMitigatedVulnerabilities());
-        reasoning.listCurrentVulnerabilities();
+        ArrayList<String> listCurrentVulnerabilities = reasoning.listCurrentVulnerabilities();
         System.out.println("These are the current lowered Threats: " + reasoning.getLoweredThreats());
         // reasoning.listCurrentTopLevelThreats();
         // reasoning.listCurrentLowLevelThreats();
@@ -164,7 +164,7 @@ public class editDataController {
 
         // Generation of text file and saving in a byteArray
         fileGenerator fileGenerator = new fileGenerator();
-        byte[] fileBytes = fileGenerator.generateFile(recommendations, complianceScore);
+        byte[] fileBytes = fileGenerator.generateFile(recommendations, complianceScore, listStatusQuo, listCurrentVulnerabilities);
         infra.setFile(fileBytes);
         model.addAttribute("fileBytes", fileBytes);
         System.out.println(fileBytes);

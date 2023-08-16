@@ -310,7 +310,7 @@
     <div th:replace="~{fragments/header :: header}"></div>
 
     <div class="container">
-
+	    <h1> Status Quo IT Security Analysis </h1> <br>
         <!--Chart displays the overall compliance score in %-->
         <div class="bar_container" th:if="${listStatusQuo != null}">
             <h1>Compliance Score:</h1>
@@ -331,12 +331,11 @@
                 <br>
 
                 <ul>
-                	<h1> Status Quo Analysis </h1> <br>
-                    <h3>These are your IT security measures you currently already have implemented: </h3>
+                    <h1>These are your IT security measures you currently already have implemented: </h1>
                     <div th:each="statusQuo : ${listStatusQuo}">
                         <li th:text=" ${statusQuo}"></li>
                     </div><br>
-                    <h3>These are your current vulnerabilities: </h3>
+                    <h1>These are your current vulnerabilities: </h1>
                     <div th:each="currentVulnerabilities : ${listCurrentVulnerabilities}">
                         <li th:text=" ${currentVulnerabilities}"></li>
                     </div>
@@ -350,13 +349,12 @@
         <br>
         <hr>
 
-        <h1>Based on your input, the following recommendations were generated to improve your IT security:</h1><br>
+        <h1>Based on the individual Status Quo IT Security Analysis, the system recommends the following actions to improve your IT security:</h1><br>
 
         <!--Loops through the ArrayList "recommendations" generated in the submitController. Step by 
             step it displays the recommendations with more information, origin document and mitigations-->
         <div th:each="recommendation : ${recommendations}" th:if="${recommendations != null}">
 
-            <h1>Es wurden die folgenden Empfehlungen auf Ihre Eingaben zugeschnitten:</h1>
 
             <div class="title"><strong
                     th:text="'Titel: ' +${recommendation.title} + ' (Priority Score: ' + ${recommendation.priorityScore} + ')'"></strong>
@@ -431,9 +429,10 @@
                 <span th:text="${recommendation.information}"></span><br><br>
                 <span
                     th:text="'The information comes from the following sources: (' + ${recommendation.originDocument} + ')' "></span><br><br>
-
+				
+				<span th:text="'If your business does not implement the recommended action, the following risks exist: '"></span>
                 <div th:each="risks : ${recommendation.risksIfNotImplemented}">
-                    <span th:text="'If your business does not implement the recommended action, the following risks exist: ' + ${risks}"></span>
+                    <span th:text="${risks}"></span>
                 </div><br>
 
                 <div th:each="mitigations : ${recommendation.mitigatesVulnerabilitiesString}">
