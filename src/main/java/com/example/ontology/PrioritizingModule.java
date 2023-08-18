@@ -37,7 +37,7 @@ public class PrioritizingModule {
 			givesRiseToThreat = base.getProperty(NS + "threat_givesRiseTo_Threat");
 		}
 		
-		
+		// Generates a priority score for each recommendation.
 		public ArrayList<Recommendation> prioritizeRecommendations (ArrayList<Recommendation> recommendations) {
 		
 			for (int i = 0; i < recommendations.size(); i++) {
@@ -46,7 +46,7 @@ public class PrioritizingModule {
 				
 				ArrayList<Resource> threats = new ArrayList<Resource>();
 				threats = currentRecommendation.getRiskIfNotImplementedResource();
-				
+			
 				for (int j = 0; j < threats.size(); j++) {
 					String currentThreat = threats.get(j).getURI();
 					Individual currentThreatIndividual = base.getIndividual(currentThreat);
@@ -54,16 +54,17 @@ public class PrioritizingModule {
 					while (iter.hasNext()) {
 						OntClass threatType = iter.next();		
 						String typeOfThreat = threatType.getURI();
-						
+						// Add + 20, if the threat is of the type "TopLevelThreat".
 						if (typeOfThreat.equals("http://securityontology.sba-research.org/securityontology.owl#TopLevelThreat")) {
 							priorityScore = priorityScore + 20;
 						}
-						
+						// Add + 10, if the threat is of the type "LowLevelThreat".
 						else if (typeOfThreat.equals("http://securityontology.sba-research.org/securityontology.owl#LowLevelThreat")) {
 							priorityScore = priorityScore + 10;
 						}
 					}
 					
+					// Add addtional points if the threat gives rise to another threat
 					if (currentThreatIndividual.hasProperty(givesRiseToThreat)) {
 						StmtIterator iter_2 = currentThreatIndividual.listProperties(givesRiseToThreat);
 					

@@ -19074,14 +19074,21 @@ dass ein abgewiesener Angreifer sein Glück bei anderen, zugänglicheren Kollegi
         <standardControl_hasParent_StandardControl rdf:resource="http://securityontology.sba-research.org/securityontology.owl#5_ComputerSecurityAndVirusProtection"/>
         <secontMueller:otherInformation>Passwörter müssen ausreichend komplex sein, um nicht erraten werden zu können.
 Einige Grundregeln sollten dabei unbedingt beachtet werden:
+
 - Namen, Vornamen, Geburtsdaten, tel. Durchwahlen, KFZ-Kennzeichen etc. dürfen
 nicht verwendet werden. Sie sind leicht ausfindig zu machen und werden bei Versuchen, ein Passwort zu erraten, mit Sicherheit getestet.
+
 - Passwörter sollten nicht aus Begriffen bestehen, die in einem Wörterbuch (auch einer anderen Sprache) aufzufinden sein könnten. Programme, die zum Auffinden von
 Passwörtern verwendet werden, nützen Wortlisten mit mehreren tausend Begriffen, um Passwörter dieser Art innerhalb kürzester Zeit zu entschlüsseln. Auch Eigennamen, geografische Begriffe, etc. sollten möglichst vermieden werden.
+
 - Trivialpasswörter (aaaaaa, qwertz, asdf, 123456, 08/15, 4711, ...) dürfen nicht verwendet werden. Abgesehen davon, dass solche Passwörter in jeder Wortliste vorkommen, können sie durch Beobachten der Passworteingabe leicht erraten werden.
+
 - Das Passwort muss ausreichend lang sein. Für die Konten normaler Benutzerinnen und Benutzer muss es mindestens zehn Zeichen lang sein, für Benutzerkonten mit besonderen Rechten (Administrator, root, Dienstkonten etc.) sollte ein Passwort mit zumindest zwölf Zeichen gewählt werden.
+
 - Ein Passwort muss aus verschiedenen Arten von Zeichen zusammengesetzt sein. Großbuchstaben, Kleinbuchstaben, Ziffern und/oder Sonderzeichen (Satzzeichen, Währungssymbole etc.) müssen miteinander kombiniert werden, um ausreichende Sicherheit zu erhalten. Nur ein oder zwei Zeichenarten zu verwenden, reduziert die Sicherheit des Passworts erheblich!
+
 - Passwörter – insbesondere das Passwort bei der Anmeldung am Computer – dürfen nicht an andere Personen weitergegeben werden. Auch Kolleginnen und Kollegen oder Vorgesetzten dürfen Passwörter nur in absoluten Notfällen mitgeteilt werden; anschließend sollten sie sofort geändert werden.
+
 - Für verschiedene Anmeldungen müssen verschiedene Passwörter eingesetzt werden. Auf keinen Fall darf z.B. für die Anmeldung am PC und das E-Mail-Konto beim Internet-Provider das gleiche Passwort verwendet werden. Auch für verschiedene Cloud- und Webdienste (Dropbox, Facebook, E-Banking, ...) müssen unterschiedliche Passwörter gewählt werden. Bei geringem Sicherheitsbedarf kann es ausreichen, kleine Variationen einzufügen, z.B. einige Buchstaben zu ändern. 
 Passwörter sollten in regelmäßigen Abständen geändert werden (z.B. alle 90 Tage). Sie sollten aber auf jeden Fall immer dann geändert werden, wenn der Verdacht besteht, dass sie Unbefugten bekannt sind. Alle Mitarbeiterinnen und Mitarbeiter müssen wissen, auf welche Weise sie ihr Passwort ändern können.</secontMueller:otherInformation>
         <rdfs:label xml:lang="en">5.1 Auswahl von Passwörtern</rdfs:label>
