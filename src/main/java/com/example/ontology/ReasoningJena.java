@@ -33,7 +33,9 @@ import com.example.SecurityAssistant.entities.Recommendation;
 public class ReasoningJena {
 	
 	OntModel base;
+	// Prefix of the base ontology.
 	String NS = InitJena.NS;
+	// Prefix of the imported ontology.
 	String NSimported = InitJena.NSimported;
 	String businessIRI;
 	String nameOfBusiness;
@@ -69,7 +71,7 @@ public class ReasoningJena {
 
 
 	
-	// Constructor, receives an OntModel where the SME was mapped into
+	// Constructor, receives an in-memory stored OntModel where the SME was mapped into
 	public ReasoningJena (OntModel ontModel, String businessName) {
 		base = ontModel;
 		nameOfBusiness = businessName;
@@ -92,24 +94,25 @@ public class ReasoningJena {
 	}
 	
 	
-	
-	public ArrayList<String> listImplementedControls () {
+		// Additional new knowledge is retireved by using the reasoner that was automatically initialized within the initialization of the OntModel
+		public ArrayList<String> listImplementedControls () {
 
 		System.out.println("Reasoner has started");
 		Individual businessIndividual = base.getIndividual(businessIRI);
 		
 		ExtendedIterator<OntClass> iter = businessIndividual.listOntClasses(true);
 		
+		// List the controls the organization is compliant with.
         while (iter.hasNext()) {
             OntClass isSubtypeOfClass = iter.next();
-            System.out.println("The Business is compliant with the following Controls: " + isSubtypeOfClass.getLocalName());
+            System.out.println("The organization is compliant with the following controls: " + isSubtypeOfClass.getLocalName());
         }
         
         // Get the controls the Organization is compliant with
         Property controlCompliantWithControlProperty = base.getProperty(NS + "control_compliantWith_Control");        
         OntClass control = base.getOntClass(NS + "Control");
         ExtendedIterator<? extends OntResource> listInstancesIter = control.listInstances(false);
-        System.out.println("The Instance Iterator was initalized.");
+        System.out.println("The instance iterator was initalized.");
         
         controlMitigatesVulnerability = base.getProperty(NS + "control_mitigates_Vulnerability");
         vulnerabilityExploitedByThreat = base.getProperty(NS + "vulnerability_exploitedBy_Threat");
@@ -122,14 +125,17 @@ public class ReasoningJena {
         	boolean controlCompliantBuilding = controlInstance.hasProperty(controlCompliantWithControlProperty, buildingResource);
         	boolean controlCompliantSection = controlInstance.hasProperty(controlCompliantWithControlProperty, sectionResource);
         	
+        	// Sometimes only the specific building or sections are compliant. As we assume the organization only owns one section and one building,
+        	// we automatically assume the organization is control compliant, when a section or a building is compliant.
         	if (controlCompliantOrganization || controlCompliantBuilding || controlCompliantSection) {
         		implementedControls.add(controlInstance);
         		String implementedControlOverview = controlInstance.getLocalName() + "\n";
-        		System.out.print("The business implements the control " + controlInstance.getLocalName());
+        		System.out.print("The organization implements the control " + controlInstance.getLocalName());
         		implementedControlOverview = implementedControlOverview + " this mititgates the vulnerability ";
         		System.out.print(": this mitigates the vulnerability ");
-        	// The implemented controls mitigate vulnerabilities
+        		// The implemented controls mitigate vulnerabilities
         		if (controlInstance.hasProperty(controlMitigatesVulnerability)) {
+        			// A control instance is connected to a vulnerability it mitigates with the object property assertion "control_mitigates_Vulnerability".
         			StmtIterator listMitgatedVulnerabilitesIter = base.listStatements(controlInstance, controlMitigatesVulnerability, (RDFNode) null);
         			while (listMitgatedVulnerabilitesIter.hasNext()) {
         				Statement stmt = listMitgatedVulnerabilitesIter.next();
@@ -139,7 +145,7 @@ public class ReasoningJena {
         				implementedControlOverview = implementedControlOverview + "'" + mitigatedVulnerability.getLocalName() + "'";
         				System.out.print("'" + mitigatedVulnerability.getLocalName() + "'");
         				
-        				// The mitigated vulnerabilities also lower threats
+        				// The mitigated vulnerabilities also lower the exposed risk to threats
         				if (mitigatedVulnerability.hasProperty(vulnerabilityExploitedByThreat)) {
         					StmtIterator listExploitedByThreatIter = base.listStatements(mitigatedVulnerability, vulnerabilityExploitedByThreat, (RDFNode) null);
         					implementedControlOverview = implementedControlOverview + " - thereby the exposed risk to ";
@@ -266,6 +272,7 @@ public class ReasoningJena {
 		Property vulnerabilityMitigateyByControl = base.getProperty(NS + "vulnerability_mitigatedBy_Control");
 		Property controlImplmented = base.getProperty(NS + "control_compliantWith_Control");
 		Property correspondsToStandard = base.getProperty(NS + "control_correspondsTo_StandardControl");
+		// Annotation properties are initialized to later get more information for a recommendation, and not only the title.
 		Property annotationControl = base.getProperty(NSimported + "control");
 		Property annotationInfo = base.getProperty(NSimported + "otherInformation");
 		Property annotationLabel = base.getProperty("http://www.w3.org/2000/01/rdf-schema#label");
@@ -273,17 +280,17 @@ public class ReasoningJena {
 		String annotationControlString;
 		String annotationInfoString;
 		
-		// könnte hier dann noch priorisieren indem man unterscheidet zwischen current Low und Top LevelThreats.
+		// Each current vulnerability the organization has is considered.
 		for (int i = 0; i < currentVulnerabilities.size(); i++) {
 			Resource currentVulnerability = currentVulnerabilities.get(i);
-			
+			// A vulnerability can be mititgated by controls
 			if (currentVulnerability.hasProperty(vulnerabilityMitigateyByControl)) {
 				StmtIterator listMitigatedByControlIter = base.listStatements(currentVulnerability, vulnerabilityMitigateyByControl, (RDFNode) null);
 				
 				while (listMitigatedByControlIter.hasNext()) {
 				Statement stmt_3 = listMitigatedByControlIter.next();
 				Resource controlThatMitigates = stmt_3.getObject().asResource();
-				// Check if the control that would mitigate the vulnerability is already implemented by the business
+				// Check if the control that would mitigate the vulnerability is already implemented by the business.
 					if (controlThatMitigates.hasProperty(controlImplmented, businessResource) == false) {
 						controlsThatMitigateVulnerabilities.add(controlThatMitigates);
 						
@@ -296,7 +303,7 @@ public class ReasoningJena {
 							String thisControlURI = standardControl.getURI();
 							Individual standardControlIndividual = base.getIndividual(thisControlURI);
 							boolean recAlreadyInList = false;
-							// Check if the recommendation was already issued
+							// Check if the recommendation was already issued.
 							for (int j = 0; j < recommendationsAsClass.size(); j++) {
 								String recommendationMade = recommendationsAsClass.get(j).getURI();
 								if (recommendationMade.equals(thisControlURI)) {
@@ -307,6 +314,7 @@ public class ReasoningJena {
 									recommendationsAsClass.add(standardControl);
 									
 									Statement recommendationTitleStatement = standardControl.getProperty(annotationLabel);
+									// Remove the name tag of the standard control and annotation.
 									String recommendationTitle = recommendationTitleStatement.getObject().toString().replace("@en", "").replace("@de", "");
 									
 									
@@ -324,6 +332,8 @@ public class ReasoningJena {
 									
 									String otherInformation = annotationControlString + "\n" + annotationInfoString;
 									
+									// Get the class the standard control is a type of. The class stands for the IT security knowledge source, from which the standard control
+									// was retrieved.
 									ExtendedIterator<OntClass> iter = standardControlIndividual.listOntClasses(true);
 									String originDocument = "";									
 							        while (iter.hasNext()) {
@@ -335,9 +345,10 @@ public class ReasoningJena {
 							           	originDocument = "WKO IT Sicherheitshandbuch";
 							           }
 							        }
-							
+							        // Add the recommendation to the list of recommendations. (This is later used for the prioritization).
 									Recommendation recommendation = new Recommendation (recommendationTitle, otherInformation, originDocument);
 									
+									// Infering the risks the organization is exposed to when not implementing the security measure
 									String threatsIfNotImplemented = "";
 									StmtIterator iter_5 = currentVulnerability.listProperties(vulnerabilityExploitedByThreat);
 	
@@ -345,7 +356,7 @@ public class ReasoningJena {
 										Statement stmt_5 = iter_5.next();
 										Resource threatIfNotImplemented = stmt_5.getObject().asResource();
 										threatsIfNotImplemented = "- " + threatIfNotImplemented.getLocalName();
-	
+										// Threats influence each other - this infers all the related threats that can also be increased.
 										String threatsThatAreRised = "";
 										StmtIterator iter_6 = threatIfNotImplemented.listProperties(threatGivesRiseToThreat);
 										if(iter_6.hasNext()) {
@@ -386,7 +397,9 @@ public class ReasoningJena {
 	            System.out.println("-------------------------------------------------------------------------------------------------- ");
 	        }
 			
+			// Instaniziating the prioritization module with the current OntModel 
 			PrioritizingModule prio = new PrioritizingModule(base, businessIRI);
+			// Prioritizes the list of unprioritized recommendations.
 			recommendations = prio.prioritizeRecommendations(recommendations);
 			
 			
