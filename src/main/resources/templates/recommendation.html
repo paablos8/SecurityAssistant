@@ -428,8 +428,14 @@
             <div class="moreInfo">
                 <span th:text="${recommendation.information}"></span><br><br>
                 <span
-                    th:text="'The information comes from the following sources: (' + ${recommendation.originDocument} + ')' "></span><br><br>
-				
+                    th:text="'The information comes from the following sources: ' + ${recommendation.originDocument} + '' "></span><br><br>
+                
+                 <div th:each="currentVulnerability : ${recommendation.mitigatesVulnerabilitiesString}">
+                    <span
+                    th:text="'The recommendation was generated because your business has the vulnerability: (' + ${currentVulnerability} + ')' "></span>
+                </div>   
+                
+				<br>
 				<span th:text="'If your business does not implement the recommended action, the following risks exist: '"></span>
                 <div th:each="risks : ${recommendation.risksIfNotImplemented}">
                     <span th:text="${risks}"></span>
