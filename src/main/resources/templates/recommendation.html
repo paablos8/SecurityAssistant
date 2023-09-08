@@ -443,7 +443,7 @@
             </div><br>
             <!--Feedback buttons to evaluate the understandability of the recommendations-->
             <div class="Feedback">
-                <label>Geben Sie gerne Feedback zur Verständlichkeit der Recommendations:</label>
+                <label>Geben Sie gerne Feedback zur Verständlichkeit der Recommendation:</label>
                 <span class="feedback-button" title="Good" th:data-id="${recommendation.title}"
                     onclick="submitFeedback('good', this.getAttribute('data-id'))">&#128522;</span>
                 <span class="feedback-button" title="Neutral" th:data-id="${recommendation.title}"
@@ -451,7 +451,7 @@
                 <span class="feedback-button" title="Bad" th:data-id="${recommendation.title}"
                     onclick="submitFeedback('bad', this.getAttribute('data-id'))">&#128542;</span>
             </div>
-            <br>
+            <br><hr>
         </div>
         
             <form id="download-button" action="/downloadController" method="get">
