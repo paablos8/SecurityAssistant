@@ -149,11 +149,10 @@ public class submitController {
             // Adding the created recommendations to the model to display them with Thymeleaf in the frontend.
             model.addAttribute("recommendations", recommendations);
 
-            // Pseudonymisation of the company name, username and region string before it is stored in the
+            // Pseudonymisation of the company name and username string before it is stored in the
             // database 
             infra.setUserName(dataPrivacy.pseudonymizeString(infra.getUserName()));
             infra.setCompanyName(dataPrivacy.pseudonymizeString(infra.getCompanyName()));
-            infra.setRegion(dataPrivacy.pseudonymizeString(infra.getRegion()));
             // Saving of the input data, SecurityInfrastructure Object in the database
             repo.save(infra);
 

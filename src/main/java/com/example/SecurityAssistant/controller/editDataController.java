@@ -177,8 +177,7 @@ public class editDataController {
         // database
         infra.setUserName(dataPrivacy.pseudonymizeString(username));
         infra.setCompanyName(dataPrivacy.pseudonymizeString(infra.getCompanyName()));
-        infra.setRegion(dataPrivacy.pseudonymizeString(infra.getRegion()));
-
+        
         repo.save(infra);
 
         // Load statistical Data from the StatisticalService class
