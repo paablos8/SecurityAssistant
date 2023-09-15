@@ -1,3 +1,8 @@
+/*
+ * @author paablos8
+ * @author SchimSlady
+ */
+
 package com.example.SecurityAssistant.controller;
 
 import java.util.List;
@@ -36,10 +41,11 @@ public class submitController {
 
     @PostMapping("/recommendation")
     public String formSubmition(@ModelAttribute SecurityInfrastructure infra, Model model) {
-        
-    	// Checks whether the user name is already stored in the database, because the user name is a unique identifier and can only be used once.
-    	if (!checkUsername(model, infra.getUserName())) {
-        	editString = new EditStringService();
+
+        // Checks whether the user name is already stored in the database, because the
+        // user name is a unique identifier and can only be used once.
+        if (!checkUsername(model, infra.getUserName())) {
+            editString = new EditStringService();
             String userName = infra.getUserName();
             model.addAttribute("userName", userName);
             String companyName = editString.removeWhitespaces(infra.getCompanyName());
@@ -52,18 +58,20 @@ public class submitController {
             InitJena initJena = new InitJena();
             // Loads the specified ontology into the ontology model.
             initJena.loadOntology();
-            
+
             // Adds the given information by the user to the ontology.
             initJena.addOrganization(userName, companyName, infra.getEmployeeNR(),
-            		editString.removeWhitespaces(infra.getBranche()), editString.removeWhitespaces(infra.getRegion()));
+                    editString.removeWhitespaces(infra.getBranche()), editString.removeWhitespaces(infra.getRegion()));
             initJena.addPasswordPolicy(editString.removeWhitespaces(infra.getPwChange()),
-            		editString.removeWhitespaces(infra.getPwProperties()));
-            
-            // Based on the answer given by the user, a security training policy is either modeled or not.
+                    editString.removeWhitespaces(infra.getPwProperties()));
+
+            // Based on the answer given by the user, a security training policy is either
+            // modeled or not.
             if (infra.getTrainings().equals("Yes"))
                 initJena.addPolicy("SecurityTrainingPolicy", "SecurityTrainingPolicyOf" + companyName);
-            
-            // Depending on which data backup policy the organization is implementing, the appropriate backup policy type is added to the ontology.
+
+            // Depending on which data backup policy the organization is implementing, the
+            // appropriate backup policy type is added to the ontology.
             switch (backup) {
                 case "NodefinedBackupstrategysporadicalbackups":
                     initJena.addPolicy("DataBackupPolicyC", "BackupPolicyOf" + companyName);
@@ -77,8 +85,8 @@ public class submitController {
                 default:
                     System.out.println("No Backup Policy implemented");
             }
- 
-            if (incidentResponse.equals("Wellspecified")) 
+
+            if (incidentResponse.equals("Wellspecified"))
                 initJena.addPolicy("SecurityIncidentPolicy", "SecurityIncidentPolicyOf" + companyName);
 
             if (infra.getPolicyDoc().equals("Yes"))
@@ -118,12 +126,13 @@ public class submitController {
                 initJena.addPolicy("FirewallPolicy", "FirewallPolicyOf" + companyName);
 
             initJena.addAsset("OS", os);
-           
-            
-            // Initializing the reasoning by passing the ontology model that is stored in-memory. 
-            // It contains the information about the company that was provided by the user and incorporated into the ontology.
+
+            // Initializing the reasoning by passing the ontology model that is stored
+            // in-memory.
+            // It contains the information about the company that was provided by the user
+            // and incorporated into the ontology.
             ReasoningJena reasoning = new ReasoningJena(initJena.getOntModel(), companyName);
-            
+
             // Get the current controls implemented by the organization.
             ArrayList<String> listStatusQuo = reasoning.listImplementedControls();
             model.addAttribute("listStatusQuo", listStatusQuo);
@@ -131,8 +140,7 @@ public class submitController {
             // List the current vulnerabilities.
             ArrayList<String> listCurrentVulnerabilities = reasoning.listCurrentVulnerabilities();
             model.addAttribute("listCurrentVulnerabilities", listCurrentVulnerabilities);
-            
-            
+
             // Get the compliance score of the organization.
             int complianceScore = reasoning.createOverallComplianceScore();
             model.addAttribute("complianceScore", complianceScore);
@@ -140,17 +148,20 @@ public class submitController {
             // Generation of the recommendations
             ArrayList<Recommendation> recommendations = reasoning.generateRecommendations();
 
-            //Generation of text file and saving in a byteArray.
+            // Generation of text file and saving in a byteArray.
             fileGenerator fileGenerator = new fileGenerator();
-            byte[] fileBytes = fileGenerator.generateFile(recommendations, complianceScore, listStatusQuo, listCurrentVulnerabilities);
+            byte[] fileBytes = fileGenerator.generateFile(recommendations, complianceScore, listStatusQuo,
+                    listCurrentVulnerabilities);
             infra.setFile(fileBytes);
             model.addAttribute("fileBytes", fileBytes);
 
-            // Adding the created recommendations to the model to display them with Thymeleaf in the frontend.
+            // Adding the created recommendations to the model to display them with
+            // Thymeleaf in the frontend.
             model.addAttribute("recommendations", recommendations);
 
-            // Pseudonymisation of the company name and username string before it is stored in the
-            // database 
+            // Pseudonymisation of the company name and username string before it is stored
+            // in the
+            // database
             infra.setUserName(dataPrivacy.pseudonymizeString(infra.getUserName()));
             infra.setCompanyName(dataPrivacy.pseudonymizeString(infra.getCompanyName()));
             // Saving of the input data, SecurityInfrastructure Object in the database
