@@ -1,5 +1,6 @@
 /*
  * @author paablos8
+ * @author SchimSlady
  */
 
 package com.example.SecurityAssistant.entities;

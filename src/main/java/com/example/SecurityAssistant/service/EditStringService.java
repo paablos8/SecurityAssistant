@@ -1,3 +1,7 @@
+/*
+ * @author paablos8
+ * @author SchimSlady
+ */
 package com.example.SecurityAssistant.service;
 
 // Service class to modify the strings of the input form.

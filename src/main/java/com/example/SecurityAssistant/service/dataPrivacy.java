@@ -1,3 +1,6 @@
+/*
+ * @author SchimSlady
+ */
 package com.example.SecurityAssistant.service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

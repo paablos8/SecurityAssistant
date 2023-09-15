@@ -1,3 +1,6 @@
+/*
+ * @author SchimSlady
+ */
 package com.example.SecurityAssistant.entities;
 
 import javax.persistence.Entity;

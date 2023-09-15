@@ -1,3 +1,6 @@
+/*
+ * @author SchimSlady
+ */
 package com.example.SecurityAssistant.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.SecurityAssistant.entities.Feedback;
