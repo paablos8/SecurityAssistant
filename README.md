@@ -44,7 +44,7 @@ The Security Assistant Application is a web-based tool that helps esepecially sm
 Execute the Git Installer and accept every pre-defined setting while clicking through the Installer.
 
 4. Go to the IDE of your choice and clone the repository in the command line
-`git clone https://gitlab.com/SchimSlady/SecurityAssistant`
+`git clone https://github.com/paablos8/SecurityAssistant`
 
 5. Go the directory folder just cloned by using `cd SecurityAssistant` and open the SecurityAssistant folder in your IDE.
 
