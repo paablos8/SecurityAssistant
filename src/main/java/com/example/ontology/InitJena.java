@@ -47,7 +47,8 @@ public class InitJena {
 		// disk.
 		// filePath =
 		// "file:///C:/Users/tscha/Development/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
-		filePath = "file:/C:/Users/pablo/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
+		// filePath = "file:/C:/Users/pablo/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
+		filePath ="file:/Users/pablo/Documents/Code/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
 
 		// Create the base model - creates an OWL-FUll, in-memory Ontology Model with an
 		// optimised rule-based reasoner with OWL rules.
