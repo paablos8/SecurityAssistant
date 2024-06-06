@@ -39,22 +39,16 @@ Prerequisites
 
 Steps to Run
 1. Pull the Docker Image
-
-Open a terminal and run:
-`docker pull paablos/securityassistant:latest`
+Open a terminal and run: `docker pull paablos/securityassistant:latest`
 
 2. Run the Docker Container
-
-After pulling the image, start a container using:
-`docker run -d -p 8080:8080 paablos/securityassistant:latest`
+After pulling the image, start a container using: `docker run -d -p 8080:8080 paablos/securityassistant:latest`
 This command will:
 - Run the container in detached mode (-d).
 - Map port 8080 of the container to port 8080 of the host machine (-p 8080:8080).
 
 3. Access the Application
-
-Open a web browser and navigate to:
-`http://localhost:8080`
+Open a web browser and navigate to: `http://localhost:8080`
 You should see the SecurityAssistant application running.
 
 Notes
@@ -63,7 +57,6 @@ Notes
 `docker logs <container_id>`
 Replace <container_id> with the actual container ID, which you can find using:
 `docker ps`
-
 
 By following these steps and providing clear instructions, other users will be able to easily access and run your Dockerized application.
 
