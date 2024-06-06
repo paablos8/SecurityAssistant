@@ -40,8 +40,9 @@ Prerequisites
 Steps to Run
 1. Pull the Docker Image
 Open a terminal and run: `docker pull paablos/securityassistant:latest`
+(If this is not working, try to start the application Docker Desktop manually first and try the command again.)
 
-2. Run the Docker Container
+3. Run the Docker Container
 After pulling the image, start a container using: `docker run -d -p 8080:8080 paablos/securityassistant:latest`
 This command will:
 - Run the container in detached mode (-d).
