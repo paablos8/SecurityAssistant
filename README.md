@@ -35,48 +35,36 @@ The Security Assistant Application is a web-based tool that helps esepecially sm
 Running the SecurityAssistant Application with Docker
 
 Prerequisites
-Docker installed on your machine. You can download Docker from here.
+- Docker installed on your machine. You can download Docker from here: https://docs.docker.com/desktop/.
+
 Steps to Run
-Pull the Docker Image
+1. Pull the Docker Image
 
 Open a terminal and run:
+`docker pull paablos/securityassistant:latest`
 
-sh
-Copy code
-docker pull paablos/securityassistant:latest
-Run the Docker Container
+2. Run the Docker Container
 
 After pulling the image, start a container using:
-
-sh
-Copy code
-docker run -d -p 8080:8080 paablos/securityassistant:latest
+`docker run -d -p 8080:8080 paablos/securityassistant:latest`
 This command will:
+- Run the container in detached mode (-d).
+- Map port 8080 of the container to port 8080 of the host machine (-p 8080:8080).
 
-Run the container in detached mode (-d).
-Map port 8080 of the container to port 8080 of the host machine (-p 8080:8080).
-Access the Application
+3. Access the Application
 
 Open a web browser and navigate to:
-
-arduino
-Copy code
-http://localhost:8080
+`http://localhost:8080`
 You should see the SecurityAssistant application running.
 
 Notes
-Ensure that port 8080 is not in use by another application on your host machine.
-
-If you encounter any issues, check the Docker container logs for troubleshooting:
-
-sh
-Copy code
-docker logs <container_id>
+- Ensure that port 8080 is not in use by another application on your host machine.
+- If you encounter any issues, check the Docker container logs for troubleshooting:
+`docker logs <container_id>`
 Replace <container_id> with the actual container ID, which you can find using:
+`docker ps`
 
-sh
-Copy code
-docker ps
+
 By following these steps and providing clear instructions, other users will be able to easily access and run your Dockerized application.
 
 
