@@ -29,7 +29,40 @@ The Security Assistant Application is a web-based tool that helps esepecially sm
 - MySQL (or your preferred database)
 - Docker (optional - for containerization)
 
-## Installation and Setup
+## Installation 
+## Option 1: by using Docker
+
+Running the SecurityAssistant Application with Docker
+
+Prerequisites
+- Docker installed on your machine. You can download Docker from here: https://docs.docker.com/desktop/.
+
+Steps to Run
+1. Pull the Docker Image
+Open a terminal and run: `docker pull paablos/securityassistant:latest`
+(If this is not working, try to start the application Docker Desktop manually first and try the command again.)
+
+3. Run the Docker Container
+After pulling the image, start a container using: `docker run -d -p 8080:8080 paablos/securityassistant:latest`
+This command will:
+- Run the container in detached mode (-d).
+- Map port 8080 of the container to port 8080 of the host machine (-p 8080:8080).
+
+3. Access the Application
+Open a web browser and navigate to: `http://localhost:8080`
+You should see the SecurityAssistant application running.
+
+Notes
+- Ensure that port 8080 is not in use by another application on your host machine.
+- If you encounter any issues, check the Docker container logs for troubleshooting:
+`docker logs <container_id>`
+Replace <container_id> with the actual container ID, which you can find using:
+`docker ps`
+
+By following these steps and providing clear instructions, other users will be able to easily access and run your Dockerized application.
+
+
+## Option 2: manually
 
 1. Go to https://maven.apache.org/download.cgi and download the Maven Zip file. Afterwards unzip it to your "C: driver" into the 
 `C:\Program Files`
