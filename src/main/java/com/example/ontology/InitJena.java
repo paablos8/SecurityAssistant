@@ -48,7 +48,12 @@ public class InitJena {
 		// filePath =
 		// "file:///C:/Users/tscha/Development/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
 		// filePath = "file:/C:/Users/pablo/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
-		filePath ="file:/Users/pablo/Documents/Code/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
+		// filePath ="file:/Users/pablo/Documents/Code/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
+		// I try to use the relative path here now, so the application works on every laptop without modifying the absolute path to the ontology every time
+		filePath = "file:src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
+
+
+
 
 		// Create the base model - creates an OWL-FUll, in-memory Ontology Model with an
 		// optimised rule-based reasoner with OWL rules.

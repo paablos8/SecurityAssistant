@@ -41,6 +41,9 @@ FROM deps as package
 WORKDIR /build
 
 COPY src ./src
+# Ensure the OWL file is in the correct location
+COPY src/main/java/com/example/ontology/files/Mueller2023_Security.owl src/main/java/com/example/ontology/files/
+
 
 RUN chmod +x ./mvnw
 RUN --mount=type=bind,source=pom.xml,target=pom.xml \
