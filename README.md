@@ -81,17 +81,11 @@ Execute the Git Installer and accept every pre-defined setting while clicking th
 
 5. Go the directory folder just cloned by using `cd SecurityAssistant` and open the SecurityAssistant folder in your IDE.
 
+6. Then build the application: `mvn clean package`.
 
-6. The security ontology used for this application is stored in the folder `/SecurityAssistant/src/main/java/com/example/ontology/files`. <br>
-- Before your run the application for the first time, the `file path` variable of the locally stored security ontology must be changed manually. In the class `/SecurityAssistant/src/main/java/com/example/ontology/InitJena.java` change the filePath in line 58 to the absolute path to your locally stored security ontology. <br>
-- This should look like this: `filePath = "file:/C:/Users/Wiwi-Admin/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security_shortened.rdf";`. <br>
-- It's important that forward slashes "/" are used!
+7. Run the main method in `SecurityAssistant/src/main/java/com/example/SecurityAssistant`.
 
-7. Then build the application: `mvn clean package`.
-
-8. Run the main method in `SecurityAssistant/src/main/java/com/example/SecurityAssistant`.
-
-9. Open your web browser and navigate to `http://localhost:8080` to access the application.
+8. Open your web browser and navigate to `http://localhost:8080` to access the application.
 
 ## Usage
 
