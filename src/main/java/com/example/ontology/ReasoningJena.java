@@ -332,16 +332,17 @@ public class ReasoningJena {
 									String originDocument = "";
 									while (iter.hasNext()) {
 										OntClass isSubtypeOfClass = iter.next();
+										System.out.println("Here is where the NullPointerException is thrown. This is what's behind the getLocalName: " + isSubtypeOfClass.getLocalName()); 
 										if (isSubtypeOfClass.getLocalName().equals("ISO27001"))
-											;
-										{
+											{
 											originDocument = "ISO 27001";
-										}
+											break;
+											}
 										if (isSubtypeOfClass.getLocalName().equals("WKOITSicherheitshandbuch"))
-											;
-										{
+											{
 											originDocument = "WKO IT Sicherheitshandbuch";
-										}
+											break;
+										} 
 									}
 									// Add the recommendation to the list of recommendations. (This is later used
 									// for the prioritization).

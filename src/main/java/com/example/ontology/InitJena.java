@@ -28,7 +28,8 @@ public class InitJena {
 	static String SOURCE = "http://securityontology.sba-research.org/securityontology.owl";
 	// The prefix of the IRI used by this ontology
 	static String NS = SOURCE + "#";
-	static String SOURCEIMPORTED = "http://securityontology.com/secontMueller.owl";
+	// Have to remove the Mueller of it when I want to use the ontology from Fenz
+	static String SOURCEIMPORTED = "http://securityontology.com/secont.owl";
 	// The prefix of the IRI used by the imported/modified ontology.
 	static String NSimported = SOURCEIMPORTED + "#";
 	static String filePath;
@@ -45,12 +46,11 @@ public class InitJena {
 
 		// the Mueller2023_Security_shortened ontology is replicated locally on the
 		// disk.
-		// filePath =
-		// "file:///C:/Users/tscha/Development/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
 		// filePath = "file:/C:/Users/pablo/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
-		// filePath ="file:/Users/pablo/Documents/Code/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
+		//filePath = "file:/Users/pablo/Documents/Code/SecurityAssistant/src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
+		filePath = "file:/app/src/main/java/com/example/ontology/files/Fenz2016.rdf";
 		// I try to use the relative path here now, so the application works on every laptop without modifying the absolute path to the ontology every time
-		filePath = "file:src/main/java/com/example/ontology/files/Mueller2023_Security.owl";
+		//filePath = "file:src/main/java/com/example/ontology/files/Fenz2016.rdf";
 
 
 
@@ -67,7 +67,7 @@ public class InitJena {
 		// 2.) no risk of extra work to cope with intervening firewalls or web proxies.
 		dm.addAltEntry("http://securityontology.sba-research.org/securityontology.owl", filePath);
 		base.read("http://securityontology.sba-research.org/securityontology.owl");
-		System.out.println("Ontology was successfully loaded.");
+		System.out.println("Ontology with path: " + filePath + " was successfully loaded.");
 	}
 
 	public void addOrganization(String userName, String nameOfOrganization, int numberOfEmployees, String industry,

@@ -7,15 +7,22 @@
 # You can add other services your application may depend on here, such as a
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
+version: '3.8'
+
 services:
   server:
     build: .
     ports:
-      - 8080:8080    
+      - "8080:8080"
+    volumes:
+      - .:/app  # Binds the current directory to /app in the container
+    environment:
+      - JAVA_OPTS=-Dfile.encoding=UTF-8
     develop:
       watch:
         - path: ./src
           action: rebuild
+
         
     
     

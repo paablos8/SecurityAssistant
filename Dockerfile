@@ -42,7 +42,9 @@ WORKDIR /build
 
 COPY src ./src
 # Ensure the OWL file is in the correct location
-COPY src/main/java/com/example/ontology/files/Mueller2023_Security.owl src/main/java/com/example/ontology/files/
+COPY src/main/java/com/example/ontology/files/Mueller2023_Security.owl /app/Mueller2023_Security.owl
+COPY src/main/java/com/example/ontology/files/Mueller2023_Security.owl ./src/main/java/com/example/ontology/files/
+COPY src/main/java/com/example/ontology/files/Fenz2016.rdf ./src/main/java/com/example/ontology/files
 
 
 RUN chmod +x ./mvnw
